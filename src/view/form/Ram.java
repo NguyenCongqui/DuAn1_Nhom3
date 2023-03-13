@@ -16,6 +16,7 @@ public class Ram extends javax.swing.JFrame {
     public Ram() {
         initComponents();
         //hello
+        // helooo111111
     }
 
     /**
