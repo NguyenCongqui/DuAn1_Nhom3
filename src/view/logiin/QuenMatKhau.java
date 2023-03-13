@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
  * @author ADMIN
  */
 public class QuenMatKhau extends javax.swing.JPanel {
+    // aloooo
 
     /**
      * Creates new form QuenMatKhau
