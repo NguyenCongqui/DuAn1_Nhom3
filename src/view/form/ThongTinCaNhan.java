@@ -36,6 +36,7 @@ public class ThongTinCaNhan extends javax.swing.JPanel {
         textField7 = new chucNang.TextField();
         radioButtonCustom1 = new chucNang.RadioButtonCustom();
         radioButtonCustom2 = new chucNang.RadioButtonCustom();
+        myButton1 = new chucNang.MyButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -45,9 +46,24 @@ public class ThongTinCaNhan extends javax.swing.JPanel {
         textField1.setToolTipText("");
         textField1.setLabelText("Mã");
 
+        textField2.setLabelText("Họ Và Tên");
+
+        textField3.setLabelText("Chức Vụ");
+
+        textField4.setLabelText("Số Điện Thoại");
+
+        textField5.setLabelText("Lương");
+
+        textField6.setLabelText("Ngày Sinh ");
+
+        textField7.setEditable(false);
+        textField7.setLabelText("Email");
+
         radioButtonCustom1.setText("Nam");
 
         radioButtonCustom2.setText("Nữ");
+
+        myButton1.setText("Sưa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -71,6 +87,10 @@ public class ThongTinCaNhan extends javax.swing.JPanel {
                     .addComponent(textField6, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textField7, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(229, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(266, 266, 266))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,13 +114,16 @@ public class ThongTinCaNhan extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private chucNang.MyButton myButton1;
     private chucNang.RadioButtonCustom radioButtonCustom1;
     private chucNang.RadioButtonCustom radioButtonCustom2;
     private chucNang.TextField textField1;

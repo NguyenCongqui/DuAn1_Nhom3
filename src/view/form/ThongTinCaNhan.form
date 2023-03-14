@@ -43,6 +43,11 @@
               </Group>
               <EmptySpace pref="229" max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="266" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -71,7 +76,9 @@
                   <Component id="textField3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textField7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="86" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,16 +99,35 @@
       </Properties>
     </Component>
     <Component class="chucNang.TextField" name="textField2">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="H&#x1ecd; V&#xe0; T&#xea;n"/>
+      </Properties>
     </Component>
     <Component class="chucNang.TextField" name="textField3">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="Ch&#x1ee9;c V&#x1ee5;"/>
+      </Properties>
     </Component>
     <Component class="chucNang.TextField" name="textField4">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i"/>
+      </Properties>
     </Component>
     <Component class="chucNang.TextField" name="textField5">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="L&#x1b0;&#x1a1;ng"/>
+      </Properties>
     </Component>
     <Component class="chucNang.TextField" name="textField6">
+      <Properties>
+        <Property name="labelText" type="java.lang.String" value="Ng&#xe0;y Sinh "/>
+      </Properties>
     </Component>
     <Component class="chucNang.TextField" name="textField7">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="labelText" type="java.lang.String" value="Email"/>
+      </Properties>
     </Component>
     <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom1">
       <Properties>
@@ -111,6 +137,11 @@
     <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom2">
       <Properties>
         <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
+      </Properties>
+    </Component>
+    <Component class="chucNang.MyButton" name="myButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="S&#x1b0;a"/>
       </Properties>
     </Component>
   </SubComponents>
