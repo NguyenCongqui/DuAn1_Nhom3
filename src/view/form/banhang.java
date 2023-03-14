@@ -49,6 +49,8 @@ public class banhang extends javax.swing.JPanel {
         textField6 = new chucNang.TextField();
         myButton4 = new chucNang.MyButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Bán Hàng");
 
@@ -114,6 +116,7 @@ public class banhang extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(table012);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thanh Toán", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
         jPanel2.setVerifyInputWhenFocusTarget(false);
 

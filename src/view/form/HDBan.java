@@ -32,6 +32,8 @@ public class HDBan extends javax.swing.JPanel {
         table011 = new chucNang.Table01();
         myButton1 = new chucNang.MyButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Hóa Đơn Bán");
 
@@ -69,9 +71,9 @@ public class HDBan extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(50, 50, 50)
                 .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addGap(54, 54, 54)
                 .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addContainerGap(515, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
                 .addContainerGap())

@@ -107,9 +107,9 @@ public class trangchu extends javax.swing.JFrame {
                 // thong ke
                 else if (menuIndex == 5) {
                     if (subMenuIndex ==0) {
-                             main.showForm(new DoanhSo() );
-                        }else if (subMenuIndex ==1) {
                              main.showForm(new DoanhThu() );
+                        }else if (subMenuIndex ==1) {
+                             main.showForm(new DoanhSo() );
                         }
                 }
                 // ca nhan
