@@ -73,8 +73,6 @@ public class trangchu extends javax.swing.JFrame {
                     if (subMenuIndex ==0) {
                              main.showForm(new banhang() );
                         }else if (subMenuIndex == 1) {
-                            main.showForm(new SanPham());                  
-                    }else if (subMenuIndex == 2) {
                             main.showForm(new ChiTietSanPham());                  
                     }
                 }
