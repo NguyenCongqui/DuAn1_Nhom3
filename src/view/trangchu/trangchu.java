@@ -19,7 +19,18 @@ import view.duan.icon.IconFontSwing;
 import view.duan.swing.MenuItem;
 import view.duan1.event.EventMenuSelected;
 import view.duan1.event.EventShowPopupMenu;
+import view.form.BaoHanh;
+import view.form.ChiTietSanPham;
+import view.form.DoanhSo;
+import view.form.DoanhThu;
+import view.form.DoiMatKhau;
+import view.form.HDBan;
+import view.form.NhanVien;
+import view.form.SanPham;
+import view.form.ThongTinCaNhan;
+import view.form.banhang;
 import view.form.form_home;
+import view.form.khuyenmai;
 import view.form.mainform;
 
 /**
@@ -56,7 +67,67 @@ public class trangchu extends javax.swing.JFrame {
                     } else if (subMenuIndex == 1) {
                         main.showForm(new form_home());
                     }
+                    
+                    
+                }else if (menuIndex == 1) {
+                    if (subMenuIndex ==0) {
+                             main.showForm(new banhang() );
+                        }else if (subMenuIndex == 1) {
+                            main.showForm(new SanPham());                  
+                    }else if (subMenuIndex == 2) {
+                            main.showForm(new ChiTietSanPham());                  
+                    }
                 }
+                // giao dich
+                else if (menuIndex == 2) {
+                    if (subMenuIndex ==0) {
+                             main.showForm(new banhang() );
+                        }else if (subMenuIndex == 1) {
+                            main.showForm(new BaoHanh());                  
+                    }else if (subMenuIndex == 2) {
+                            main.showForm(new HDBan());                  
+                    }else if (subMenuIndex == 3) {
+                            main.showForm(new BaoHanh());                  
+                    }
+                }
+                
+                // khach hang
+                else if (menuIndex == 3) {
+                    if (subMenuIndex ==0) {
+                             main.showForm(new banhang() );
+                        }
+                }
+                // nhan vien
+                else if (menuIndex == 4) {
+                    if (subMenuIndex ==0) {
+                             main.showForm(new NhanVien() );
+                        }
+                }
+                // thong ke
+                else if (menuIndex == 5) {
+                    if (subMenuIndex ==0) {
+                             main.showForm(new DoanhSo() );
+                        }else if (subMenuIndex ==1) {
+                             main.showForm(new DoanhThu() );
+                        }
+                }
+                // ca nhan
+                else if (menuIndex == 6) {
+                    if (subMenuIndex ==0) {
+                             main.showForm(new ThongTinCaNhan() );
+                        }else if (subMenuIndex ==1) {
+                             main.showForm(new DoiMatKhau() );
+                        }
+                }
+                // khuyen mai
+                else if (menuIndex == 7) {
+                    if (subMenuIndex ==-1) {
+                             main.showForm(new khuyenmai() );
+                        }
+                }
+                
+                
+                
             }
         });
         menu.addEventShowPopup(new EventShowPopupMenu() {
