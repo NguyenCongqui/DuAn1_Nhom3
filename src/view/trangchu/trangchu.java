@@ -25,6 +25,9 @@ import view.form.DoanhSo;
 import view.form.DoanhThu;
 import view.form.DoiMatKhau;
 import view.form.HDBan;
+import view.form.KhachHangForm;
+import view.form.KhachHangForm1;
+import view.form.KhachHangForm2;
 import view.form.NhanVien;
 import view.form.SanPham;
 import view.form.ThongTinCaNhan;
@@ -71,7 +74,7 @@ public class trangchu extends javax.swing.JFrame {
                     
                 }else if (menuIndex == 1) {
                     if (subMenuIndex ==0) {
-                             main.showForm(new banhang() );
+                             main.showForm(new SanPham() );
                         }else if (subMenuIndex == 1) {
                             main.showForm(new ChiTietSanPham());                  
                     }
@@ -92,7 +95,7 @@ public class trangchu extends javax.swing.JFrame {
                 // khach hang
                 else if (menuIndex == 3) {
                     if (subMenuIndex ==0) {
-                             main.showForm(new banhang() );
+                             main.showForm(new KhachHangForm2() );
                         }
                 }
                 // nhan vien
