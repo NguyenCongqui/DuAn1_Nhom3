@@ -40,43 +40,47 @@ public void addEventQuenMatKhau(ActionListener event){
         txtField3 = new view.logiin.txtField();
         txtField4 = new view.logiin.txtField();
         txtField5 = new view.logiin.txtField();
-        button1 = new view.logiin.button();
-        button2 = new view.logiin.button();
-        button3 = new view.logiin.button();
+        btn_GuiMaCode = new view.logiin.button();
+        btn_Verify = new view.logiin.button();
+        btn_DoiMatKhauMoi = new view.logiin.button();
         btn_thoat = new view.logiin.button();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Quên Mật Khẩu");
 
-        txt_USERS.setText("USERSNAME");
         txt_USERS.setHint("USERSNAME");
 
-        txtField2.setText("EMAIL");
         txtField2.setHint("EMAIL");
 
-        txtField3.setText("Verify");
+        txtField3.setHint("Verify");
 
-        txtField4.setText("PASSWORD");
+        txtField4.setHint("PASSWORD");
 
-        txtField5.setText("Verify PASSWORD");
+        txtField5.setHint("Verify PASSWORD");
 
-        button1.setBackground(new java.awt.Color(104, 159, 158));
-        button1.setText("Gửi Mã Code");
-        button1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_GuiMaCode.setBackground(new java.awt.Color(104, 159, 158));
+        btn_GuiMaCode.setText("Gửi Mã Code");
+        btn_GuiMaCode.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        button2.setBackground(new java.awt.Color(104, 159, 158));
-        button2.setText("Verify");
-        button2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_Verify.setBackground(new java.awt.Color(104, 159, 158));
+        btn_Verify.setText("Verify");
+        btn_Verify.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        button3.setBackground(new java.awt.Color(104, 159, 158));
-        button3.setText("Đổi Mật Khẩu Mới");
-        button3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_DoiMatKhauMoi.setBackground(new java.awt.Color(104, 159, 158));
+        btn_DoiMatKhauMoi.setText("Đổi Mật Khẩu Mới");
+        btn_DoiMatKhauMoi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
         btn_thoat.setBackground(new java.awt.Color(255, 255, 255));
         btn_thoat.setText("Back");
         btn_thoat.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duan1/icon/chuong_32.png"))); // NOI18N
+
+        jLabel3.setText("Thoi Gian");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -91,11 +95,15 @@ public void addEventQuenMatKhau(ActionListener event){
                     .addComponent(txtField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtField4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtField5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(button3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_GuiMaCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_Verify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_DoiMatKhauMoi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_thoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,17 +115,20 @@ public void addEventQuenMatKhau(ActionListener event){
                 .addGap(18, 18, 18)
                 .addComponent(txtField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(txtField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_GuiMaCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Verify, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_DoiMatKhauMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_thoat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(13, Short.MAX_VALUE))
@@ -126,11 +137,13 @@ public void addEventQuenMatKhau(ActionListener event){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.logiin.button btn_DoiMatKhauMoi;
+    private view.logiin.button btn_GuiMaCode;
+    private view.logiin.button btn_Verify;
     private view.logiin.button btn_thoat;
-    private view.logiin.button button1;
-    private view.logiin.button button2;
-    private view.logiin.button button3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private view.logiin.txtField txtField2;
     private view.logiin.txtField txtField3;
     private view.logiin.txtField txtField4;

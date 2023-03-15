@@ -18,10 +18,11 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
         DangNhap dn = new DangNhap();
         QuenMatKhau qmk = new QuenMatKhau();
         Slide.init(dn,qmk);
-        Slide.setAnimate(5);
+        Slide.setAnimate(10);
         dn.addEventQuenMatKhau(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,6 +57,7 @@ public class Login extends javax.swing.JFrame {
 
         panelGradiente1.setBackground(new java.awt.Color(0, 204, 255));
         panelGradiente1.setColorPrimario(new java.awt.Color(51, 255, 255));
+        panelGradiente1.setColorSecundario(new java.awt.Color(0, 255, 255));
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -65,11 +67,11 @@ public class Login extends javax.swing.JFrame {
         Slide.setLayout(SlideLayout);
         SlideLayout.setHorizontalGroup(
             SlideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         SlideLayout.setVerticalGroup(
             SlideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGap(0, 660, Short.MAX_VALUE)
         );
 
         panelBorder1.setLayer(Slide, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -80,8 +82,8 @@ public class Login extends javax.swing.JFrame {
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Slide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addComponent(Slide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,17 +94,17 @@ public class Login extends javax.swing.JFrame {
         );
 
         panelGradiente1.add(panelBorder1);
-        panelBorder1.setBounds(30, 20, 370, 670);
+        panelBorder1.setBounds(30, 20, 420, 680);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGradiente1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelGradiente1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
         );
 
         pack();
