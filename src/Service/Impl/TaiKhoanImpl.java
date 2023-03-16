@@ -4,10 +4,20 @@
  */
 package Service.Impl;
 
+import DomainModel.TaiKhoan;
+import Repository.TaiKhoanRepository;
+import Services.TaiKhoanService;
+
 /**
  *
  * @author ADMIN
  */
-public class TaiKhoanImpl {
+public class TaiKhoanImpl implements TaiKhoanService{
+    TaiKhoanRepository rep = new TaiKhoanRepository();
+    
+    @Override
+    public TaiKhoan getTaiKhoan(String userName) {
+        return rep.getListTaiKhoan(userName);
+    }
     
 }

@@ -4,7 +4,16 @@
  */
 package view.logiin;
 
+import DomainModel.TaiKhoan;
+import DomainModel.Users;
+import Service.Impl.TaiKhoanImpl;
+import Service.Impl.UsersImpl;
+import Services.TaiKhoanService;
+import Services.UsersService;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import view.trangchu.trangchu;
 
 /**
@@ -13,11 +22,44 @@ import view.trangchu.trangchu;
  */
 public class DangNhap extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DangNhap
-     */
+    TaiKhoanService taiKhoanService = new TaiKhoanImpl();
+    UsersService userService = new UsersImpl();
+    List<Users> listUser = new ArrayList<>();
+    List<TaiKhoan> listTaiKhoan = new ArrayList<>();
+    
     public DangNhap() {
         initComponents();
+        txt_users.grabFocus();
+    }
+    public boolean login() {
+        String userName = txt_users.getText();
+        String passWord = new String(txt_PassWord.getPassword());
+        try {          
+            TaiKhoan taikhoan = taiKhoanService.getTaiKhoan(userName);
+            if (taikhoan == null) {    //nếu user sai
+                JOptionPane.showMessageDialog(this,"Sai Tên Đăng Nhập");
+                return false;
+            } else {
+                String  passwordSystem = taikhoan.getMatKhau();
+                if (passWord.equalsIgnoreCase(passwordSystem)) {
+                    JOptionPane.showMessageDialog(this,"Đăng Nhập Thành Công");
+                    Users users=  userService.getUsers(taikhoan.getIdUsers());
+                    System.out.println(taikhoan.getIdUsers());
+                    Auth.user = users;
+                    new trangchu().setVisible(true);
+                    this.setVisible(false);
+                    return true;
+                } else {
+                    JOptionPane.showMessageDialog(this,"Sai Mật Khẩu Rồi Bạn Ơi! ");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,"Lỗi Truy Vấn Dữ Liệu");
+        }
+        return true;
+
     }
     public void backLogin() {
        txt_users.grabFocus();
@@ -25,6 +67,10 @@ public class DangNhap extends javax.swing.JPanel {
 public void addEventQuenMatKhau(ActionListener event){
     btn_quenMatKHau.addActionListener(event);
 }
+public void addEventDangNhap(ActionListener event){
+    btn_DangNhap.addActionListener(event);
+}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,8 +81,8 @@ public void addEventQuenMatKhau(ActionListener event){
     private void initComponents() {
 
         txt_users = new view.logiin.txtField();
-        password1 = new view.logiin.password();
-        button1 = new view.logiin.button();
+        txt_PassWord = new view.logiin.password();
+        btn_DangNhap = new view.logiin.button();
         btn_quenMatKHau = new view.logiin.button();
         jLabel1 = new javax.swing.JLabel();
 
@@ -50,16 +96,16 @@ public void addEventQuenMatKhau(ActionListener event){
             }
         });
 
-        password1.setHint("PASSWORD");
-        password1.setName(""); // NOI18N
+        txt_PassWord.setHint("PASSWORD");
+        txt_PassWord.setName(""); // NOI18N
 
-        button1.setBackground(new java.awt.Color(104, 159, 158));
-        button1.setText("Đăng Nhập");
-        button1.setToolTipText("");
-        button1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        btn_DangNhap.setBackground(new java.awt.Color(104, 159, 158));
+        btn_DangNhap.setText("Đăng Nhập");
+        btn_DangNhap.setToolTipText("");
+        btn_DangNhap.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btn_DangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                btn_DangNhapActionPerformed(evt);
             }
         });
 
@@ -82,8 +128,8 @@ public void addEventQuenMatKhau(ActionListener event){
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_quenMatKHau, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_PassWord, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_users, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(71, 71, 71))
         );
@@ -95,9 +141,9 @@ public void addEventQuenMatKhau(ActionListener event){
                 .addGap(40, 40, 40)
                 .addComponent(txt_users, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(password1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_PassWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(54, 54, 54)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_DangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(btn_quenMatKHau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(135, Short.MAX_VALUE))
@@ -108,18 +154,19 @@ public void addEventQuenMatKhau(ActionListener event){
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usersActionPerformed
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void btn_DangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DangNhapActionPerformed
         // TODO add your handling code here:
-        new trangchu().setVisible(true);
-                    this.setVisible(false);
-    }//GEN-LAST:event_button1ActionPerformed
+      
+    }//GEN-LAST:event_btn_DangNhapActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private view.logiin.button btn_DangNhap;
     private view.logiin.button btn_quenMatKHau;
-    private view.logiin.button button1;
     private javax.swing.JLabel jLabel1;
-    private view.logiin.password password1;
+    private view.logiin.password txt_PassWord;
     private view.logiin.txtField txt_users;
     // End of variables declaration//GEN-END:variables
+
+    
 }

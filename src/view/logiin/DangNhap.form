@@ -30,8 +30,8 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btn_quenMatKHau" min="-2" pref="265" max="-2" attributes="0"/>
-                  <Component id="button1" min="-2" pref="265" max="-2" attributes="0"/>
-                  <Component id="password1" min="-2" pref="265" max="-2" attributes="0"/>
+                  <Component id="btn_DangNhap" min="-2" pref="265" max="-2" attributes="0"/>
+                  <Component id="txt_PassWord" min="-2" pref="265" max="-2" attributes="0"/>
                   <Component id="txt_users" min="-2" pref="265" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
@@ -46,9 +46,9 @@
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="txt_users" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="password1" min="-2" max="-2" attributes="0"/>
+              <Component id="txt_PassWord" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-              <Component id="button1" min="-2" max="-2" attributes="0"/>
+              <Component id="btn_DangNhap" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="btn_quenMatKHau" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="135" max="32767" attributes="0"/>
@@ -66,13 +66,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_usersActionPerformed"/>
       </Events>
     </Component>
-    <Component class="view.logiin.password" name="password1">
+    <Component class="view.logiin.password" name="txt_PassWord">
       <Properties>
         <Property name="hint" type="java.lang.String" value="PASSWORD"/>
         <Property name="name" type="java.lang.String" value="" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="view.logiin.button" name="button1">
+    <Component class="view.logiin.button" name="btn_DangNhap">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="9e" green="9f" red="68" type="rgb"/>
@@ -84,7 +84,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DangNhapActionPerformed"/>
       </Events>
     </Component>
     <Component class="view.logiin.button" name="btn_quenMatKHau">

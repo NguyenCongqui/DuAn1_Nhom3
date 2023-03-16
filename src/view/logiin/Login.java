@@ -22,7 +22,7 @@ public class Login extends javax.swing.JFrame {
         DangNhap dn = new DangNhap();
         QuenMatKhau qmk = new QuenMatKhau();
         Slide.init(dn,qmk);
-        Slide.setAnimate(10);
+        Slide.setAnimate(15);
         dn.addEventQuenMatKhau(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -38,8 +38,19 @@ public class Login extends javax.swing.JFrame {
                 
             }
         });
+        dn.addEventDangNhap(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (dn.login() == true) {
+                  
+                    dispose01();
+                }
+            }
+        });
     }
-
+ public void dispose01() {
+        this.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

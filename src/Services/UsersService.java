@@ -4,12 +4,12 @@
  */
 package Services;
 
-import DomainModel.TaiKhoan;
+import DomainModel.Users;
 
 /**
  *
  * @author ADMIN
  */
-public interface TaiKhoanService {
-    TaiKhoan getTaiKhoan (String userName);
+public interface UsersService {
+    Users getUsers(int idUsers);
 }
