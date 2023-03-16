@@ -8,6 +8,7 @@ import java.awt.Component;
 import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -50,6 +51,7 @@ public class trangchu extends javax.swing.JFrame {
     public trangchu() {
         initComponents();
         init();
+          setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
      private void init() {
