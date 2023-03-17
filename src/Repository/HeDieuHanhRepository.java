@@ -4,7 +4,7 @@
  */
 package Repository;
 
-import DomainModel.DanhMuc;
+import DomainModel.HeDieuHanh;
 import Utilities.DBConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,17 +16,17 @@ import java.sql.ResultSet;
  *
  * @author Dell
  */
-public class DanhMucRepository {
+public class HeDieuHanhRepository {
 
-    public List<DanhMuc> getAll() {
+    public List<HeDieuHanh> getAll() {
         try {
-            List<DanhMuc> danhMucs = new ArrayList<>();
-            String sql = "SELECT IDDANHMUC, TENDANHMUC, NGAYTAO, NGAYSUA, TRANGTHAI FROM DANHMUC";
+            List<HeDieuHanh> danhMucs = new ArrayList<>();
+            String sql = "SELECT IDHEDIEUHANH, TENHEDIEUHANH, NGAYTAO, NGAYSUA, TRANGTHAI FROM HEDIEUHANH";
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                DanhMuc danhMuc = new DanhMuc(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5));
+                HeDieuHanh danhMuc = new HeDieuHanh(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getBoolean(5));
 
                 danhMucs.add(danhMuc);
             }
@@ -40,16 +40,12 @@ public class DanhMucRepository {
         return null;
     }
 
-    public boolean add(DanhMuc danhMuc) {
-        String sql = "INSERT INTO DANHMUC(TENDANHMUC, NGAYTAO, NGAYSUA, TRANGTHAI)\n"
-                + "VALUES (?, ?, ?, ?)";
+    public boolean add(HeDieuHanh heDieuHanh) {
+        String sql = "INSERT INTO HEDIEUHANH(TENHEDIEUHANH)VALUES (?)";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, danhMuc.getTenDanhMuc());
-            ps.setString(2, danhMuc.getNgayTao());
-            ps.setString(3, danhMuc.getNgaySua());
-            ps.setBoolean(4, danhMuc.isTrangThai());
+            ps.setString(1, heDieuHanh.getTenHeDieuHanh());
             ps.executeUpdate();
             ps.close();
             con.close();
@@ -60,16 +56,13 @@ public class DanhMucRepository {
         return true;
     }
 
-    public boolean update(DanhMuc danhMuc, String id) {
-        String sql = "UPDATE DANHMUC SET TENDANHMUC=?, NGAYTAO=?, NGAYSUA=?, TRANGTHAI=? WHERE IDDANHMUC=?";
+    public boolean update(HeDieuHanh heDieuHanh, String id) {
+        String sql = "UPDATE HEDIEUHANH SET TENHEDIEUHANH=? WHERE IDHEDIEUHANH=?";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, danhMuc.getTenDanhMuc());
-            ps.setString(2, danhMuc.getNgayTao());
-            ps.setString(3, danhMuc.getNgaySua());
-            ps.setBoolean(4, danhMuc.isTrangThai());
-            ps.setString(5, id);
+            ps.setString(1, heDieuHanh.getTenHeDieuHanh());
+            ps.setString(2, id);
             ps.executeUpdate();
             ps.close();
             con.close();
@@ -81,7 +74,7 @@ public class DanhMucRepository {
     }
 
     public boolean delete(String id) {
-        String sql = "DELETE FROM DANHMUC WHERE IDDANHMUC=?";
+        String sql = "DELETE FROM HEDIEUHANH WHERE IDHEDIEUHANH=?";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);

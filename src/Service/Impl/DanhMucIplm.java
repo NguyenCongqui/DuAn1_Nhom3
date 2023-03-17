@@ -13,15 +13,14 @@ import java.util.List;
  *
  * @author Dell
  */
-public class DanhMucIplm implements IDanhMucService{
+public class DanhMucIplm implements IDanhMucService {
 
     private DanhMucRepository danhMucRepo;
-    
+
     public DanhMucIplm() {
-        danhMucRepo=new DanhMucRepository();
+        danhMucRepo = new DanhMucRepository();
     }
-    
-    
+
     @Override
     public List<DanhMuc> getAll() {
         try {
@@ -46,5 +45,5 @@ public class DanhMucIplm implements IDanhMucService{
     public boolean delete(String id) {
         return danhMucRepo.delete(id);
     }
-    
+
 }
