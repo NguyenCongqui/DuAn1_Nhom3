@@ -4,17 +4,29 @@
  */
 package view.form;
 
+import Service.Impl.TanSoQuetIplm;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dell
  */
 public class TanSoQuet extends javax.swing.JFrame {
 
+    private TanSoQuetIplm tanSoQuetIplm;
+    private DefaultTableModel dtm;
+
     /**
      * Creates new form TanSoQuet
      */
     public TanSoQuet() {
         initComponents();
+        tanSoQuetIplm = new TanSoQuetIplm();
+        dtm = (DefaultTableModel) tblRow.getModel();
+        String[] header = {"ID", "Tên tần số quét"};
+        dtm.setColumnIdentifiers(header);
     }
 
     /**
@@ -27,56 +39,64 @@ public class TanSoQuet extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        textField2 = new chucNang.TextField();
-        textField3 = new chucNang.TextField();
-        jLabel4 = new javax.swing.JLabel();
+        txtTen = new chucNang.TextField();
         jLabel2 = new javax.swing.JLabel();
-        myButton9 = new chucNang.MyButton();
-        textField1 = new chucNang.TextField();
+        btnThem = new chucNang.MyButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        table012 = new chucNang.Table01();
-        myButton10 = new chucNang.MyButton();
-        myButton11 = new chucNang.MyButton();
-        myButton12 = new chucNang.MyButton();
-        jLabel3 = new javax.swing.JLabel();
+        tblRow = new chucNang.Table01();
+        btnSua = new chucNang.MyButton();
+        btnXoa = new chucNang.MyButton();
+        btnNew = new chucNang.MyButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("ID Tần Sô Quét");
+        jLabel1.setText("ID");
 
-        textField2.setLabelText("Tên tần số quét");
-
-        textField3.setLabelText("Trạng thái");
-
-        jLabel4.setText("Trạng Thái");
+        txtTen.setLabelText("Tên tần số quét");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("TẦN SỐ QUÉT");
 
-        myButton9.setText("Thêm");
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
-        textField1.setLabelText("ID");
-
-        table012.setModel(new javax.swing.table.DefaultTableModel(
+        tblRow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID tần số quét", "Tên tần số quét", "Trạng thái"
+
             }
         ));
-        jScrollPane2.setViewportView(table012);
+        tblRow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRowMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblRow);
 
-        myButton10.setText("Sửa");
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
-        myButton11.setText("Xóa");
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
-        myButton12.setText("New");
-
-        jLabel3.setText("Tên Tần Sô Quét");
+        btnNew.setText("New");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,34 +105,24 @@ public class TanSoQuet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(44, 44, 44)
-                            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGap(44, 44, 44)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 40, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(myButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(myButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(myButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(myButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
             .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(180, 180, 180)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -120,31 +130,119 @@ public class TanSoQuet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        DomainModel.TanSoQuet tanSoQuet = new DomainModel.TanSoQuet();
+        if(txtTen.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống tên!");
+            return;
+        }
+        tanSoQuet.setTenTanSoQuet(txtTen.getText());
+        if (tanSoQuetIplm.add(tanSoQuet)) {
+            JOptionPane.showMessageDialog(this, "Thêm thành công!");
+            showTable(tanSoQuetIplm.getAll());
+        } else {
+            JOptionPane.showMessageDialog(this, "Thất bại!");
+            return;
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        int index = tblRow.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Chọn để sửa!");
+            return;
+        }
+        List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
+        DomainModel.TanSoQuet tanSoQuet = tanSoQuets.get(index);
+        tanSoQuet.setTenTanSoQuet(txtTen.getText());
+        try {
+            String id = tanSoQuets.get(index).getId();
+            tanSoQuetIplm.update(tanSoQuet, id);
+            JOptionPane.showMessageDialog(this, "Update thành công!");
+            showTable(tanSoQuetIplm.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        int index = tblRow.getSelectedRow();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Chưa chọn!");
+            return;
+        }
+        int kq = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa!", "Cảnh báo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.YES_OPTION);
+        if (kq == JOptionPane.YES_OPTION) {
+            List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
+            DomainModel.TanSoQuet tanSoQuet = tanSoQuets.get(index);
+            try {
+                String id = tanSoQuets.get(index).getId();
+                tanSoQuetIplm.delete(id);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                showTable(tanSoQuetIplm.getAll());
+            } catch (Exception e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            }
+
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void tblRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRowMouseClicked
+        // TODO add your handling code here:
+        int index = tblRow.getSelectedRow();
+        if (index == -1) {
+            return;
+        }
+        List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
+        DomainModel.TanSoQuet tanSoQuet = tanSoQuets.get(index);
+        txtTen.setText(tanSoQuet.getTenTanSoQuet());
+    }//GEN-LAST:event_tblRowMouseClicked
+
+    public void fillData() {
+        List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
+        if (tanSoQuets == null) {
+            JOptionPane.showMessageDialog(this, "Lỗi");
+            return;
+        } else if (tanSoQuets.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rỗng");
+            return;
+        }
+        showTable(tanSoQuetIplm.getAll());
+
+    }
+
+    public void showTable(List<DomainModel.TanSoQuet> list) {
+        dtm.setRowCount(0);
+        for (DomainModel.TanSoQuet tanSoQuet : list) {
+            Object[] row = new Object[]{
+                tanSoQuet.getId(), tanSoQuet.getTenTanSoQuet(),};
+            dtm.addRow(row);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -185,18 +283,14 @@ public class TanSoQuet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chucNang.MyButton btnNew;
+    private chucNang.MyButton btnSua;
+    private chucNang.MyButton btnThem;
+    private chucNang.MyButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private chucNang.MyButton myButton10;
-    private chucNang.MyButton myButton11;
-    private chucNang.MyButton myButton12;
-    private chucNang.MyButton myButton9;
-    private chucNang.Table01 table012;
-    private chucNang.TextField textField1;
-    private chucNang.TextField textField2;
-    private chucNang.TextField textField3;
+    private chucNang.Table01 tblRow;
+    private chucNang.TextField txtTen;
     // End of variables declaration//GEN-END:variables
 }
