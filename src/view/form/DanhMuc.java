@@ -25,7 +25,7 @@ public class DanhMuc extends javax.swing.JFrame {
         initComponents();
         dtm = (DefaultTableModel) tblRow.getModel();
         danhMucIplm = new DanhMucIplm();
-        String[] header = {"ID", "Tên danh mục", "Ngày tạo", "Ngày sửa", "Trạng thái"};
+        String[] header = {"ID", "Tên danh mục"};
         dtm.setColumnIdentifiers(header);
         fillData();
     }
@@ -45,16 +45,12 @@ public class DanhMuc extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTen = new chucNang.TextField();
-        txtNgayTao = new chucNang.TextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRow = new chucNang.Table01();
         btnAdd = new chucNang.MyButton();
         btnEdit = new chucNang.MyButton();
         btnDelete = new chucNang.MyButton();
         btnNew = new chucNang.MyButton();
-        txtNgaySua = new chucNang.TextField();
-        rdoCon = new javax.swing.JRadioButton();
-        rdoHet = new javax.swing.JRadioButton();
 
         table011.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,17 +74,15 @@ public class DanhMuc extends javax.swing.JFrame {
 
         txtTen.setLabelText("Tên danh mục");
 
-        txtNgayTao.setLabelText("Ngày tạo");
-
         tblRow.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "ID danh mục", "Tên danh mục", "Ngày tạo", "Ngày sửa", "Trạng thái"
+
             }
         ));
         tblRow.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -126,14 +120,6 @@ public class DanhMuc extends javax.swing.JFrame {
             }
         });
 
-        txtNgaySua.setLabelText("Ngày sửa");
-
-        buttonGroup1.add(rdoCon);
-        rdoCon.setText("Còn");
-
-        buttonGroup1.add(rdoHet);
-        rdoHet.setText("Hết");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,25 +135,16 @@ public class DanhMuc extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(95, 95, 95)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(rdoCon)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(rdoHet))
-                            .addComponent(txtNgaySua, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -178,25 +155,13 @@ public class DanhMuc extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
+                .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(txtNgaySua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoCon)
-                    .addComponent(rdoHet))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -208,22 +173,13 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-        txtTen.setText("");
-        txtNgayTao.setText("");
-        txtNgaySua.setText("");
+        
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         DomainModel.DanhMuc dm = new DomainModel.DanhMuc();
         dm.setTenDanhMuc(txtTen.getText());
-        dm.setNgayTao(txtNgayTao.getText());
-        dm.setNgaySua(txtNgaySua.getText());
-        if (dm.isTrangThai() == true) {
-            rdoCon.isSelected();
-        } else if (dm.isTrangThai() == false) {
-            rdoHet.isSelected();
-        }
         if (danhMucIplm.add(dm)) {
             JOptionPane.showMessageDialog(this, "Thêm thành công!");
             showTable(danhMucIplm.getAll());
@@ -242,14 +198,6 @@ public class DanhMuc extends javax.swing.JFrame {
         List<DomainModel.DanhMuc> danhMucs = danhMucIplm.getAll();
         DomainModel.DanhMuc dm = danhMucs.get(index);
         txtTen.setText(dm.getTenDanhMuc());
-        txtNgayTao.setText(dm.getNgayTao());
-        txtNgaySua.setText(dm.getNgaySua());
-        if (dm.isTrangThai() == true) {
-            rdoCon.setSelected(true);
-        }
-        if (dm.isTrangThai() == false) {
-            rdoHet.setSelected(true);
-        }
     }//GEN-LAST:event_tblRowMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -286,13 +234,6 @@ public class DanhMuc extends javax.swing.JFrame {
         List<DomainModel.DanhMuc> danhMucs = danhMucIplm.getAll();
         DomainModel.DanhMuc dm = danhMucs.get(index);
         dm.setTenDanhMuc(txtTen.getText());
-        dm.setNgayTao(txtNgayTao.getText());
-        dm.setNgaySua(txtNgaySua.getText());
-        if (dm.isTrangThai() == true) {
-            rdoCon.isSelected();
-        } else {
-            rdoHet.isSelected();
-        }
         try {
             String id = danhMucs.get(index).getId();
             danhMucIplm.update(dm, id);
@@ -322,8 +263,6 @@ public class DanhMuc extends javax.swing.JFrame {
         for (DomainModel.DanhMuc dm : list) {
             Object[] row = new Object[]{
                 dm.getId(), dm.getTenDanhMuc(),
-                dm.getNgayTao(), dm.getNgaySua(),
-                dm.isTrangThai() == true ? "Còn" : "Hết"
             };
             dtm.addRow(row);
         }
@@ -377,12 +316,8 @@ public class DanhMuc extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton rdoCon;
-    private javax.swing.JRadioButton rdoHet;
     private chucNang.Table01 table011;
     private chucNang.Table01 tblRow;
-    private chucNang.TextField txtNgaySua;
-    private chucNang.TextField txtNgayTao;
     private chucNang.TextField txtTen;
     // End of variables declaration//GEN-END:variables
 }

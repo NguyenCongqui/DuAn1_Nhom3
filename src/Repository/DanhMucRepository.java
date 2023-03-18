@@ -41,15 +41,11 @@ public class DanhMucRepository {
     }
 
     public boolean add(DanhMuc danhMuc) {
-        String sql = "INSERT INTO DANHMUC(TENDANHMUC, NGAYTAO, NGAYSUA, TRANGTHAI)\n"
-                + "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO DANHMUC(TENDANHMUC) VALUES (?)";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, danhMuc.getTenDanhMuc());
-            ps.setString(2, danhMuc.getNgayTao());
-            ps.setString(3, danhMuc.getNgaySua());
-            ps.setBoolean(4, danhMuc.isTrangThai());
             ps.executeUpdate();
             ps.close();
             con.close();
@@ -61,15 +57,12 @@ public class DanhMucRepository {
     }
 
     public boolean update(DanhMuc danhMuc, String id) {
-        String sql = "UPDATE DANHMUC SET TENDANHMUC=?, NGAYTAO=?, NGAYSUA=?, TRANGTHAI=? WHERE IDDANHMUC=?";
+        String sql = "UPDATE DANHMUC SET TENDANHMUC=? WHERE IDDANHMUC=?";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, danhMuc.getTenDanhMuc());
-            ps.setString(2, danhMuc.getNgayTao());
-            ps.setString(3, danhMuc.getNgaySua());
-            ps.setBoolean(4, danhMuc.isTrangThai());
-            ps.setString(5, id);
+            ps.setString(2, id);
             ps.executeUpdate();
             ps.close();
             con.close();

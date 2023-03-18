@@ -12,7 +12,7 @@ import java.util.List;
  * @author Dell
  */
 public interface IHeDieuHanhService {
-    
+
     public List<HeDieuHanh> getAll();
 
     public boolean add(HeDieuHanh heDieuHanh);

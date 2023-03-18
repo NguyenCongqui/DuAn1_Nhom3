@@ -13,13 +13,14 @@ import java.util.List;
  *
  * @author Dell
  */
-public class HeDieuHanhIplm implements IHeDieuHanhService{
-    private HeDieuHanhRepository HeDieuHanhRepo ;
+public class HeDieuHanhIplm implements IHeDieuHanhService {
+
+    private HeDieuHanhRepository HeDieuHanhRepo;
 
     public HeDieuHanhIplm() {
         this.HeDieuHanhRepo = new HeDieuHanhRepository();
     }
-    
+
     @Override
     public List<HeDieuHanh> getAll() {
         try {
@@ -44,5 +45,5 @@ public class HeDieuHanhIplm implements IHeDieuHanhService{
     public boolean delete(String id) {
         return HeDieuHanhRepo.delete(id);
     }
-    
+
 }
