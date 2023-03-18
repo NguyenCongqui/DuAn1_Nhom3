@@ -30,7 +30,7 @@ import view.form.KhachHangForm;
 import view.form.KhachHangForm1;
 import view.form.KhachHangForm2;
 import view.form.NhanVien;
-import view.form.SanPham;
+import view.form.SanPhamForm;
 import view.form.ThongTinCaNhan;
 import view.form.banhang;
 import view.form.form_home;
@@ -76,7 +76,7 @@ public class trangchu extends javax.swing.JFrame {
                     
                 }else if (menuIndex == 1) {
                     if (subMenuIndex ==0) {
-                             main.showForm(new SanPham() );
+                             main.showForm(new SanPhamForm() );
                         }else if (subMenuIndex == 1) {
                             main.showForm(new ChiTietSanPham());                  
                     }
