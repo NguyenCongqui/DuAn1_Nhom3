@@ -32,7 +32,7 @@ public class UserRepository {
             st = db.getConnection().createStatement();
             rs = st.executeQuery(select);
             while (rs.next()) {                
-                users = new Users(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getFloat(9), rs.getBoolean(10), rs.getBoolean(11));
+                users = new Users(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getFloat(9), rs.getBoolean(10),rs.getDate(11),rs.getDate(12), rs.getBoolean(13));
             }
             rs.close();
         } catch (Exception e) {

@@ -27,14 +27,14 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textField2" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
-                          <Component id="myButton1" min="-2" max="-2" attributes="0"/>
-                          <Component id="passwordField2" min="-2" pref="208" max="-2" attributes="0"/>
+                          <Component id="txt_userName" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
+                          <Component id="btn_DoiMatkhau" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_matKhauMoi" min="-2" pref="208" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="passwordField3" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="passwordField1" min="-2" pref="219" max="-2" attributes="0"/>
+                          <Component id="txt_NhapLaiMatKhau" min="-2" pref="219" max="-2" attributes="0"/>
+                          <Component id="txt_pass" min="-2" pref="219" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -49,23 +49,23 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="textField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_userName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_pass" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="passwordField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="passwordField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_matKhauMoi" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_NhapLaiMatKhau" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-              <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="btn_DoiMatkhau" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="175" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="chucNang.TextField" name="textField2">
+    <Component class="chucNang.TextField" name="txt_userName">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="Username"/>
       </Properties>
@@ -78,23 +78,26 @@
         <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i M&#x1ead;t Kh&#x1ea9;u"/>
       </Properties>
     </Component>
-    <Component class="chucNang.MyButton" name="myButton1">
+    <Component class="chucNang.MyButton" name="btn_DoiMatkhau">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i M&#x1ead;t Kh&#x1ea9;u"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DoiMatkhauActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="chucNang.PasswordField" name="passwordField1">
+    <Component class="chucNang.PasswordField" name="txt_pass">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="labelText" type="java.lang.String" value="PassWord"/>
       </Properties>
     </Component>
-    <Component class="chucNang.PasswordField" name="passwordField2">
+    <Component class="chucNang.PasswordField" name="txt_matKhauMoi">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="New PassWord"/>
       </Properties>
     </Component>
-    <Component class="chucNang.PasswordField" name="passwordField3">
+    <Component class="chucNang.PasswordField" name="txt_NhapLaiMatKhau">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="VerifyPassWord"/>
       </Properties>

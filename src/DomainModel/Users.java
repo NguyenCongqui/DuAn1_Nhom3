@@ -19,12 +19,14 @@ public class Users {
     private boolean gioiTinh;
     private String diaChi, soDienThoai, email;
     private float luong;
-    private boolean role, trangThai;
+    private boolean role;
+    private Date ngayTao,ngaySua;
+    private boolean trangThai;
 
     public Users() {
     }
 
-    public Users(int idUser, String soCanCuocCongDan, String hoTen, Date ngaySinh, boolean gioiTinh, String diaChi, String soDienThoai, String email, float luong, boolean role, boolean trangThai) {
+    public Users(int idUser, String soCanCuocCongDan, String hoTen, Date ngaySinh, boolean gioiTinh, String diaChi, String soDienThoai, String email, float luong, boolean role, Date ngayTao, Date ngaySua, boolean trangThai) {
         this.idUser = idUser;
         this.soCanCuocCongDan = soCanCuocCongDan;
         this.hoTen = hoTen;
@@ -35,8 +37,28 @@ public class Users {
         this.email = email;
         this.luong = luong;
         this.role = role;
+        this.ngayTao = ngayTao;
+        this.ngaySua = ngaySua;
         this.trangThai = trangThai;
     }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public Date getNgaySua() {
+        return ngaySua;
+    }
+
+    public void setNgaySua(Date ngaySua) {
+        this.ngaySua = ngaySua;
+    }
+
+   
 
     public float getLuong() {
         return luong;

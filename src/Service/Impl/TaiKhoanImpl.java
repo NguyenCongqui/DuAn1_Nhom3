@@ -19,5 +19,16 @@ public class TaiKhoanImpl implements TaiKhoanService{
     public TaiKhoan getTaiKhoan(String userName) {
         return rep.getListTaiKhoan(userName);
     }
+
+    @Override
+    public TaiKhoan getdoimatkhau(Integer id) {
+       return rep.getLisdoimaykhau(id);
+       
+    }
+
+    @Override
+    public String update(TaiKhoan tk) {
+       return rep.update(tk);
+    }
     
 }

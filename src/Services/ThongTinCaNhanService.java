@@ -4,14 +4,15 @@
  */
 package Services;
 
-import DomainModel.TaiKhoan;
+import DomainModel.Users;
+import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
-public interface TaiKhoanService {
-    TaiKhoan getTaiKhoan (String userName);
-    TaiKhoan getdoimatkhau(Integer id);
-    String update(TaiKhoan tk);
+public interface ThongTinCaNhanService {
+    Users getListUsers(Integer id);
+    String update (int id, Users us);
+    List<Users> getListThongTin();
 }

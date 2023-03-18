@@ -5,6 +5,7 @@
 package view.component;
 
 import java.awt.event.ActionListener;
+import view.logiin.Auth;
 
 /**
  *
@@ -17,6 +18,10 @@ public class Header extends javax.swing.JPanel {
      */
     public Header() {
         initComponents();
+        if (Auth.isLogin()) {
+            lbl_ten.setText(Auth.user.getHoTen());
+            lbl_role.setText(Auth.user.isRole() ? "Quản lý" : "Nhân viên");
+        }
     }
 public void addMenuEvent(ActionListener event) {
         btn_MeNu.addActionListener(event);
@@ -31,8 +36,8 @@ public void addMenuEvent(ActionListener event) {
     private void initComponents() {
 
         btn_MeNu = new view.duan.swing.Button();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_role = new javax.swing.JLabel();
+        lbl_ten = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
 
@@ -40,9 +45,9 @@ public void addMenuEvent(ActionListener event) {
 
         btn_MeNu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duan1/icon/menu.png"))); // NOI18N
 
-        jLabel3.setText("CHỨC VỤ");
+        lbl_role.setText("CHỨC VỤ");
 
-        jLabel2.setText("HỌ tÊN ");
+        lbl_ten.setText("HỌ tÊN ");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -60,8 +65,8 @@ public void addMenuEvent(ActionListener event) {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lbl_ten, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_role, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -72,9 +77,9 @@ public void addMenuEvent(ActionListener event) {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(lbl_ten)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(lbl_role)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1)
         );
@@ -84,8 +89,8 @@ public void addMenuEvent(ActionListener event) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private view.duan.swing.Button btn_MeNu;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbl_role;
+    private javax.swing.JLabel lbl_ten;
     // End of variables declaration//GEN-END:variables
 }
