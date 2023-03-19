@@ -4,16 +4,14 @@
  */
 package Repository;
 
+import DomainModel.LoaiPin;
 import Utilities.DBConnection;
-import ViewModel.LoaiPinViewModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -21,69 +19,66 @@ import java.util.logging.Logger;
  * @author vanhv
  */
 public class LoaiPinRepository {
-     List<LoaiPinViewModel> list = null;
-    DBConnection dbConnection;
-    Connection con = null;
-    ResultSet rs = null;
-    PreparedStatement ps = null;
-    
-    public List<LoaiPinViewModel> getAll(){
-        try {
-            String sql="SELECT [IDLOAIPIN] ,[TELOAIPIN] FROM [dbo].[LOAIPIN]";
-            con = dbConnection.getConnection();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            list = new ArrayList<>();
-            
-            while(rs.next()){
-                list.add(new LoaiPinViewModel(rs.getString(1), rs.getString(2)));
-            }
-              return list;
-        } catch (SQLException ex) {
-            Logger.getLogger(LoaiPinRepository.class.getName()).log(Level.SEVERE, null, ex);
+   public List<LoaiPin> getAll() throws SQLException{
+        List<LoaiPin> cameras = new ArrayList();
+        Connection cnn = (Connection) DBConnection.getConnection();
+        String sql = "SELECT [IDLOAIPIN] ,[TELOAIPIN],[TRANGTHAI] FROM [dbo].[LOAIPIN]";
+            PreparedStatement ps = cnn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {        
+                Integer id = rs.getInt("IDLOAIPIN");
+                String tenSp = rs.getString("TELOAIPIN");
+                boolean trangThai = rs.getBoolean("TRANGTHAI");
+                LoaiPin c = new LoaiPin(id, tenSp, trangThai);
+                cameras.add(c);
         }
-        return null;
+        rs.close();
+        rs.close();
+        cnn.close();
+        return cameras;
     }
     
-    public boolean insert(LoaiPinViewModel lp){
-        int check = 0;
-        try {
-            String sql = "INSERT INTO LOAIPIN ([TELOAIPIN] ) VALUES(?)";
-             con =dbConnection.getConnection();
-            ps= con.prepareStatement(sql);
-            ps.setObject(1, lp.getTen());
-            check = ps.executeUpdate();
-       } catch (SQLException ex) {
-            Logger.getLogger(LoaiPinRepository.class.getName()).log(Level.SEVERE, null, ex);
+    public boolean them(LoaiPin camera) throws SQLException{
+        Connection conn = DBConnection.getConnection();
+        String sql = "INSERT INTO [dbo].[LOAIPIN] ([TELOAIPIN],[TRANGTHAI]) VALUES (?,0)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, camera.getName());
+        int index = ps.executeUpdate();
+        if(index == 0 ){
+            return false;
+        }else{
+            return true;
         }
-         return check > 0;
     }
     
-    public boolean update(String id,LoaiPinViewModel lp){
-        int check = 0;
-        try {
-            String sql = "UPDATE [dbo].[LOAIPIN] SET [TELOAIPIN] =? WHERE IDLOAIPIN = ?";
-            con = dbConnection.getConnection();
-            ps= con.prepareStatement(sql);
-             ps.setObject(1, lp.getTen());
-            ps.setObject(2, id);
-            check = ps.executeUpdate();
-          } catch (SQLException ex) {
-            Logger.getLogger(LoaiPinRepository.class.getName()).log(Level.SEVERE, null, ex);
+    public boolean sua(LoaiPin camera , Integer id) throws SQLException{
+        Connection conn = DBConnection.getConnection();
+        String sql = "UPDATE [dbo].[LOAIPIN] SET [TELOAIPIN] = ? WHERE IDLOAIPIN = ? ";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(2, id);
+        ps.setString(1, camera.getName());
+        int index = ps.executeUpdate();
+        ps.close();
+        conn.close();
+        if(index == 0){
+            return false;
+        }else{
+            return true;
         }
-        return check > 0;
     }
-     public boolean delete(String id,LoaiPinViewModel lp){
-        int check = 0;
-        try {
-            String sql  = "DELETE FROM [dbo].[LOAIPIN] WHERE IDLOAIPIN = ?";
-            con = dbConnection.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setObject(1, id);
-            check = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(LoaiPinRepository.class.getName()).log(Level.SEVERE, null, ex);
+    
+    public boolean  xoa(Integer id) throws SQLException{
+        Connection conn = DBConnection.getConnection();
+        String sql = "UPDATE [dbo].[LOAIPIN] SET TRANGTHAI = 1 WHERE IDLOAIPIN = ? ";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        int index = ps.executeUpdate();
+        ps.close();
+        conn.close();
+        if(index == 0){
+            return false;
+        }else{
+            return true;
         }
-        return check > 0;
     }
 }

@@ -4,20 +4,17 @@
  */
 package Services;
 
-import ViewModel.LoaiPinViewModel;
+import DomainModel.LoaiPin;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
- * @author vanhv
+ * @author trung
  */
 public interface LoaiPinService {
-     List<LoaiPinViewModel> getAll();
-    
-    String insert(LoaiPinViewModel nx);
-    
-    String update(String id, LoaiPinViewModel n);
-    
-    String delete(String id, LoaiPinViewModel n);
-    
+    public List<LoaiPin> getAll() throws SQLException;
+     public boolean them(LoaiPin camera) throws SQLException;
+     public boolean sua(LoaiPin camera,Integer id) throws SQLException;
+     public boolean  xoa(Integer id) throws SQLException;
 }

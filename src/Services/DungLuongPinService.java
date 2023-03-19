@@ -4,20 +4,17 @@
  */
 package Services;
 
-import ViewModel.DungLuongPinViewModel;
+import DomainModel.DungLuongPin;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
- * @author vanhv
+ * @author trung
  */
 public interface DungLuongPinService {
-     List<DungLuongPinViewModel> getAll();
-    
-    String insert(DungLuongPinViewModel nx);
-    
-    String update(String id, DungLuongPinViewModel n);
-    
-    String delete(String id, DungLuongPinViewModel n);
-    
+    public List<DungLuongPin> getAll() throws SQLException;
+     public boolean them(DungLuongPin camera) throws SQLException;
+     public boolean sua(DungLuongPin camera,Integer id) throws SQLException;
+     public boolean  xoa(Integer id) throws SQLException;
 }
