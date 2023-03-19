@@ -167,14 +167,13 @@ public class NhanVienRepostory {
             pst.setObject(1, us.getSoCanCuocCongDan());
             pst.setObject(2, us.getHoTen());
             pst.setObject(3, us.getNgaySinh());
-            pst.setObject(4, us.getDiaChi());
-            pst.setObject(5, us.isGioiTinh());
-            pst.setObject(6, us.getDiaChi());
-            pst.setObject(7, us.getSoDienThoai());
-            pst.setObject(8, us.getEmail());
-            pst.setObject(9, us.getLuong());
-            pst.setObject(10, us.isRole());
-            pst.setObject(11, us.isTrangThai());
+            pst.setObject(4, us.isGioiTinh());
+            pst.setObject(5, us.getDiaChi());
+            pst.setObject(6, us.getSoDienThoai());
+            pst.setObject(7, us.getEmail());
+            pst.setObject(8, us.getLuong());
+            pst.setObject(9, us.isRole());
+            pst.setObject(10, us.isTrangThai());
             pst.setInt(11, us.getIdUser());
            
             pst.executeUpdate();
