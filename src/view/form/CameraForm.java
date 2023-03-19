@@ -82,7 +82,7 @@ public class CameraForm extends javax.swing.JFrame {
         btnThem = new chucNang.MyButton();
         btnSua = new chucNang.MyButton();
         btnXoa = new chucNang.MyButton();
-        btnNew = new chucNang.MyButton();
+        btnClear = new chucNang.MyButton();
         jLabel2 = new javax.swing.JLabel();
         txtId = new javax.swing.JLabel();
 
@@ -103,7 +103,15 @@ public class CameraForm extends javax.swing.JFrame {
             new String [] {
                 "ID", "Tên Camera"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbCamera.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tbCameraMousePressed(evt);
@@ -137,10 +145,10 @@ public class CameraForm extends javax.swing.JFrame {
             }
         });
 
-        btnNew.setText("New");
-        btnNew.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -166,7 +174,7 @@ public class CameraForm extends javax.swing.JFrame {
                                 .addGap(36, 36, 36)
                                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,7 +202,7 @@ public class CameraForm extends javax.swing.JFrame {
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -207,9 +215,11 @@ public class CameraForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnNewActionPerformed
+        txtId.setText("");
+        txtCamera.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void tbCameraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCameraMousePressed
         // TODO add your handling code here:
@@ -316,7 +326,7 @@ public class CameraForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chucNang.MyButton btnNew;
+    private chucNang.MyButton btnClear;
     private chucNang.MyButton btnSua;
     private chucNang.MyButton btnThem;
     private chucNang.MyButton btnXoa;
