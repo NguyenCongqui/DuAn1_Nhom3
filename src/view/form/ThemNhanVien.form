@@ -28,10 +28,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -48,64 +45,84 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="myButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="myButton4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="radioButtonCustom1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="radioButtonCustom2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="textField4" max="32767" attributes="0"/>
-                      <Component id="textField3" max="32767" attributes="0"/>
-                      <Component id="textField2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel3" min="-2" pref="81" max="-2" attributes="0"/>
-                      <Component id="textField1" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" pref="81" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="radioButtonCustom4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="radioButtonCustom5" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="myButton3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                          <Component id="myButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_id" min="-2" pref="31" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jScrollPane1" pref="217" max="32767" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
-                              <Component id="textField6" alignment="0" max="32767" attributes="0"/>
-                              <Component id="passwordField1" max="32767" attributes="0"/>
-                              <Component id="textField5" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btn_Them" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <Component id="btn_sua" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="rdo_dangLamViec" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="rdo_nghiLam" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="txt_usersName" max="32767" attributes="0"/>
+                              <Component id="txt_soDienThoai" max="32767" attributes="0"/>
+                              <Component id="txt_canCuocCongDan" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel3" min="-2" pref="81" max="-2" attributes="0"/>
+                              <Component id="txt_hoTen" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_email" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
-                                  <Component id="textField7" min="-2" pref="137" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel4" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rdo_quanLy" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="rdo_nhanVien" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="txt_pass" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="rdo_nam" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                          <Component id="rdo_nu" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btn_lamMoi" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                                  <Component id="btn_huy" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel5" min="-2" pref="53" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel2" alignment="0" min="-2" pref="41" max="-2" attributes="0"/>
+                                              <Component id="txt_luong" alignment="0" pref="217" max="32767" attributes="0"/>
+                                              <Component id="txt_ngaySinh" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                                  <Component id="textField7" min="-2" pref="137" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="41" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -118,14 +135,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="textField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_hoTen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_ngaySinh" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textField2" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_canCuocCongDan" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -133,33 +150,47 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textField6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_luong" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_soDienThoai" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="textField7" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="textField4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="passwordField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="rdo_nam" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="rdo_nu" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="txt_email" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txt_usersName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_pass" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lbl_id" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="radioButtonCustom1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonCustom5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonCustom2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonCustom4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_dangLamViec" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_nhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_nghiLam" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_quanLy" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="myButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="myButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="myButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_Them" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_lamMoi" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_sua" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_huy" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
@@ -175,32 +206,32 @@
             <Property name="text" type="java.lang.String" value="Th&#xea;m Nh&#xe2;n Vi&#xea;n"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField1">
+        <Component class="chucNang.TextField" name="txt_hoTen">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="H&#x1ecd; V&#xe0; T&#xea;n"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField2">
+        <Component class="chucNang.TextField" name="txt_canCuocCongDan">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="CCCD"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField3">
+        <Component class="chucNang.TextField" name="txt_soDienThoai">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField4">
+        <Component class="chucNang.TextField" name="txt_usersName">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="Username"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField5">
+        <Component class="chucNang.TextField" name="txt_ngaySinh">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="Ng&#xe0;y Sinh"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField6">
+        <Component class="chucNang.TextField" name="txt_luong">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="L&#x1b0;&#x1a1;ng"/>
           </Properties>
@@ -217,7 +248,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
+            <Component class="javax.swing.JTextArea" name="txt_diaChi">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
@@ -230,7 +261,7 @@
             <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a Ch&#x1ec9;"/>
           </Properties>
         </Component>
-        <Component class="chucNang.PasswordField" name="passwordField1">
+        <Component class="chucNang.PasswordField" name="txt_pass">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="PassWord"/>
           </Properties>
@@ -245,45 +276,51 @@
             <Property name="text" type="java.lang.String" value="Ch&#x1ee9;c V&#x1ee5;"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom1">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_dangLamViec">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x110;ang L&#xe0;m Vi&#x1ec7;c"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom2">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_nghiLam">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ngh&#x1ec9; L&#xe0;m"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom4">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_nu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd;"/>
+            <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom5">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_nhanVien">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nh&#xe2;n Vi&#xea;n"/>
           </Properties>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton1">
+        <Component class="chucNang.MyButton" name="btn_Them">
           <Properties>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton2">
+        <Component class="chucNang.MyButton" name="btn_huy">
           <Properties>
             <Property name="text" type="java.lang.String" value="h&#x1ee7;y"/>
           </Properties>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton3">
+        <Component class="chucNang.MyButton" name="btn_lamMoi">
           <Properties>
             <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
           </Properties>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton4">
+        <Component class="chucNang.MyButton" name="btn_sua">
           <Properties>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_suaActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
@@ -307,6 +344,31 @@
             </DimensionLayout>
           </Layout>
         </Container>
+        <Component class="chucNang.TextField" name="txt_email">
+          <Properties>
+            <Property name="labelText" type="java.lang.String" value="Email"/>
+          </Properties>
+        </Component>
+        <Component class="chucNang.RadioButtonCustom" name="rdo_quanLy">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd;"/>
+          </Properties>
+        </Component>
+        <Component class="chucNang.RadioButtonCustom" name="rdo_nam">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nam"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Gi&#x1edb;i T&#xed;nh"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_id">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="jLabel6"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
