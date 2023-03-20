@@ -41,7 +41,7 @@ public class DanhMucRepository {
     }
 
     public boolean add(DanhMuc danhMuc) {
-        String sql = "INSERT INTO DANHMUC(TENDANHMUC) VALUES (?)";
+        String sql = "INSERT INTO DANHMUC(TENDANHMUC, TRANGTHAI) VALUES (?,0)";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class DanhMucRepository {
     }
 
     public boolean delete(String id) {
-        String sql = "DELETE FROM DANHMUC WHERE IDDANHMUC=?";
+        String sql = "UPDATE DANHMUC SET TRANGTHAI=1 WHERE IDDANHMUC=?";
         try {
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
