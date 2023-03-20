@@ -4,54 +4,71 @@
  */
 package view.form;
 
-import Service.Impl.HeDieuHanhIplm;
+import Service.Impl.HeDieuDanhlmpl;
+import Services.IHeDieuHanhService;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+
 
 /**
  *
  * @author Dell
  */
 public class HeDieuHanh extends javax.swing.JFrame {
-
-    private HeDieuHanhIplm heDieuHanhIplm;
-    private DefaultTableModel dtm;
+    private IHeDieuHanhService service;
 
     /**
      * Creates new form HeDieuHanh
      */
     public HeDieuHanh() {
-        initComponents();
-        dtm = (DefaultTableModel) tblRow.getModel();
-        heDieuHanhIplm = new HeDieuHanhIplm();
-        String[] header = {"ID", "Tên hệ điều hành"};
-        dtm.setColumnIdentifiers(header);
-        fillData();
-    }
-
-    public void fillData() {
-        List<DomainModel.HeDieuHanh> heDieuHanhs = heDieuHanhIplm.getAll();
-        if (heDieuHanhs == null) {
-            JOptionPane.showMessageDialog(this, "Lỗi");
-            return;
-        } else if (heDieuHanhs.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Rỗng");
-            return;
-        }
-        showTable(heDieuHanhIplm.getAll());
-
-    }
-
-    public void showTable(List<DomainModel.HeDieuHanh> list) {
-        dtm.setRowCount(0);
-        for (DomainModel.HeDieuHanh hdh : list) {
-            Object[] row = new Object[]{
-                hdh.getId(), hdh.getTenHeDieuHanh(),};
-            dtm.addRow(row);
+        try {
+            initComponents();
+            service = new HeDieuDanhlmpl();
+            HienThi();
+        } catch (SQLException ex) {
+            Logger.getLogger(HeDieuHanh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+       public void HienThi () throws SQLException{
+        DefaultTableModel model = (DefaultTableModel) tbHDH.getModel();
+        model.setRowCount(0);
+        List<DomainModel.HeDieuHanh> list = service.getAll();
+        
+        for (DomainModel.HeDieuHanh Hdh : list) {
+            Integer trangThai = 0 ;
+            if (Hdh.isTrangThai() == false) {
+                trangThai = 0 ;
+            }
+            else{
+                trangThai = 1 ;
+            }
+            if(trangThai == 0){
+                Object[] data = new Object[]{
+                    Hdh.getId(),
+                    Hdh.getTen(),
+                };
+               model.addRow(data);
+            }
+        }
+    }
+       public DomainModel.HeDieuHanh LayTT(){
+        String ten = txtTen.getText();
+        return new DomainModel.HeDieuHanh(0, ten, true);
+    }
+    public void fill(){
+        int index = tbHDH.getSelectedRow();
+        String id = tbHDH.getValueAt(index, 0).toString();
+        String ten = tbHDH.getValueAt(index, 1).toString();
+        txtTen.setText(ten);
+        txtId.setText(id);
+    }
 
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,12 +81,13 @@ public class HeDieuHanh extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtTen = new chucNang.TextField();
         jLabel2 = new javax.swing.JLabel();
-        btnAdd = new chucNang.MyButton();
+        btnThem = new chucNang.MyButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblRow = new chucNang.Table01();
-        btnEdit = new chucNang.MyButton();
-        btnDelete = new chucNang.MyButton();
+        tbHDH = new chucNang.Table01();
+        btnSua = new chucNang.MyButton();
+        btnXoa = new chucNang.MyButton();
         btnNew = new chucNang.MyButton();
+        txtId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,166 +98,186 @@ public class HeDieuHanh extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("HỆ ĐIỀU HÀNH");
 
-        btnAdd.setText("Thêm");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
-        tblRow.setModel(new javax.swing.table.DefaultTableModel(
+        tbHDH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+
             },
             new String [] {
-
+                "ID", "Tên"
             }
-        ));
-        tblRow.addMouseListener(new java.awt.event.MouseAdapter() {
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbHDH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblRowMouseClicked(evt);
+                tbHDHMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbHDHMousePressed(evt);
             }
         });
-        jScrollPane2.setViewportView(tblRow);
+        jScrollPane2.setViewportView(tbHDH);
 
-        btnEdit.setText("Sửa");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        btnDelete.setText("Xóa");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        btnNew.setText("New");
+        btnNew.setText("Load");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(154, 154, 154)
+                .addComponent(jLabel2)
+                .addContainerGap(284, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 40, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        DomainModel.HeDieuHanh heDieuHanh = new DomainModel.HeDieuHanh();
-        heDieuHanh.setTenHeDieuHanh(txtTen.getText());
-        if (heDieuHanhIplm.add(heDieuHanh)) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công!");
-            showTable(heDieuHanhIplm.getAll());
-        } else {
-            JOptionPane.showMessageDialog(this, "Thất bại!");
+         if(txtTen.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtTen.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Chọn để sửa!");
-            return;
-        }
-        List<DomainModel.HeDieuHanh> heDieuHanhs = heDieuHanhIplm.getAll();
-        DomainModel.HeDieuHanh heDieuHanh = heDieuHanhs.get(index);
-        heDieuHanh.setTenHeDieuHanh(txtTen.getText());
+        DomainModel.HeDieuHanh c = LayTT();
         try {
-            String id = heDieuHanhs.get(index).getId();
-            heDieuHanhIplm.update(heDieuHanh, id);
-            JOptionPane.showMessageDialog(this, "Update thành công!");
-            showTable(heDieuHanhIplm.getAll());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Chưa chọn!");
-            return;
-        }
-        int kq = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa!", "Cảnh báo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.YES_OPTION);
-        if (kq == JOptionPane.YES_OPTION) {
-            List<DomainModel.HeDieuHanh> heDieuHanhs = heDieuHanhIplm.getAll();
-            DomainModel.HeDieuHanh heDieuHanh = heDieuHanhs.get(index);
-            try {
-                String id = heDieuHanhs.get(index).getId();
-                heDieuHanhIplm.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!");
-                showTable(heDieuHanhIplm.getAll());
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            if(service.them(c)){
+               JOptionPane.showMessageDialog(this, "Them thanh cong");
+               HienThi();
             }
-
+            else{
+                JOptionPane.showMessageDialog(this, "Them that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnDeleteActionPerformed
+        
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void tblRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRowMouseClicked
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
+          if(txtTen.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtTen.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
-        List<DomainModel.HeDieuHanh> heDieuHanhs = heDieuHanhIplm.getAll();
-        DomainModel.HeDieuHanh heDieuHanh = heDieuHanhs.get(index);
-        txtTen.setText(heDieuHanh.getTenHeDieuHanh());
-    }//GEN-LAST:event_tblRowMouseClicked
+        DomainModel.HeDieuHanh c = LayTT();
+        Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(service.sua(c,id)){
+               JOptionPane.showMessageDialog(this, "Sua thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Sua that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+          Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(service.xoa(id)){
+               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Xoa that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void tbHDHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHDHMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tbHDHMouseClicked
+
+    private void tbHDHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHDHMousePressed
+        // TODO add your handling code here:
+        fill();
+    }//GEN-LAST:event_tbHDHMousePressed
 
     /**
      * @param args the command line arguments
@@ -277,14 +315,15 @@ public class HeDieuHanh extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chucNang.MyButton btnAdd;
-    private chucNang.MyButton btnDelete;
-    private chucNang.MyButton btnEdit;
     private chucNang.MyButton btnNew;
+    private chucNang.MyButton btnSua;
+    private chucNang.MyButton btnThem;
+    private chucNang.MyButton btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private chucNang.Table01 tblRow;
+    private chucNang.Table01 tbHDH;
+    private javax.swing.JLabel txtId;
     private chucNang.TextField txtTen;
     // End of variables declaration//GEN-END:variables
 
