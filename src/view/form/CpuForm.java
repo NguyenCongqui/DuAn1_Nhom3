@@ -4,17 +4,68 @@
  */
 package view.form;
 
+import DomainModel.Cpu;
+import Service.Impl.CpuImpl;
+import Services.ICpuService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.sql.*;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author hodangquan
  */
 public class CpuForm extends javax.swing.JFrame {
-
+    private ICpuService iCpuservice ;
     /**
      * Creates new form CpuForm
      */
     public CpuForm() {
-        initComponents();
+          try {
+            initComponents();
+            iCpuservice = new CpuImpl();
+            HienThi();
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void HienThi () throws SQLException{
+        DefaultTableModel model = (DefaultTableModel) tbCpu.getModel();
+        model.setRowCount(0);
+        List<Cpu> list = iCpuservice.getAll();
+        
+        for (Cpu cpu : list) {
+            Integer trangThai = 0 ;
+            if (cpu.isTrangThai() == false) {
+                trangThai = 0 ;
+            }
+            else{
+                trangThai = 1 ;
+            }
+            if(trangThai == 0){
+                Object[] data = new Object[]{
+                    cpu.getId(),
+                    cpu.getName(),
+                };
+               model.addRow(data);
+            }
+        }
+    }
+    
+    public Cpu LayTT(){
+        String ten = txtCpu.getText();
+        return new Cpu(0, ten, true);
+    }
+    public void fill(){
+        int index = tbCpu.getSelectedRow();
+        String id = tbCpu.getValueAt(index, 0).toString();
+        String ten = tbCpu.getValueAt(index, 1).toString();
+        txtCpu.setText(ten);
+        txtId.setText(id);
+    
     }
 
     /**
@@ -27,18 +78,18 @@ public class CpuForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        table011 = new chucNang.Table01();
-        myButton1 = new chucNang.MyButton();
-        myButton2 = new chucNang.MyButton();
-        myButton6 = new chucNang.MyButton();
-        myButton7 = new chucNang.MyButton();
-        jLabel2 = new javax.swing.JLabel();
+        tbCpu = new chucNang.Table01();
+        btnThem = new chucNang.MyButton();
+        btnSua = new chucNang.MyButton();
+        btnXoa = new chucNang.MyButton();
+        btnClear = new chucNang.MyButton();
+        txtId = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        textField1 = new chucNang.TextField();
+        txtCpu = new chucNang.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        table011.setModel(new javax.swing.table.DefaultTableModel(
+        tbCpu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -49,32 +100,47 @@ public class CpuForm extends javax.swing.JFrame {
                 "ID", "Tên Cpu"
             }
         ));
-        jScrollPane1.setViewportView(table011);
+        tbCpu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbCpuMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbCpu);
 
-        myButton1.setText("Thêm");
-
-        myButton2.setText("Sửa ");
-
-        myButton6.setText("Xóa");
-        myButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton6ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
-        myButton7.setText("New");
-        myButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setText("Sửa ");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton7ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("ID");
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        txtId.setText("ID");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Cpu");
 
-        textField1.setLabelText("Tên Cpu\n");
+        txtCpu.setLabelText("Tên Cpu\n");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,16 +151,16 @@ public class CpuForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCpu, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50)
-                                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
-                                .addComponent(myButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addComponent(myButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -110,15 +176,15 @@ public class CpuForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(8, 8, 8)
-                .addComponent(jLabel2)
+                .addComponent(txtId)
                 .addGap(18, 18, 18)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCpu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -127,13 +193,79 @@ public class CpuForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton6ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton6ActionPerformed
+        Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(iCpuservice.xoa(id)){
+               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Xoa that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void myButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton7ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton7ActionPerformed
+        txtCpu.setText("");
+        txtId.setText("");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void tbCpuMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCpuMousePressed
+        // TODO add your handling code here:
+        fill();
+    }//GEN-LAST:event_tbCpuMousePressed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        if(txtCpu.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtCpu.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return;
+        }
+        Cpu c = LayTT();
+        try {
+            if(iCpuservice.them(c)){
+               JOptionPane.showMessageDialog(this, "Them thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Them that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        if(txtCpu.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtCpu.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return;
+        }
+        Cpu c = LayTT();
+        Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(iCpuservice.sua(c,id)){
+               JOptionPane.showMessageDialog(this, "Sua thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Sua that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,14 +303,14 @@ public class CpuForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chucNang.MyButton btnClear;
+    private chucNang.MyButton btnSua;
+    private chucNang.MyButton btnThem;
+    private chucNang.MyButton btnXoa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private chucNang.MyButton myButton1;
-    private chucNang.MyButton myButton2;
-    private chucNang.MyButton myButton6;
-    private chucNang.MyButton myButton7;
-    private chucNang.Table01 table011;
-    private chucNang.TextField textField1;
+    private chucNang.Table01 tbCpu;
+    private chucNang.TextField txtCpu;
+    private javax.swing.JLabel txtId;
     // End of variables declaration//GEN-END:variables
 }
