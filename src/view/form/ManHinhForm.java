@@ -140,7 +140,7 @@ public class ManHinhForm extends javax.swing.JFrame {
             }
         });
 
-        btnNew.setText("New");
+        btnNew.setText("Clear");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewActionPerformed(evt);
@@ -228,6 +228,8 @@ public class ManHinhForm extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
+        txtId.setText("");
+        txtManHinh.setText("");
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
