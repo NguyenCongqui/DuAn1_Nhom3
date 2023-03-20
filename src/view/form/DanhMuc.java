@@ -4,8 +4,12 @@
  */
 package view.form;
 
+import DomainModel.Camera;
 import Service.Impl.DanhMucIplm;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.trangchu.trangchu;
@@ -18,17 +22,22 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private DanhMucIplm danhMucIplm;
     private DefaultTableModel dtm;
-
+    
     /**
      * Creates new form DanhMuc
      */
     public DanhMuc() {
-        initComponents();
-        dtm = (DefaultTableModel) tblRow.getModel();
-        danhMucIplm = new DanhMucIplm();
-        String[] header = {"ID", "Tên danh mục"};
-        dtm.setColumnIdentifiers(header);
-        fillData();
+        try {
+            initComponents();
+            dtm = (DefaultTableModel) tbDanhMuc.getModel();
+            danhMucIplm = new DanhMucIplm();
+            String[] header = {"ID", "Tên danh mục"};
+            dtm.setColumnIdentifiers(header);
+            HienThi();
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     /**
@@ -47,7 +56,7 @@ public class DanhMuc extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTen = new chucNang.TextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblRow = new chucNang.Table01();
+        tbDanhMuc = new chucNang.Table01();
         btnAdd = new chucNang.MyButton();
         btnEdit = new chucNang.MyButton();
         btnDelete = new chucNang.MyButton();
@@ -76,23 +85,31 @@ public class DanhMuc extends javax.swing.JFrame {
 
         txtTen.setLabelText("Tên danh mục");
 
-        tblRow.setModel(new javax.swing.table.DefaultTableModel(
+        tbDanhMuc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-
+                "Id", "Tên"
             }
-        ));
-        tblRow.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblRowMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblRow);
+        tbDanhMuc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbDanhMucMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbDanhMuc);
 
         btnAdd.setText("Thêm");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +132,7 @@ public class DanhMuc extends javax.swing.JFrame {
             }
         });
 
-        btnNew.setText("New");
+        btnNew.setText("Load");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewActionPerformed(evt);
@@ -177,6 +194,8 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
+        txtId.setText("");
+        txtTen.setText("");
 
     }//GEN-LAST:event_btnNewActionPerformed
 
@@ -190,29 +209,26 @@ public class DanhMuc extends javax.swing.JFrame {
         dm.setTenDanhMuc(txtTen.getText());
         dm.setTrangThai(true);
         if (danhMucIplm.add(dm)) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công!");
-            showTable(danhMucIplm.getAll());
+            try {
+                JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                HienThi();
+            } catch (SQLException ex) {
+                Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Thất bại!");
             return;
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void tblRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRowMouseClicked
+    private void tbDanhMucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhMucMouseClicked
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
-            return;
-        }
-        List<DomainModel.DanhMuc> danhMucs = danhMucIplm.getAll();
-        DomainModel.DanhMuc dm = danhMucs.get(index);
-        txtTen.setText(dm.getTenDanhMuc());
-        txtId.setText(dm.getId());
-    }//GEN-LAST:event_tblRowMouseClicked
+        fillData();
+    }//GEN-LAST:event_tbDanhMucMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
+        int index = tbDanhMuc.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Chưa chọn!");
             return;
@@ -222,10 +238,10 @@ public class DanhMuc extends javax.swing.JFrame {
             List<DomainModel.DanhMuc> danhMucs = danhMucIplm.getAll();
             DomainModel.DanhMuc dm = danhMucs.get(index);
             try {
-                String id = danhMucs.get(index).getId();
+                String id = tbDanhMuc.getValueAt(index, 0).toString();
                 danhMucIplm.delete(id);
                 JOptionPane.showMessageDialog(this, "Xóa thành công!");
-                showTable(danhMucIplm.getAll());
+                HienThi();
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Xóa thất bại");
@@ -236,7 +252,7 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
+        int index = tbDanhMuc.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Chọn để sửa!");
             return;
@@ -245,10 +261,10 @@ public class DanhMuc extends javax.swing.JFrame {
         DomainModel.DanhMuc dm = danhMucs.get(index);
         dm.setTenDanhMuc(txtTen.getText());
         try {
-            String id = danhMucs.get(index).getId();
+            String id = tbDanhMuc.getValueAt(index, 0).toString();
             danhMucIplm.update(dm, id);
             JOptionPane.showMessageDialog(this, "Update thành công!");
-            showTable(danhMucIplm.getAll());
+            HienThi();
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -256,33 +272,33 @@ public class DanhMuc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditActionPerformed
 
     public void fillData() {
-        List<DomainModel.DanhMuc> danhMucs = danhMucIplm.getAll();
-        if (danhMucs == null) {
-            JOptionPane.showMessageDialog(this, "Lỗi");
-            return;
-        } else if (danhMucs.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Rỗng");
-            return;
-        }
-        showTable(danhMucIplm.getAll());
+        int index = tbDanhMuc.getSelectedRow();
+        String id = tbDanhMuc.getValueAt(index, 0).toString();
+        String ten = tbDanhMuc.getValueAt(index, 1).toString();
+        txtId.setText(id);
+        txtTen.setText(ten);
 
     }
 
-    public void showTable(List<DomainModel.DanhMuc> list) {
-        dtm.setRowCount(0);
-        for (DomainModel.DanhMuc dm : list) {
-            Integer trangThai = 0;
-            if (dm.isTrangThai() == false) {
-                trangThai = 0;
-            } else {
-                trangThai = 1;
+     public void HienThi () throws SQLException{
+        DefaultTableModel model = (DefaultTableModel) tbDanhMuc.getModel();
+        model.setRowCount(0);
+        List<DomainModel.DanhMuc> list = danhMucIplm.getAll();
+        
+        for (DomainModel.DanhMuc camera : list) {
+            Integer trangThai = 0 ;
+            if (camera.isTrangThai() == false) {
+                trangThai = 0 ;
             }
-            if (trangThai == 0) {
-                Object[] row = new Object[]{
-                    dm.getId(),
-                    dm.getTenDanhMuc()
+            else{
+                trangThai = 1 ;
+            }
+            if(trangThai == 0){
+                Object[] data = new Object[]{
+                    camera.getId(),
+                    camera.getTenDanhMuc(),
                 };
-                dtm.addRow(row);
+               model.addRow(data);
             }
         }
     }
@@ -336,7 +352,7 @@ public class DanhMuc extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private chucNang.Table01 table011;
-    private chucNang.Table01 tblRow;
+    private chucNang.Table01 tbDanhMuc;
     private javax.swing.JLabel txtId;
     private chucNang.TextField txtTen;
     // End of variables declaration//GEN-END:variables
