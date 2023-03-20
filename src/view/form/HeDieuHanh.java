@@ -146,6 +146,11 @@ public class HeDieuHanh extends javax.swing.JFrame {
         });
 
         btnNew.setText("Load");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,6 +283,12 @@ public class HeDieuHanh extends javax.swing.JFrame {
         // TODO add your handling code here:
         fill();
     }//GEN-LAST:event_tbHDHMousePressed
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        // TODO add your handling code here:
+        txtId.setText("");
+        txtTen.setText("");
+    }//GEN-LAST:event_btnNewActionPerformed
 
     /**
      * @param args the command line arguments
