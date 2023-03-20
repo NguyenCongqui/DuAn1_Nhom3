@@ -4,17 +4,73 @@
  */
 package view.form;
 
+
+import DomainModel.BoNhoTrong;
+import Service.Impl.BoNhoTrongImpl;
+import Services.IBoNhoTrongService;
+import java.sql.*;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author hodangquan
  */
 public class BoNhoTrongForm extends javax.swing.JFrame {
-
+        private IBoNhoTrongService boNhoTrongService;
     /**
      * Creates new form BoNhoTrongForm
      */
     public BoNhoTrongForm() {
-        initComponents();
+        try {
+            
+        } catch (Exception e) {
+        }
+        try {
+            initComponents();
+            boNhoTrongService = (IBoNhoTrongService) new BoNhoTrongImpl();
+            HienThi();
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void HienThi () throws SQLException{
+        DefaultTableModel model = (DefaultTableModel) tbBoNhoTrong.getModel();
+        model.setRowCount(0);
+        List<BoNhoTrong> boNhoTrongs = boNhoTrongService.getAll();
+        
+        for (BoNhoTrong boNhoTrong : boNhoTrongs) {
+            Integer trangThai = 0 ;
+            if (boNhoTrong.isTrangThai() == false) {
+                trangThai = 0 ;
+            }
+            else{
+                trangThai = 1 ;
+            }
+            if(trangThai == 0){
+                Object[] data = new Object[]{
+                    boNhoTrong.getId(),
+                    boNhoTrong.getName(),
+                };
+               model.addRow(data);
+            }
+        }
+    }
+    
+    public BoNhoTrong LayTT(){
+        String ten = txtBoNhoTrong.getText();
+        return new BoNhoTrong(0, ten, true);
+    }
+    public void fill(){
+        int index = tbBoNhoTrong.getSelectedRow();
+        String id = tbBoNhoTrong.getValueAt(index, 0).toString();
+        String ten = tbBoNhoTrong.getValueAt(index, 1).toString();
+        txtBoNhoTrong.setText(ten);
+        txtId.setText(id);
     }
 
     /**
@@ -26,40 +82,40 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        myButton6 = new chucNang.MyButton();
-        myButton7 = new chucNang.MyButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnXoa = new chucNang.MyButton();
+        btnClear = new chucNang.MyButton();
+        txtId = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        textField1 = new chucNang.TextField();
+        txtBoNhoTrong = new chucNang.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table011 = new chucNang.Table01();
-        myButton1 = new chucNang.MyButton();
-        myButton2 = new chucNang.MyButton();
+        tbBoNhoTrong = new chucNang.Table01();
+        btnThem = new chucNang.MyButton();
+        btnSua = new chucNang.MyButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        myButton6.setText("Xóa");
-        myButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton6ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
-        myButton7.setText("New");
-        myButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                myButton7ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("ID");
+        txtId.setText("ID");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Bộ nhớ trong");
 
-        textField1.setLabelText("Tên Bộ nhớ trong");
+        txtBoNhoTrong.setLabelText("Tên Bộ nhớ trong");
 
-        table011.setModel(new javax.swing.table.DefaultTableModel(
+        tbBoNhoTrong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -70,11 +126,21 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
                 "ID", "Tên bộ nhớ trong"
             }
         ));
-        jScrollPane1.setViewportView(table011);
+        jScrollPane1.setViewportView(tbBoNhoTrong);
 
-        myButton1.setText("Thêm");
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
-        myButton2.setText("Sửa ");
+        btnSua.setText("Sửa ");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,16 +151,16 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtBoNhoTrong, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50)
-                                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
-                                .addComponent(myButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addComponent(myButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -109,15 +175,15 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(8, 8, 8)
-                .addComponent(jLabel2)
+                .addComponent(txtId)
                 .addGap(18, 18, 18)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtBoNhoTrong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -126,13 +192,74 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void myButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_myButton6ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add y  Integer id = Integer.parseInt(txtId.getText());
+        Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(boNhoTrongService.xoa(id)){
+                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Xoa that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+        
+    }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void myButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton7ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_myButton7ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        if(txtBoNhoTrong.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtBoNhoTrong.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return;
+        }
+        BoNhoTrong boNhoTrong = LayTT();
+        try {
+            if(boNhoTrongService.them(boNhoTrong)){
+               JOptionPane.showMessageDialog(this, "Thêm thành công !");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        // TODO add your handling code here:
+        if(txtBoNhoTrong.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtBoNhoTrong.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return;
+        }
+        BoNhoTrong boNhoTrong = LayTT();
+        Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(boNhoTrongService.sua(boNhoTrong,id)){
+               JOptionPane.showMessageDialog(this, "Sửa thành công");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,14 +297,14 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chucNang.MyButton btnClear;
+    private chucNang.MyButton btnSua;
+    private chucNang.MyButton btnThem;
+    private chucNang.MyButton btnXoa;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private chucNang.MyButton myButton1;
-    private chucNang.MyButton myButton2;
-    private chucNang.MyButton myButton6;
-    private chucNang.MyButton myButton7;
-    private chucNang.Table01 table011;
-    private chucNang.TextField textField1;
+    private chucNang.Table01 tbBoNhoTrong;
+    private chucNang.TextField txtBoNhoTrong;
+    private javax.swing.JLabel txtId;
     // End of variables declaration//GEN-END:variables
 }

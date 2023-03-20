@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -28,17 +28,17 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textField1" alignment="0" min="-2" pref="410" max="-2" attributes="0"/>
+                          <Component id="txtBoNhoTrong" alignment="0" min="-2" pref="410" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnThem" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="myButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSua" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="myButton6" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="myButton7" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnClear" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel2" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                          <Component id="txtId" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -60,15 +60,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <Component id="txtId" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="textField1" min="-2" max="-2" attributes="0"/>
+              <Component id="txtBoNhoTrong" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="myButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="myButton6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="myButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnThem" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSua" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnXoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="306" max="-2" attributes="0"/>
@@ -78,23 +78,23 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="chucNang.MyButton" name="myButton6">
+    <Component class="chucNang.MyButton" name="btnXoa">
       <Properties>
         <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton6ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
       </Events>
     </Component>
-    <Component class="chucNang.MyButton" name="myButton7">
+    <Component class="chucNang.MyButton" name="btnClear">
       <Properties>
-        <Property name="text" type="java.lang.String" value="New"/>
+        <Property name="text" type="java.lang.String" value="clear"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton7ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="txtId">
       <Properties>
         <Property name="text" type="java.lang.String" value="ID"/>
       </Properties>
@@ -107,7 +107,7 @@
         <Property name="text" type="java.lang.String" value="B&#x1ed9; nh&#x1edb; trong"/>
       </Properties>
     </Component>
-    <Component class="chucNang.TextField" name="textField1">
+    <Component class="chucNang.TextField" name="txtBoNhoTrong">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="T&#xea;n B&#x1ed9; nh&#x1edb; trong"/>
       </Properties>
@@ -119,7 +119,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="chucNang.Table01" name="table011">
+        <Component class="chucNang.Table01" name="tbBoNhoTrong">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="2" rowCount="4">
@@ -134,15 +134,21 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="chucNang.MyButton" name="myButton1">
+    <Component class="chucNang.MyButton" name="btnThem">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="chucNang.MyButton" name="myButton2">
+    <Component class="chucNang.MyButton" name="btnSua">
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eed;a "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
