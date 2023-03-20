@@ -38,13 +38,13 @@ public class NhanVien extends javax.swing.JPanel {
         listUsers = nhanVienService.getListNhanVienDangLam();
         showDataDangLam();
         cbo_tinhTrang.setSelectedIndex(0);
-        
+
         nhanVien.addEvenFillTable(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-             nhanVien.insert();
-             listUsers = nhanVienService.getListNhanVienDangLam();
-             showDataDangLam();
+                nhanVien.insert();
+                listUsers = nhanVienService.getListNhanVienDangLam();
+                showDataDangLam();
             }
         });
     }
@@ -99,7 +99,7 @@ public class NhanVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Bạn Không Thể Xóa Bạn Được ???");
             return;
         } else {
-            JOptionPane.showMessageDialog(this, nhanVienService.xoaNhanVien(index));
+            JOptionPane.showMessageDialog(this, nhanVienService.xoaNhanVien(idUsers));
             listUsers = nhanVienService.getListNhanVienDangLam();
             showDataDangLam();
         }
@@ -154,7 +154,15 @@ public class NhanVien extends javax.swing.JPanel {
             new String [] {
                 "ID", "CCCD", "Họ và tên", "Chức Vụ", "Giới Tính", "Ngày Sinh ", "Địa Chỉ", "Số Điện Thoai", "Ngày Tạo", "Ngày Sửa", "Email", "Lương"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tbl_NhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbl_NhanVienMouseClicked(evt);
@@ -164,6 +172,20 @@ public class NhanVien extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tbl_NhanVien);
+        if (tbl_NhanVien.getColumnModel().getColumnCount() > 0) {
+            tbl_NhanVien.getColumnModel().getColumn(0).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(1).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(2).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(3).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(4).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(5).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(6).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(7).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(8).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(9).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(10).setResizable(false);
+            tbl_NhanVien.getColumnModel().getColumn(11).setResizable(false);
+        }
 
         myButton3.setText("Xóa Nhân Viên");
         myButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -228,19 +250,20 @@ public class NhanVien extends javax.swing.JPanel {
 
     private void tbl_NhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_NhanVienMouseClicked
         // TODO add your handling code here:
-        if (evt.getClickCount() == 1) {
+        if (evt.getClickCount() == 2) {
+            System.out.println("hi moi nguoi");
             int index = tbl_NhanVien.getSelectedRow();
             int idUsers = (int) tbl_NhanVien.getValueAt(index, 0);
-            String canCuocCongDan = tbl_NhanVien.getValueAt(index, 1).toString();      
+            String canCuocCongDan = tbl_NhanVien.getValueAt(index, 1).toString();
             String hoTen = tbl_NhanVien.getValueAt(index, 2).toString();
             String chucVu = tbl_NhanVien.getValueAt(index, 3).toString();
             String gioiTinh = tbl_NhanVien.getValueAt(index, 4).toString();
             String ngaySinh = tbl_NhanVien.getValueAt(index, 5).toString();
             String diaChi = tbl_NhanVien.getValueAt(index, 6).toString();
-            String soDienThoai = tbl_NhanVien.getValueAt(index, 7).toString();           
+            String soDienThoai = tbl_NhanVien.getValueAt(index, 7).toString();
             String email = tbl_NhanVien.getValueAt(index, 10).toString();
             String luong = tbl_NhanVien.getValueAt(index, 11).toString();
-themNhanVienUpdate = new ThemNhanVien(canCuocCongDan,hoTen,chucVu,gioiTinh,ngaySinh,diaChi,soDienThoai,email,luong,idUsers,cbo_tinhTrang.getSelectedIndex());
+            themNhanVienUpdate = new ThemNhanVien(canCuocCongDan, hoTen, chucVu, gioiTinh, ngaySinh, diaChi, soDienThoai, email, luong, idUsers, cbo_tinhTrang.getSelectedIndex());
             themNhanVienUpdate.setVisible(true);
         }
         if (themNhanVienUpdate == null) {
@@ -255,7 +278,6 @@ themNhanVienUpdate = new ThemNhanVien(canCuocCongDan,hoTen,chucVu,gioiTinh,ngayS
                     showDataDangLam();
                 }
             }
-                
             );
 
         }

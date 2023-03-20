@@ -27,7 +27,6 @@ import view.form.DoanhThu;
 import view.form.DoiMatKhau;
 import view.form.HDBan;
 import view.form.KhachHangForm;
-import view.form.KhachHangForm1;
 import view.form.KhachHangForm;
 import view.form.NhanVien;
 import view.form.SanPhamForm;
