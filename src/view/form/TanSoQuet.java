@@ -4,8 +4,12 @@
  */
 package view.form;
 
-import Service.Impl.TanSoQuetIplm;
+import Service.Impl.TanSoQuetLmpl;
+import Services.ITanSoQuet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,18 +19,53 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TanSoQuet extends javax.swing.JFrame {
 
-    private TanSoQuetIplm tanSoQuetIplm;
-    private DefaultTableModel dtm;
+    private ITanSoQuet service;
 
     /**
      * Creates new form TanSoQuet
      */
     public TanSoQuet() {
-        initComponents();
-        tanSoQuetIplm = new TanSoQuetIplm();
-        dtm = (DefaultTableModel) tblRow.getModel();
-        String[] header = {"ID", "Tên tần số quét"};
-        dtm.setColumnIdentifiers(header);
+        try {
+            initComponents();
+            service = new TanSoQuetLmpl();
+            HienThi();
+        } catch (SQLException ex) {
+            Logger.getLogger(TanSoQuet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void HienThi() throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) tbTSQ.getModel();
+        model.setRowCount(0);
+        List<DomainModel.TanSoQuet> list = service.getAll();
+
+        for (DomainModel.TanSoQuet TSQ : list) {
+            Integer trangThai = 0;
+            if (TSQ.isTrangThai() == false) {
+                trangThai = 0;
+            } else {
+                trangThai = 1;
+            }
+            if (trangThai == 0) {
+                Object[] data = new Object[]{
+                    TSQ.getId(),
+                    TSQ.getTen(),};
+                model.addRow(data);
+            }
+        }
+    }
+
+    public DomainModel.TanSoQuet LayTT() {
+        String ten = txtTen.getText();
+        return new DomainModel.TanSoQuet(0, ten, true);
+    }
+
+    public void fill() {
+        int index = tbTSQ.getSelectedRow();
+        String id = tbTSQ.getValueAt(index, 0).toString();
+        String ten = tbTSQ.getValueAt(index, 1).toString();
+        txtTen.setText(ten);
+        txtId.setText(id);
     }
 
     /**
@@ -43,10 +82,11 @@ public class TanSoQuet extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnThem = new chucNang.MyButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblRow = new chucNang.Table01();
+        tbTSQ = new chucNang.Table01();
         btnSua = new chucNang.MyButton();
         btnXoa = new chucNang.MyButton();
         btnNew = new chucNang.MyButton();
+        txtId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,23 +104,34 @@ public class TanSoQuet extends javax.swing.JFrame {
             }
         });
 
-        tblRow.setModel(new javax.swing.table.DefaultTableModel(
+        tbTSQ.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-
+                "Id", "Tên"
             }
-        ));
-        tblRow.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblRowMouseClicked(evt);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblRow);
+        tbTSQ.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbTSQMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbTSQMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbTSQ);
 
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +147,12 @@ public class TanSoQuet extends javax.swing.JFrame {
             }
         });
 
-        btnNew.setText("New");
+        btnNew.setText("Load");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,10 +161,13 @@ public class TanSoQuet extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -131,8 +190,10 @@ public class TanSoQuet extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -142,7 +203,7 @@ public class TanSoQuet extends javax.swing.JFrame {
                     .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,98 +212,85 @@ public class TanSoQuet extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        DomainModel.TanSoQuet tanSoQuet = new DomainModel.TanSoQuet();
         if(txtTen.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Không được để trống tên!");
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtTen.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
-        tanSoQuet.setTenTanSoQuet(txtTen.getText());
-        if (tanSoQuetIplm.add(tanSoQuet)) {
-            JOptionPane.showMessageDialog(this, "Thêm thành công!");
-            showTable(tanSoQuetIplm.getAll());
-        } else {
-            JOptionPane.showMessageDialog(this, "Thất bại!");
-            return;
+        DomainModel.TanSoQuet c = LayTT();
+        try {
+            if(service.them(c)){
+               JOptionPane.showMessageDialog(this, "Them thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Them that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Chọn để sửa!");
+        if(txtTen.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+        }
+        if(txtTen.getText().length() > 30){
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
-        List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
-        DomainModel.TanSoQuet tanSoQuet = tanSoQuets.get(index);
-        tanSoQuet.setTenTanSoQuet(txtTen.getText());
+        DomainModel.TanSoQuet c = LayTT();
+        Integer id = Integer.parseInt(txtId.getText());
         try {
-            String id = tanSoQuets.get(index).getId();
-            tanSoQuetIplm.update(tanSoQuet, id);
-            JOptionPane.showMessageDialog(this, "Update thành công!");
-            showTable(tanSoQuetIplm.getAll());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
+            if(service.sua(c,id)){
+               JOptionPane.showMessageDialog(this, "Sua thanh cong");
+               HienThi();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Sua that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Chưa chọn!");
-            return;
-        }
-        int kq = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn xóa!", "Cảnh báo", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.YES_OPTION);
-        if (kq == JOptionPane.YES_OPTION) {
-            List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
-            DomainModel.TanSoQuet tanSoQuet = tanSoQuets.get(index);
-            try {
-                String id = tanSoQuets.get(index).getId();
-                tanSoQuetIplm.delete(id);
-                JOptionPane.showMessageDialog(this, "Xóa thành công!");
-                showTable(tanSoQuetIplm.getAll());
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+           Integer id = Integer.parseInt(txtId.getText());
+        try {
+            if(service.xoa(id)){
+               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+               HienThi();
             }
-
+            else{
+                JOptionPane.showMessageDialog(this, "Xoa that bai");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
-    private void tblRowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRowMouseClicked
+    private void tbTSQMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTSQMouseClicked
         // TODO add your handling code here:
-        int index = tblRow.getSelectedRow();
-        if (index == -1) {
-            return;
-        }
-        List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
-        DomainModel.TanSoQuet tanSoQuet = tanSoQuets.get(index);
-        txtTen.setText(tanSoQuet.getTenTanSoQuet());
-    }//GEN-LAST:event_tblRowMouseClicked
 
-    public void fillData() {
-        List<DomainModel.TanSoQuet> tanSoQuets = tanSoQuetIplm.getAll();
-        if (tanSoQuets == null) {
-            JOptionPane.showMessageDialog(this, "Lỗi");
-            return;
-        } else if (tanSoQuets.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Rỗng");
-            return;
-        }
-        showTable(tanSoQuetIplm.getAll());
+    }//GEN-LAST:event_tbTSQMouseClicked
 
-    }
+    private void tbTSQMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbTSQMousePressed
+        // TODO add your handling code here:
+        fill();
+    }//GEN-LAST:event_tbTSQMousePressed
 
-    public void showTable(List<DomainModel.TanSoQuet> list) {
-        dtm.setRowCount(0);
-        for (DomainModel.TanSoQuet tanSoQuet : list) {
-            Object[] row = new Object[]{
-                tanSoQuet.getId(), tanSoQuet.getTenTanSoQuet(),};
-            dtm.addRow(row);
-        }
-    }
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        // TODO add your handling code here:
+        txtId.setText("");
+        txtTen.setText("");
+    }//GEN-LAST:event_btnNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,7 +338,8 @@ public class TanSoQuet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private chucNang.Table01 tblRow;
+    private chucNang.Table01 tbTSQ;
+    private javax.swing.JLabel txtId;
     private chucNang.TextField txtTen;
     // End of variables declaration//GEN-END:variables
 }
