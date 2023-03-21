@@ -6,6 +6,7 @@ package Service.Impl;
 
 import DomainModel.BoNhoTrong;
 import Repository.BoNhoTrongRepository;
+import Services.IBoNhoTrongService;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,27 +14,32 @@ import java.util.List;
  *
  * @author hodangquan
  */
-public class BoNhoTrongImpl {
+public class BoNhoTrongImpl implements IBoNhoTrongService  {
     BoNhoTrongRepository boNhoTrongRepository;
     
     public BoNhoTrongImpl(){
-        boNhoTrongRepository= new BoNhoTrongRepository();
+        boNhoTrongRepository = new BoNhoTrongRepository();
     }
 
+    @Override
     public List<BoNhoTrong> getAll() throws SQLException {
         return boNhoTrongRepository.getAll();
     }
 
-    public boolean them(BoNhoTrong bonNhoTrong) throws SQLException {
-        return boNhoTrongRepository.them(bonNhoTrong);
+    @Override
+    public boolean them(BoNhoTrong boNhoTrong) throws SQLException {
+         return boNhoTrongRepository.them(boNhoTrong);
     }
 
-    public boolean sua(BoNhoTrong bonNhoTrong, Integer id) throws SQLException {
-        return boNhoTrongRepository.sua(bonNhoTrong, id);
+    @Override
+    public boolean sua(BoNhoTrong boNhoTrong, Integer id) throws SQLException {
+        return boNhoTrongRepository.sua(boNhoTrong, id);
     }
 
+    @Override
     public boolean xoa(Integer id) throws SQLException {
-        return boNhoTrongRepository.xoa(id);
+        return boNhoTrongRepository.xoa( id);
     }
-    
-}
+    }
+
+   

@@ -4,7 +4,6 @@
  */
 package view.form;
 
-
 import DomainModel.BoNhoTrong;
 import Service.Impl.BoNhoTrongImpl;
 import Services.IBoNhoTrongService;
@@ -15,57 +14,55 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author hodangquan
  */
 public class BoNhoTrongForm extends javax.swing.JFrame {
-        private IBoNhoTrongService boNhoTrongService;
+
+    private IBoNhoTrongService boNhoTrongService;
+
     /**
      * Creates new form BoNhoTrongForm
      */
     public BoNhoTrongForm() {
-        try {
-            
-        } catch (Exception e) {
-        }
+
         try {
             initComponents();
-            boNhoTrongService = (IBoNhoTrongService) new BoNhoTrongImpl();
+            boNhoTrongService = new BoNhoTrongImpl();
             HienThi();
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void HienThi () throws SQLException{
+
+    public void HienThi() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tbBoNhoTrong.getModel();
         model.setRowCount(0);
         List<BoNhoTrong> boNhoTrongs = boNhoTrongService.getAll();
-        
+
         for (BoNhoTrong boNhoTrong : boNhoTrongs) {
-            Integer trangThai = 0 ;
+            Integer trangThai = 0;
             if (boNhoTrong.isTrangThai() == false) {
-                trangThai = 0 ;
+                trangThai = 0;
+            } else {
+                trangThai = 1;
             }
-            else{
-                trangThai = 1 ;
-            }
-            if(trangThai == 0){
+            if (trangThai == 0) {
                 Object[] data = new Object[]{
                     boNhoTrong.getId(),
-                    boNhoTrong.getName(),
-                };
-               model.addRow(data);
+                    boNhoTrong.getName(),};
+                model.addRow(data);
             }
         }
     }
-    
-    public BoNhoTrong LayTT(){
+
+    public BoNhoTrong LayTT() {
         String ten = txtBoNhoTrong.getText();
         return new BoNhoTrong(0, ten, true);
     }
-    public void fill(){
+
+    public void fill() {
         int index = tbBoNhoTrong.getSelectedRow();
         String id = tbBoNhoTrong.getValueAt(index, 0).toString();
         String ten = tbBoNhoTrong.getValueAt(index, 1).toString();
@@ -126,6 +123,11 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
                 "ID", "Tên bộ nhớ trong"
             }
         ));
+        tbBoNhoTrong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbBoNhoTrongMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbBoNhoTrong);
 
         btnThem.setText("Thêm");
@@ -196,40 +198,44 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
         // TODO add y  Integer id = Integer.parseInt(txtId.getText());
         Integer id = Integer.parseInt(txtId.getText());
         try {
-            if(boNhoTrongService.xoa(id)){
+            if (boNhoTrongService.xoa(id)) {
                 JOptionPane.showMessageDialog(this, "Xoa thanh cong");
                 HienThi();
-            }
-            else{
+                txtBoNhoTrong.setText("");
+                txtId.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Xoa that bai");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
-        
+
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        txtBoNhoTrong.setText("");
+        txtId.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        if(txtBoNhoTrong.getText().trim().isEmpty()){
+        if (txtBoNhoTrong.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
-        if(txtBoNhoTrong.getText().length() > 30){
+        if (txtBoNhoTrong.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
         BoNhoTrong boNhoTrong = LayTT();
         try {
-            if(boNhoTrongService.them(boNhoTrong)){
-               JOptionPane.showMessageDialog(this, "Thêm thành công !");
-               HienThi();
-            }
-            else{
+            if (boNhoTrongService.them(boNhoTrong)) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công !");
+                HienThi();
+                txtBoNhoTrong.setText("");
+                txtId.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } catch (SQLException ex) {
@@ -239,27 +245,33 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(txtBoNhoTrong.getText().trim().isEmpty()){
+        if (txtBoNhoTrong.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
-        if(txtBoNhoTrong.getText().length() > 30){
+        if (txtBoNhoTrong.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
-        BoNhoTrong boNhoTrong = LayTT();
+        BoNhoTrong c = LayTT();
         Integer id = Integer.parseInt(txtId.getText());
         try {
-            if(boNhoTrongService.sua(boNhoTrong,id)){
-               JOptionPane.showMessageDialog(this, "Sửa thành công");
-               HienThi();
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            if (boNhoTrongService.sua(c, id)) {
+                JOptionPane.showMessageDialog(this, "Sua thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtBoNhoTrong.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sua that bai");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void tbBoNhoTrongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbBoNhoTrongMousePressed
+        // TODO add your handling code here:
+        fill();
+    }//GEN-LAST:event_tbBoNhoTrongMousePressed
 
     /**
      * @param args the command line arguments

@@ -47,12 +47,12 @@ public class BoNhoTrongRepository {
         }
     }
     
-    public boolean sua(BoNhoTrong bonNhoTrong, Integer id) throws SQLException{
+    public boolean sua(BoNhoTrong boNhoTrong, Integer id) throws SQLException{
         Connection conn = DBConnection.getConnection();
         String sql = "Update BONHOTRONG set TENBONHOTRONG = ? where IDBONHOTRONG = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
-        ps.setString(1, bonNhoTrong.getName());
+        ps.setString(1, boNhoTrong.getName());
         int index = ps.executeUpdate();
         ps.close();
         conn.close();
