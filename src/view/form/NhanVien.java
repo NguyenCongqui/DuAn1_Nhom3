@@ -118,7 +118,7 @@ public class NhanVien extends javax.swing.JPanel {
         textField1 = new chucNang.TextField();
         myButton1 = new chucNang.MyButton();
         cbo_tinhTrang = new chucNang.Combobox();
-        btn_ThemNhanVien = new chucNang.MyButton();
+        myButton2 = new chucNang.MyButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_NhanVien = new chucNang.Table01();
         myButton3 = new chucNang.MyButton();
@@ -140,10 +140,10 @@ public class NhanVien extends javax.swing.JPanel {
             }
         });
 
-        btn_ThemNhanVien.setText("Thêm NHân Viên");
-        btn_ThemNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        myButton2.setText("Thêm NHân Viên");
+        myButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ThemNhanVienActionPerformed(evt);
+                myButton2ActionPerformed(evt);
             }
         });
 
@@ -208,7 +208,7 @@ public class NhanVien extends javax.swing.JPanel {
                 .addGap(118, 118, 118)
                 .addComponent(cbo_tinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btn_ThemNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -226,7 +226,7 @@ public class NhanVien extends javax.swing.JPanel {
                     .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbo_tinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ThemNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
@@ -288,18 +288,18 @@ public class NhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_NhanVienMouseEntered
 
-    private void btn_ThemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ThemNhanVienActionPerformed
+    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
         // TODO add your handling code here:
-        nhanVien.setVisible(true);
-    }//GEN-LAST:event_btn_ThemNhanVienActionPerformed
+         nhanVien.setVisible(true);
+    }//GEN-LAST:event_myButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private chucNang.MyButton btn_ThemNhanVien;
     private chucNang.Combobox cbo_tinhTrang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private chucNang.MyButton myButton1;
+    private chucNang.MyButton myButton2;
     private chucNang.MyButton myButton3;
     private chucNang.Table01 tbl_NhanVien;
     private chucNang.TextField textField1;

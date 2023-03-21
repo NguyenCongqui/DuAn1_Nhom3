@@ -31,7 +31,7 @@
               <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
               <Component id="cbo_tinhTrang" min="-2" pref="194" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btn_ThemNhanVien" min="-2" max="-2" attributes="0"/>
+              <Component id="myButton2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="myButton3" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="50" max="32767" attributes="0"/>
@@ -52,7 +52,7 @@
                   <Component id="textField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="myButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbo_tinhTrang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_ThemNhanVien" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="myButton3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -95,12 +95,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbo_tinhTrangActionPerformed"/>
       </Events>
     </Component>
-    <Component class="chucNang.MyButton" name="btn_ThemNhanVien">
+    <Component class="chucNang.MyButton" name="myButton2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m NH&#xe2;n Vi&#xea;n"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ThemNhanVienActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton2ActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
