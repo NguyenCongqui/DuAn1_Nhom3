@@ -13,13 +13,15 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author trung
  */
 public class CameraForm extends javax.swing.JFrame {
-    private ICameraService service ;
-    
+
+    private ICameraService service;
+
     /**
      * Creates new form Camera
      */
@@ -32,40 +34,41 @@ public class CameraForm extends javax.swing.JFrame {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void HienThi () throws SQLException{
+
+    public void HienThi() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tbCamera.getModel();
         model.setRowCount(0);
         List<Camera> list = service.getAll();
-        
+
         for (Camera camera : list) {
-            Integer trangThai = 0 ;
+            Integer trangThai = 0;
             if (camera.isTrangThai() == false) {
-                trangThai = 0 ;
+                trangThai = 0;
+            } else {
+                trangThai = 1;
             }
-            else{
-                trangThai = 1 ;
-            }
-            if(trangThai == 0){
+            if (trangThai == 0) {
                 Object[] data = new Object[]{
                     camera.getId(),
-                    camera.getName(),
-                };
-               model.addRow(data);
+                    camera.getName(),};
+                model.addRow(data);
             }
         }
     }
-    
-    public Camera LayTT(){
+
+    public Camera LayTT() {
         String ten = txtCamera.getText();
         return new Camera(0, ten, true);
     }
-    public void fill(){
+
+    public void fill() {
         int index = tbCamera.getSelectedRow();
         String id = tbCamera.getValueAt(index, 0).toString();
         String ten = tbCamera.getValueAt(index, 1).toString();
         txtCamera.setText(ten);
         txtId.setText(id);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,6 +126,11 @@ public class CameraForm extends javax.swing.JFrame {
         btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnThemMousePressed(evt);
+            }
+        });
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
             }
         });
 
@@ -228,20 +236,21 @@ public class CameraForm extends javax.swing.JFrame {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
-        if(txtCamera.getText().trim().isEmpty()){
+        if (txtCamera.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
-        if(txtCamera.getText().length() > 30){
+        if (txtCamera.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
         Camera c = LayTT();
         try {
-            if(service.them(c)){
-               JOptionPane.showMessageDialog(this, "Them thanh cong");
-               HienThi();
-            }
-            else{
+            if (service.them(c)) {
+                JOptionPane.showMessageDialog(this, "Them thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtCamera.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Them that bai");
             }
         } catch (SQLException ex) {
@@ -251,21 +260,22 @@ public class CameraForm extends javax.swing.JFrame {
 
     private void btnSuaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMousePressed
         // TODO add your handling code here:
-          if(txtCamera.getText().trim().isEmpty()){
+        if (txtCamera.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
-        if(txtCamera.getText().length() > 30){
+        if (txtCamera.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
         Camera c = LayTT();
         Integer id = Integer.parseInt(txtId.getText());
         try {
-            if(service.sua(c,id)){
-               JOptionPane.showMessageDialog(this, "Sua thanh cong");
-               HienThi();
-            }
-            else{
+            if (service.sua(c, id)) {
+                JOptionPane.showMessageDialog(this, "Sua thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtCamera.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Sua that bai");
             }
         } catch (SQLException ex) {
@@ -277,17 +287,22 @@ public class CameraForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         Integer id = Integer.parseInt(txtId.getText());
         try {
-            if(service.xoa(id)){
-               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
-               HienThi();
-            }
-            else{
+            if (service.xoa(id)) {
+                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtCamera.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Xoa that bai");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnXoaMousePressed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
 
     /**
      * @param args the command line arguments

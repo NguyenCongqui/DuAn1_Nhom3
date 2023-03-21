@@ -13,13 +13,12 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author Dell
  */
 public class HeDieuHanh extends javax.swing.JFrame {
+
     private IHeDieuHanhService service;
 
     /**
@@ -34,33 +33,34 @@ public class HeDieuHanh extends javax.swing.JFrame {
             Logger.getLogger(HeDieuHanh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-       public void HienThi () throws SQLException{
+
+    public void HienThi() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tbHDH.getModel();
         model.setRowCount(0);
         List<DomainModel.HeDieuHanh> list = service.getAll();
-        
+
         for (DomainModel.HeDieuHanh Hdh : list) {
-            Integer trangThai = 0 ;
+            Integer trangThai = 0;
             if (Hdh.isTrangThai() == false) {
-                trangThai = 0 ;
+                trangThai = 0;
+            } else {
+                trangThai = 1;
             }
-            else{
-                trangThai = 1 ;
-            }
-            if(trangThai == 0){
+            if (trangThai == 0) {
                 Object[] data = new Object[]{
                     Hdh.getId(),
-                    Hdh.getTen(),
-                };
-               model.addRow(data);
+                    Hdh.getTen(),};
+                model.addRow(data);
             }
         }
     }
-       public DomainModel.HeDieuHanh LayTT(){
+
+    public DomainModel.HeDieuHanh LayTT() {
         String ten = txtTen.getText();
         return new DomainModel.HeDieuHanh(0, ten, true);
     }
-    public void fill(){
+
+    public void fill() {
         int index = tbHDH.getSelectedRow();
         String id = tbHDH.getValueAt(index, 0).toString();
         String ten = tbHDH.getValueAt(index, 1).toString();
@@ -68,7 +68,6 @@ public class HeDieuHanh extends javax.swing.JFrame {
         txtId.setText(id);
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,73 +209,76 @@ public class HeDieuHanh extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-         if(txtTen.getText().trim().isEmpty()){
+        if (txtTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
-        if(txtTen.getText().length() > 30){
+        if (txtTen.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
         DomainModel.HeDieuHanh c = LayTT();
         try {
-            if(service.them(c)){
-               JOptionPane.showMessageDialog(this, "Them thanh cong");
-               HienThi();
-            }
-            else{
+            if (service.them(c)) {
+                JOptionPane.showMessageDialog(this, "Them thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtTen.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Them that bai");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-          if(txtTen.getText().trim().isEmpty()){
+        if (txtTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
-        if(txtTen.getText().length() > 30){
+        if (txtTen.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
         }
         DomainModel.HeDieuHanh c = LayTT();
         Integer id = Integer.parseInt(txtId.getText());
         try {
-            if(service.sua(c,id)){
-               JOptionPane.showMessageDialog(this, "Sua thanh cong");
-               HienThi();
-            }
-            else{
+            if (service.sua(c, id)) {
+                JOptionPane.showMessageDialog(this, "Sua thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtTen.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Sua that bai");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-          Integer id = Integer.parseInt(txtId.getText());
+        Integer id = Integer.parseInt(txtId.getText());
         try {
-            if(service.xoa(id)){
-               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
-               HienThi();
-            }
-            else{
+            if (service.xoa(id)) {
+                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+                HienThi();
+                txtId.setText("");
+                txtTen.setText("");
+            } else {
                 JOptionPane.showMessageDialog(this, "Xoa that bai");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void tbHDHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHDHMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tbHDHMouseClicked
 
     private void tbHDHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbHDHMousePressed

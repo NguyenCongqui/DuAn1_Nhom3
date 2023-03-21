@@ -4,7 +4,6 @@
  */
 package view.form;
 
-import DomainModel.Camera;
 import Service.Impl.DanhMucIplm;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,7 +21,7 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private DanhMucIplm danhMucIplm;
     private DefaultTableModel dtm;
-    
+
     /**
      * Creates new form DanhMuc
      */
@@ -37,7 +36,7 @@ public class DanhMuc extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
@@ -202,7 +201,7 @@ public class DanhMuc extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         DomainModel.DanhMuc dm = new DomainModel.DanhMuc();
-        if(txtTen.getText().trim().isEmpty()){
+        if (txtTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống tên!");
             return;
         }
@@ -212,6 +211,8 @@ public class DanhMuc extends javax.swing.JFrame {
             try {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
                 HienThi();
+                txtId.setText("");
+                txtTen.setText("");
             } catch (SQLException ex) {
                 Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -242,6 +243,8 @@ public class DanhMuc extends javax.swing.JFrame {
                 danhMucIplm.delete(id);
                 JOptionPane.showMessageDialog(this, "Xóa thành công!");
                 HienThi();
+                txtId.setText("");
+                txtTen.setText("");
             } catch (Exception e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Xóa thất bại");
@@ -265,6 +268,8 @@ public class DanhMuc extends javax.swing.JFrame {
             danhMucIplm.update(dm, id);
             JOptionPane.showMessageDialog(this, "Update thành công!");
             HienThi();
+            txtId.setText("");
+            txtTen.setText("");
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -280,25 +285,23 @@ public class DanhMuc extends javax.swing.JFrame {
 
     }
 
-     public void HienThi () throws SQLException{
+    public void HienThi() throws SQLException {
         DefaultTableModel model = (DefaultTableModel) tbDanhMuc.getModel();
         model.setRowCount(0);
         List<DomainModel.DanhMuc> list = danhMucIplm.getAll();
-        
+
         for (DomainModel.DanhMuc camera : list) {
-            Integer trangThai = 0 ;
+            Integer trangThai = 0;
             if (camera.isTrangThai() == false) {
-                trangThai = 0 ;
+                trangThai = 0;
+            } else {
+                trangThai = 1;
             }
-            else{
-                trangThai = 1 ;
-            }
-            if(trangThai == 0){
+            if (trangThai == 0) {
                 Object[] data = new Object[]{
                     camera.getId(),
-                    camera.getTenDanhMuc(),
-                };
-               model.addRow(data);
+                    camera.getTenDanhMuc(),};
+                model.addRow(data);
             }
         }
     }
