@@ -57,4 +57,6 @@ private String hint = "";
         g.setColor(new Color(c2, true));
         g.drawString(hint, ((getWidth() - fm.stringWidth(hint)) / 2), getHeight() / 2 + fm.getAscent() / 2 - 2);
     }
+
+    
 }

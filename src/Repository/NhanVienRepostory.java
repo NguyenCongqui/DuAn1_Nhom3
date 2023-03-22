@@ -183,6 +183,20 @@ public class NhanVienRepostory {
         }
         return "Sửa Nhân Viên Không Thành Công";
     }
+       
+       public String updateNgaySua (int id) {
+        String update = "UPDATE dbo.USERS SET NGAYSUA = GETDATE() WHERE IDUSERS = ?";
+        try {
+            pst = db.getConnection().prepareStatement(update);          
+            pst.setInt(1, id);
+           
+            pst.executeUpdate();
+            return "Cập Nhập Ngày Sửa Thành Công";
+        } catch (Exception e) {
+
+        }
+        return "Cập Nhập Ngày Sửa Không Thành Công";
+    }
        public int getIndex (int ma){
            for (int i = 0; i < listUsers.size(); i++) {
                if (listUsers.get(i).getIdUser() == ma) {

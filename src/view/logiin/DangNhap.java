@@ -88,6 +88,7 @@ public void addEventDangNhap(ActionListener event){
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        txt_users.setText("admin");
         txt_users.setToolTipText("");
         txt_users.setHint("USERNAME");
         txt_users.addActionListener(new java.awt.event.ActionListener() {
@@ -96,8 +97,14 @@ public void addEventDangNhap(ActionListener event){
             }
         });
 
+        txt_PassWord.setText("123456");
         txt_PassWord.setHint("PASSWORD");
         txt_PassWord.setName(""); // NOI18N
+        txt_PassWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_PassWordActionPerformed(evt);
+            }
+        });
 
         btn_DangNhap.setBackground(new java.awt.Color(104, 159, 158));
         btn_DangNhap.setText("Đăng Nhập");
@@ -158,6 +165,10 @@ public void addEventDangNhap(ActionListener event){
         // TODO add your handling code here:
       
     }//GEN-LAST:event_btn_DangNhapActionPerformed
+
+    private void txt_PassWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_PassWordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_PassWordActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

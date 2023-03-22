@@ -67,6 +67,16 @@ public class NhanVienImpl implements NhanVienServices{
        return rep.getAll();
     }
 
+    @Override
+    public String updateNgaySua(int id) {
+        return rep.updateNgaySua(id);
+    }
+
+    
+   
+
+   
+
    
     
 }

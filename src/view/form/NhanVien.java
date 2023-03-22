@@ -100,6 +100,7 @@ public class NhanVien extends javax.swing.JPanel {
             return;
         } else {
             JOptionPane.showMessageDialog(this, nhanVienService.xoaNhanVien(idUsers));
+            JOptionPane.showMessageDialog(this, nhanVienService.updateNgaySua(idUsers));
             listUsers = nhanVienService.getListNhanVienDangLam();
             showDataDangLam();
         }
