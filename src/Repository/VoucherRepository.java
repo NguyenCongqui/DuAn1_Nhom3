@@ -6,6 +6,7 @@ package Repository;
 
 import DomainModel.Voucher;
 import Utilities.DBConnection;
+import ViewModel.VouchersViewModel;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,24 +26,27 @@ public class VoucherRepository {
     Statement st = null;
     PreparedStatement pst = null;
     List<Voucher> ListVoucher = null;
+    List<VouchersViewModel> ListVoucherViewModel = null;
 
     public VoucherRepository() {
     }
 
-    public List<Voucher> getLisVoucher() {
-        String select = "SELECT* FROM dbo.Voucher";
-        ListVoucher = new ArrayList<>();
+    public List<VouchersViewModel> getLisVoucher() {
+        String select = "SELECT IDVOUCHER,MAGIAMGIA,GIAMGIA,VOUCHER.NGAYTAO,VOUCHER.NGAYSUA,NGAYBATDAU,\n" +
+"	NGAYKETTHUC,SOLUONG,VOUCHER.TRANGTHAI,USERS.IDUSERS,HOTEN\n" +
+"	FROM dbo.Voucher INNER JOIN dbo.USERS ON USERS.IDUSERS = VOUCHER.IDUSERS";
+        ListVoucherViewModel = new ArrayList<>();
         try {
             st = db.getConnection().createStatement();
             rs = st.executeQuery(select);
             while (rs.next()) {
-                ListVoucher.add(new Voucher(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getString(4),rs.getString(5), rs.getDate(6),rs.getDate(7), rs.getInt(8), rs.getBoolean(9), rs.getInt(10)));
+                ListVoucherViewModel.add(new VouchersViewModel(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getString(4),rs.getString(5), rs.getDate(6),rs.getDate(7), rs.getInt(8), rs.getBoolean(9), rs.getInt(10),rs.getString(11)));
             }
             rs.close();
         } catch (Exception e) {
         }
 
-        return ListVoucher;
+        return ListVoucherViewModel;
     }
 
     public List<Voucher> selectAllDate() {
@@ -78,17 +82,17 @@ public class VoucherRepository {
 
     public String insert(Voucher v) {
         String insert = "INSERT INTO dbo.VOUCHER\n" +
-" (\n" +
-"     MAGIAMGIA,\n" +
-"     GIAMGIA,\n" +
-"     NGAYTAO,\n" +
-"     NGAYBATDAU,\n" +
-"     NGAYKETTHUC,\n" +
-"     SOLUONG,\n" +
-//"     TRANGTHAI,\n" +
-//"     IDUSERS\n" +
-" )\n" +
-" VALUES(?,?,GETDATE(),?,?,?)";
+"(\n" +
+"    MAGIAMGIA,\n" +
+"    GIAMGIA,\n" +
+"    NGAYBATDAU,\n" +
+"    NGAYKETTHUC,\n" +
+"    SOLUONG,\n" +
+"    TRANGTHAI,\n" +
+"	IDUSERS,\n" +
+"    NGAYTAO\n" +
+")\n" +
+"VALUES(?,?,?,?,?,?,?,GETDATE())";
 
         try {
             pst = db.getConnection().prepareStatement(insert);
@@ -97,8 +101,8 @@ public class VoucherRepository {
             pst.setObject(3, v.getNgayBatDau());
             pst.setObject(4, v.getNgayKetThuc());
             pst.setInt(5, v.getSoLuong());
-         //   pst.setBoolean(6, v.isTrangThai());
-//            pst.setInt(7, v.getIdUser());
+            pst.setBoolean(6, v.isTrangThai());
+            pst.setInt(7, v.getIdUser());
             pst.executeUpdate();
             return "Bạn Đã Thêm Voucher Thành Công";
         } catch (Exception e) {

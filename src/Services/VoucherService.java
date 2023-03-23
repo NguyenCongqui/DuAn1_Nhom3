@@ -5,6 +5,7 @@
 package Services;
 
 import DomainModel.Voucher;
+import ViewModel.VouchersViewModel;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @author ADMIN
  */
 public interface VoucherService {
-    List<Voucher> getListVouchers();
+    List<VouchersViewModel> getListVouchers();
     String updateSoLuongTon(Integer idVoucher);
     String insert(Voucher v);
     String updateVoucher(Voucher v);

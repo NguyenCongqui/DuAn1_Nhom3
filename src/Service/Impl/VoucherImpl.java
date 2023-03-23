@@ -7,6 +7,7 @@ package Service.Impl;
 import DomainModel.Voucher;
 import Repository.VoucherRepository;
 import Services.VoucherService;
+import ViewModel.VouchersViewModel;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 public class VoucherImpl implements VoucherService{
     VoucherRepository rep = new VoucherRepository();
     @Override
-    public List<Voucher> getListVouchers() {
+    public List<VouchersViewModel> getListVouchers() {
         return rep.getLisVoucher();
     }
 

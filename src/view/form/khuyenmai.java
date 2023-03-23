@@ -7,11 +7,13 @@ package view.form;
 import DomainModel.Voucher;
 import Service.Impl.VoucherImpl;
 import Services.VoucherService;
+import ViewModel.VouchersViewModel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.logiin.Auth;
 import view.logiin.XDate;
 
 /**
@@ -27,6 +29,7 @@ public class khuyenmai extends javax.swing.JPanel {
     DefaultTableModel tbl_model = new DefaultTableModel();
     VoucherService voucherService = new VoucherImpl();
     List<Voucher> ListVoucher = new ArrayList<>();
+    List<VouchersViewModel> ListVoucherViewModel = new ArrayList<>();
     int index =0;
     public khuyenmai() {
         initComponents();
@@ -34,7 +37,7 @@ public class khuyenmai extends javax.swing.JPanel {
        // btn_xoa.setEnabled(false);
        // btn_sua.setEnabled(false);
         tbl_model = (DefaultTableModel) tbl_khuyenMai.getModel();
-        ListVoucher = voucherService.getListVouchers();
+        ListVoucherViewModel = voucherService.getListVouchers();
         filldata();
         txt_ID.setEnabled(false);
         btn_sua.setEnabled(false);
@@ -42,9 +45,9 @@ public class khuyenmai extends javax.swing.JPanel {
     }
   public void filldata(){
         tbl_model.setRowCount(0);
-        for (Voucher v : ListVoucher) {
+        for (VouchersViewModel v : ListVoucherViewModel) {
             tbl_model.addRow(new Object[]{
-                v.getIDVoucher(),v.getMaGiamGia(),v.getGiamgia(),v.getSoLuong(),v.getNgayBatDau(),v.getNgayKetThuc(),v.getNgaytao(),v.getNgaysua(),v.getIdUser(),v.isTrangThai() == true ?"Đang Hoạt Động":"Ngừng Hoạt Động"
+                v.getIDVoucher(),v.getMaGiamGia(),v.getGiamgia(),v.getSoLuong(),v.getNgayBatDau(),v.getNgayKetThuc(),v.getNgaytao(),v.getNgaysua(),v.getTenNguoiTao(),v.isTrangThai() == true ?"Đang Hoạt Động":"Ngừng Hoạt Động"
             });
         }
         
@@ -65,7 +68,7 @@ public class khuyenmai extends javax.swing.JPanel {
     }
     public  Voucher guidata (){
         Voucher v= new Voucher();
-//        v.setMaGiamGia(randomAlphaNumeric(8));
+       v.setMaGiamGia(randomAlphaNumeric(8));
         v.setNgayBatDau(XDate.toDate(txt_NgayBatDau.getText(), "yyyy-MM-dd"));
         v.setNgayKetThuc(XDate.toDate(txt_NgayKetThuc.getText(), "yyyy-MM-dd"));
         v.setGiamgia(Float.parseFloat(txt_giamgia.getText()));
@@ -75,6 +78,7 @@ public class khuyenmai extends javax.swing.JPanel {
         } else {
              v.setTrangThai(false);
         }
+         v.setIdUser(Auth.user.getIdUser());
         return v;
     }
      public  Voucher guidata01 (){
@@ -102,7 +106,7 @@ public class khuyenmai extends javax.swing.JPanel {
         btn_xoa.setEnabled(false);
     }
     public void showdeil(){
-        Voucher v = ListVoucher.get(index);
+        VouchersViewModel v = ListVoucherViewModel.get(index);
         txt_ID.setText(String.valueOf(v.getIDVoucher()));
         txt_giamgia.setText(String.valueOf(v.getGiamgia()));
         txt_soluong.setText(String.valueOf(v.getSoLuong()));
@@ -134,9 +138,11 @@ public class khuyenmai extends javax.swing.JPanel {
             lbl_tim.setText("Không có Voucher nào" + keyString);
             return;
         }
+       
+       
         for (Voucher v : list) {
             tbl_model.addRow(new Object[]{
-                v.getIDVoucher(),v.getMaGiamGia(),v.getGiamgia(),v.getNgaytao(),v.getNgayBatDau(),v.getNgayKetThuc(),v.isTrangThai() == true ?"Đang Hoạt Động":"Ngừng Hoạt Động"
+                v.getIDVoucher(),v.getMaGiamGia(),v.getGiamgia(),v.getSoLuong(),v.getNgayBatDau(),v.getNgayKetThuc(),v.getNgaytao(),v.getNgaysua(),v.getIdUser(),v.isTrangThai() == true ?"Đang Hoạt Động":"Ngừng Hoạt Động"
             });
         }
         
@@ -244,7 +250,7 @@ public class khuyenmai extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 989, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1002, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -377,7 +383,7 @@ public class khuyenmai extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -422,7 +428,7 @@ public class khuyenmai extends javax.swing.JPanel {
         if (valedate()) {
             Voucher v= guidata();
         JOptionPane.showMessageDialog(this,voucherService.insert(v));
-        ListVoucher = voucherService.getListVouchers();
+        ListVoucherViewModel = voucherService.getListVouchers();
         filldata();
         reset();
         }
@@ -445,7 +451,7 @@ public class khuyenmai extends javax.swing.JPanel {
           Voucher newv= guidata();
         newv.setIDVoucher(getVoucher());
         JOptionPane.showMessageDialog(this, voucherService.DeleteVoucher(newv));
-        ListVoucher = voucherService.getListVouchers();
+        ListVoucherViewModel = voucherService.getListVouchers();
         filldata();
         reset();
     }//GEN-LAST:event_btn_xoaActionPerformed
@@ -455,7 +461,7 @@ public class khuyenmai extends javax.swing.JPanel {
         Voucher newv= guidata01();
         newv.setIDVoucher(getVoucher());
         JOptionPane.showMessageDialog(this, voucherService.updateVoucher(newv));
-        ListVoucher = voucherService.getListVouchers();
+        ListVoucherViewModel = voucherService.getListVouchers();
         filldata();
         reset();
     }//GEN-LAST:event_btn_suaActionPerformed
