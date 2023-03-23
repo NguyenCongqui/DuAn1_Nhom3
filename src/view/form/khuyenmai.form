@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="com.raven.datechooser.DateChooser" name="Date">
+      <Properties>
+        <Property name="dateFormat" type="java.lang.String" value="yyyy-MM-dd"/>
+        <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="txt_NgayBatDau"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="com.raven.datechooser.DateChooser" name="Date01">
+      <Properties>
+        <Property name="dateFormat" type="java.lang.String" value="yyyy-MM-dd"/>
+        <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="txt_NgayKetThuc"/>
+        </Property>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -23,22 +41,26 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="textField1" min="-2" pref="431" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbl_tim" max="32767" attributes="0"/>
+                          <Component id="txt_timkiem" pref="431" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="myButton1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="96" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -53,12 +75,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="textField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_timkiem" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="myButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lbl_tim" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
@@ -77,17 +101,24 @@
         <Property name="text" type="java.lang.String" value="Khuy&#x1ebf;n m&#xe3;i"/>
       </Properties>
     </Component>
-    <Component class="chucNang.TextField" name="textField1">
+    <Component class="chucNang.TextField" name="txt_timkiem">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="tim kiem theo ma"/>
       </Properties>
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txt_timkiemCaretUpdate"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_timkiemActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="1" pref="599" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="989" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -104,20 +135,44 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="chucNang.Table01" name="table011">
+            <Component class="chucNang.Table01" name="tbl_khuyenMai">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="4">
+                  <Table columnCount="10" rowCount="0">
                     <Column editable="true" title="ID" type="java.lang.Object"/>
+                    <Column editable="true" title="M&#xe3; Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object"/>
                     <Column editable="true" title="Gi&#x1ea3;m Gi&#xe1;" type="java.lang.Object"/>
                     <Column editable="true" title="S&#x1ed1; L&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                     <Column editable="true" title="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u" type="java.lang.Object"/>
                     <Column editable="true" title="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c" type="java.lang.Object"/>
+                    <Column editable="true" title="Ng&#xe0;y T&#x1ea1;o" type="java.lang.Object"/>
+                    <Column editable="true" title="Ng&#xe0;y S&#x1eed;a" type="java.lang.Object"/>
+                    <Column editable="true" title="Ng&#x1b0;&#x1edd;i T&#x1ea1;o" type="java.lang.Object"/>
                     <Column editable="true" title="Tr&#x1ea1;ng Th&#xe1;i" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -154,6 +209,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_khuyenMaiMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -181,29 +239,29 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="radioButtonCustom1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rdo_DangHoatDong" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="13" max="32767" attributes="0"/>
-                                  <Component id="radioButtonCustom2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rdo_NgungHoatDong" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="textField2" max="32767" attributes="0"/>
-                              <Component id="textField3" max="32767" attributes="0"/>
-                              <Component id="textField4" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textField5" alignment="0" max="32767" attributes="0"/>
-                              <Component id="textField6" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_ID" max="32767" attributes="0"/>
+                              <Component id="txt_giamgia" max="32767" attributes="0"/>
+                              <Component id="txt_soluong" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_NgayBatDau" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txt_NgayKetThuc" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="myButton2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_them" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="myButton3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btn_sua" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="myButton4" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_xoa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="myButton5" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_lammoi" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -214,29 +272,29 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="textField2" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_ID" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="textField3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_giamgia" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="textField4" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_soluong" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="textField5" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_NgayBatDau" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="textField6" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_NgayKetThuc" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="radioButtonCustom1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="radioButtonCustom2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_DangHoatDong" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_NgungHoatDong" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="myButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_them" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_sua" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="myButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="myButton5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_xoa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_lammoi" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="38" max="32767" attributes="0"/>
               </Group>
@@ -244,74 +302,88 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="chucNang.TextField" name="textField2">
+        <Component class="chucNang.TextField" name="txt_ID">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="labelText" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField3">
+        <Component class="chucNang.TextField" name="txt_giamgia">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="Gi&#x1ea3;m Gi&#x1ea3;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textField3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_giamgiaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="chucNang.TextField" name="textField4">
+        <Component class="chucNang.TextField" name="txt_soluong">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="S&#x1ed1; L&#x1b0;&#x1ee3;ng"/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField5">
+        <Component class="chucNang.TextField" name="txt_NgayBatDau">
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="labelText" type="java.lang.String" value="Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u "/>
           </Properties>
         </Component>
-        <Component class="chucNang.TextField" name="textField6">
+        <Component class="chucNang.TextField" name="txt_NgayKetThuc">
           <Properties>
             <Property name="labelText" type="java.lang.String" value="Ng&#xe0;y K&#x1ebf;t Th&#xfa;c"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom1">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_DangHoatDong">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom2">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_NgungHoatDong">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ng&#x1eeb;ng Ho&#x1ea1;t &#x110;&#x1ed9;ng"/>
           </Properties>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton2">
+        <Component class="chucNang.MyButton" name="btn_them">
           <Properties>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_themActionPerformed"/>
           </Events>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton3">
+        <Component class="chucNang.MyButton" name="btn_sua">
           <Properties>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_suaActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton4">
+        <Component class="chucNang.MyButton" name="btn_xoa">
           <Properties>
             <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xoaActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton5">
+        <Component class="chucNang.MyButton" name="btn_lammoi">
           <Properties>
             <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_lammoiActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
     <Component class="chucNang.MyButton" name="myButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xec;m Ki&#x1ebf;m"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_tim">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="tim kiem theo ma"/>
       </Properties>
     </Component>
   </SubComponents>
