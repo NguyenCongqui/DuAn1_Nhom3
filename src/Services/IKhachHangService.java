@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IKhachHangService {
     public List<KhachHang> getAll()throws SQLException;
-     public KhachHang fill(Integer danhmuc) throws SQLException;
+   //  public KhachHang fill(Integer danhmuc) throws SQLException;
      public boolean them(KhachHang khachHang)throws SQLException;
      public boolean sua(KhachHang khachHang, Integer id)throws SQLException;
      public boolean xoa(Integer id)throws SQLException;

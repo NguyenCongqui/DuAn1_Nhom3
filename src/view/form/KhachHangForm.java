@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.logiin.XDate;
 
 /**
  *
@@ -69,10 +70,10 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     public KhachHang LayTT() throws ParseException {
         String ten = txtTenKhachHang.getText();
-        String ngaySinh = "MM-dd-yyyy";
-        DateFormat df = new SimpleDateFormat(ngaySinh);
-        Date date = txtNgaySinh.getDate();
-        String ngaySinhs = df.format(date);
+        //String ngaySinh = "MM-dd-yyyy";
+        //DateFormat df = new SimpleDateFormat(ngaySinh);
+        Date ngaySinhs = (XDate.toDate(txtNgaySinh.getText(), "yyyy-MM-dd"));;
+        //String ngaySinhs = df.format(date);
         Boolean gioiTinh = true;
         if (rbNam.isSelected() == true) {
             gioiTinh = true;
@@ -99,7 +100,7 @@ public class KhachHangForm extends javax.swing.JPanel {
             txtIdKhachHang.setText(id);
             txtTenKhachHang.setText(ten);
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(ngaySinh);
-            txtNgaySinh.setDate(date);
+            //txtNgaySinh.setDate(date);
             if (gioiTinh.equals("Nam")) {
                 rbNam.setSelected(true);
             }
@@ -125,6 +126,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        dateChooser1 = new com.raven.datechooser.DateChooser();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbKhachHang = new chucNang.Table01();
@@ -140,7 +142,9 @@ public class KhachHangForm extends javax.swing.JPanel {
         btnXoa = new chucNang.MyButton();
         btnCrear = new chucNang.MyButton();
         txtSodienthoai = new chucNang.TextField();
-        txtNgaySinh = new com.toedter.calendar.JDateChooser();
+        txtNgaySinh = new chucNang.TextField();
+
+        dateChooser1.setTextRefernce(txtNgaySinh);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -235,7 +239,8 @@ public class KhachHangForm extends javax.swing.JPanel {
             }
         });
 
-        txtNgaySinh.setDateFormatString("MM-dd-yyyy");
+        txtNgaySinh.setEditable(false);
+        txtNgaySinh.setLabelText("Ngày Sinh");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -255,9 +260,6 @@ public class KhachHangForm extends javax.swing.JPanel {
                         .addComponent(txtIdKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,12 +272,14 @@ public class KhachHangForm extends javax.swing.JPanel {
                         .addComponent(txtSodienthoai, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(rbNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(rbNu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtNgaySinh, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDiaChi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rbNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(rbNu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -291,9 +295,9 @@ public class KhachHangForm extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rbNu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
+                .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtSodienthoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,6 +430,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     private chucNang.MyButton btnThem;
     private chucNang.MyButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
+    private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -435,7 +440,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     private chucNang.TextField txtDiaChi;
     private javax.swing.JLabel txtGioiTinh;
     private chucNang.TextField txtIdKhachHang;
-    private com.toedter.calendar.JDateChooser txtNgaySinh;
+    private chucNang.TextField txtNgaySinh;
     private chucNang.TextField txtSodienthoai;
     private chucNang.TextField txtTenKhachHang;
     // End of variables declaration//GEN-END:variables

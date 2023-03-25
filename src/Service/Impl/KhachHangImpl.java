@@ -24,11 +24,11 @@ public class KhachHangImpl implements IKhachHangService {
         return khachHangRepo.getAll();
     }
 
-    @Override
-    public KhachHang fill(Integer danhmuc) throws SQLException {
-        
-        return khachHangRepo.fill(danhmuc);
-    }
+//    @Override
+//    public KhachHang fill(Integer danhmuc) throws SQLException {
+//        
+//        return khachHangRepo.fill(danhmuc);
+//    }
 
     @Override
     public boolean them(KhachHang khachHang) throws SQLException {

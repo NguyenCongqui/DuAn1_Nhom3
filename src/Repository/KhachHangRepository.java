@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 /**
  *
  * @author hodangquan
@@ -26,7 +27,7 @@ public class KhachHangRepository {
         while (rs.next()) {            
             Integer id = rs.getInt("IDKHACHHANG");
             String hoTen = rs.getString("HOTEN");
-            String ngaySinh = rs.getString("NGAYSINH");
+            Date ngaySinh = rs.getDate("NGAYSINH");
             boolean gioiTinh = rs.getBoolean("GIOITINH");
             String soDienThoai = rs.getString("SODIENTHOAI");
             String diaChi = rs.getString("DIACHI");
@@ -40,35 +41,35 @@ public class KhachHangRepository {
         conn.close();
         return khachHangs;
     }
-    public KhachHang fill(Integer danhmuc) throws SQLException{
-        KhachHang kh = new KhachHang();
-        Connection conn = (Connection) DBConnection.getConnection();
-        String sql = "select IDSANPHAM,HOTEN,NGAYSINH,GIOITINH,SODIENTHOAI,DIACHI,TRANGTHAI from KHACHHANG where IDKHACHHANG = ?";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, danhmuc);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {            
-            Integer id = rs.getInt("IDKHACHHANG");
-            String hoTen = rs.getString("HOTEN");
-            String ngaySinh = rs.getString("NGAYSINH");
-            boolean gioiTinh = rs.getBoolean("GIOITINH");
-            String soDienThoai = rs.getString("SODIENTHOAI");
-            String diaChi = rs.getString("DIACHI");
-            boolean trangThai = rs.getBoolean("TRANGTHAI");
-            
-            KhachHang khachHang = new KhachHang(id, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi,trangThai);
-        }
-        rs.close();
-        ps.close();
-        conn.close();
-        return kh;
-    }
+//    public KhachHang fill(Integer danhmuc) throws SQLException{
+//        KhachHang kh = new KhachHang();
+//        Connection conn = (Connection) DBConnection.getConnection();
+//        String sql = "select IDSANPHAM,HOTEN,NGAYSINH,GIOITINH,SODIENTHOAI,DIACHI,TRANGTHAI from KHACHHANG where IDKHACHHANG = ?";
+//        PreparedStatement ps = conn.prepareStatement(sql);
+//        ps.setInt(1, danhmuc);
+//        ResultSet rs = ps.executeQuery();
+//        while (rs.next()) {            
+//            Integer id = rs.getInt("IDKHACHHANG");
+//            String hoTen = rs.getString("HOTEN");
+//            Date ngaySinh = rs.getDate("NGAYSINH");
+//            boolean gioiTinh = rs.getBoolean("GIOITINH");
+//            String soDienThoai = rs.getString("SODIENTHOAI");
+//            String diaChi = rs.getString("DIACHI");
+//            boolean trangThai = rs.getBoolean("TRANGTHAI");
+//            
+//            KhachHang khachHang = new KhachHang(id, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi,trangThai);
+//        }
+//        rs.close();
+//        ps.close();
+//        conn.close();
+//        return kh;
+//    }
     public boolean them(KhachHang khachHang) throws SQLException{
         Connection conn = DBConnection.getConnection();
         String sql = "insert into KHACHHANG (HOTEN,NGAYSINH,GIOITINH,SODIENTHOAI,DIACHI,TRANGTHAI) values (?,?,?,?,?,0)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, khachHang.getHoTen());
-        ps.setString(2,  khachHang.getNgaySinh());
+        ps.setObject(2,  khachHang.getNgaySinh());
         ps.setBoolean(3, khachHang.isGioiTinh());
         ps.setString(4, khachHang.getSoDienThoai());
         ps.setString(5, khachHang.getDiaChi());
@@ -86,7 +87,7 @@ public class KhachHangRepository {
         String sql = "update KHACHHANG set HOTEN = ?, NGAYSINH = ?, GIOITINH = ?, SODIENTHOAI = ?, DIACHI = ? where IDKHACHHANG = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, khachHang.getHoTen());
-        ps.setString(2,  khachHang.getNgaySinh());
+        ps.setObject(2,  khachHang.getNgaySinh());
         ps.setBoolean(3, khachHang.isGioiTinh());
         ps.setString(4, khachHang.getSoDienThoai());
         ps.setString(5, khachHang.getDiaChi());
