@@ -187,6 +187,8 @@ public class khuyenmai extends javax.swing.JPanel {
 
         Date = new com.raven.datechooser.DateChooser();
         Date01 = new com.raven.datechooser.DateChooser();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         txt_timkiem = new chucNang.TextField();
         jPanel1 = new javax.swing.JPanel();
@@ -279,8 +281,10 @@ public class khuyenmai extends javax.swing.JPanel {
 
         txt_NgayKetThuc.setLabelText("Ngày Kết Thúc");
 
+        buttonGroup1.add(rdo_DangHoatDong);
         rdo_DangHoatDong.setText("Hoạt Động");
 
+        buttonGroup1.add(rdo_NgungHoatDong);
         rdo_NgungHoatDong.setText("Ngừng Hoạt Động");
 
         btn_them.setText("Thêm");
@@ -488,6 +492,8 @@ public class khuyenmai extends javax.swing.JPanel {
     private chucNang.MyButton btn_sua;
     private chucNang.MyButton btn_them;
     private chucNang.MyButton btn_xoa;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
