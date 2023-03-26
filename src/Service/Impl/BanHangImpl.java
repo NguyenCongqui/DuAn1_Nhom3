@@ -4,10 +4,15 @@
  */
 package Service.Impl;
 
+import DomainModel.DanhMuc;
 import Repository.BanHangRepository;
 import Services.BanHangService;
+import ViewModel.HoaDonChiTietViewModel;
 import ViewModel.HoaDonViewModel;
+import ViewModel.SanPhamViewModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,8 +30,37 @@ public class BanHangImpl implements BanHangService{
     public ArrayList<HoaDonViewModel> getListHoaDon() {
         return repo.getListHoaDon();
     }
-    
-  
 
-    
+    @Override
+    public List<SanPhamViewModel> getListSP(){
+        return repo.getListSP();
+    }
+
+    @Override
+    public List<HoaDonChiTietViewModel> getGioHang(String Id) {
+        return repo.getGioHang(Id);
+    }
+
+    @Override
+    public int getTongTien(String id) {
+        return repo.getTongTien(id);
+    }
+
+    @Override
+    public List<HoaDonViewModel> getListtt(int i) {
+        return repo.getListtt(i);
+    }
+
+//    @Override
+//    public List<SanPhamViewModel> searchDanhMuc(String temp) {
+//        return repo.searchDanhMuc(temp);
+//    }
+
+//    @Override
+//    public List<SanPhamViewModel> searchBNTrong(String temp) {
+//        return repo.searchBNTrong(temp);
+//    }
+//    
+
+   
 }

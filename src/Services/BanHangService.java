@@ -4,8 +4,13 @@
  */
 package Services;
 
+import DomainModel.DanhMuc;
+import ViewModel.HoaDonChiTietViewModel;
 import ViewModel.HoaDonViewModel;
+import ViewModel.SanPhamViewModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,4 +21,16 @@ public interface BanHangService {
    Boolean saveHoaDon(HoaDonViewModel hoaDon);
     
    ArrayList<HoaDonViewModel> getListHoaDon();
+   
+   List<SanPhamViewModel> getListSP();
+   
+   List<HoaDonChiTietViewModel> getGioHang(String Id) ;
+   
+    public int getTongTien(String id);
+    
+    List<HoaDonViewModel> getListtt(int i);
+    
+//    List<SanPhamViewModel> searchDanhMuc(String temp);
+  
+//     List<SanPhamViewModel> searchBNTrong(String temp) ;
 }
