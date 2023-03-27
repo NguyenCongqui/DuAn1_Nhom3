@@ -52,7 +52,7 @@ public class VoucherImpl implements VoucherService{
     }
 
     @Override
-    public List<Voucher> searchTen(String temp) {
+    public List<VouchersViewModel> searchTen(String temp) {
        return rep.searchTen(temp);
     }
     

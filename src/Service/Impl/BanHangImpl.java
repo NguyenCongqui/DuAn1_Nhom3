@@ -5,6 +5,7 @@
 package Service.Impl;
 
 import DomainModel.DanhMuc;
+import DomainModel.HoaDonBan;
 import Repository.BanHangRepository;
 import Services.BanHangService;
 import ViewModel.HoaDonChiTietViewModel;
@@ -61,6 +62,11 @@ public class BanHangImpl implements BanHangService{
 //        return repo.searchBNTrong(temp);
 //    }
 //    
+
+    @Override
+    public String insert(HoaDonBan hdbh) {
+        return repo.insert(hdbh);
+    }
 
    
 }

@@ -170,9 +170,9 @@ public class VoucherRepository {
         return -3;
     }
 
-    public List<Voucher> searchTen(String temp) {
-        List<Voucher> listTemp = new ArrayList<>();
-        for (Voucher x : ListVoucher) {
+    public List<VouchersViewModel> searchTen(String temp) {
+        List<VouchersViewModel> listTemp = new ArrayList<>();
+        for (VouchersViewModel x : ListVoucherViewModel) {
             if (x.getMaGiamGia().contains(temp)) {
                 listTemp.add(x);
             }

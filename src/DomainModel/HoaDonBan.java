@@ -2,38 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ViewModel;
+package DomainModel;
 
 /**
  *
- * @author vanhv
+ * @author ADMIN
  */
-public class HoaDonViewModel {
+public class HoaDonBan {
     private int idHDB;
     private int idUser,idKhachHang;
     private String ngayTao,ngayThanhToan,tenKhachHang,ghiChu;
+    private boolean TrangThaiTraTien,TrangThaiHoaDon;
     private float tongTien,tienKhachDua,tienTraLai;
     private int trangThai;
-    private String tenUser;
-    private Integer isVoucher;
+    private Integer idVoucher;
 
-    public HoaDonViewModel() {
+    public HoaDonBan() {
     }
 
-    public HoaDonViewModel(int idUser, String ngayTao, int trangThai) {
-        this.idUser = idUser;
-        this.ngayTao = ngayTao;
-        this.trangThai = trangThai;
-    }
-
-    public HoaDonViewModel(int idHDB, String ngayTao, int trangThai, String tenUser) {
-        this.idHDB = idHDB;
-        this.ngayTao = ngayTao;
-        this.trangThai = trangThai;
-        this.tenUser = tenUser;
-    }
-
-    public HoaDonViewModel(int idHDB, int idUser, int idKhachHang, String ngayTao, String ngayThanhToan, String tenKhachHang, String ghiChu, float tongTien, float tienKhachDua, float tienTraLai, int trangThai, Integer isVoucher) {
+    public HoaDonBan(int idHDB, int idUser, int idKhachHang, String ngayTao, String ngayThanhToan, String tenKhachHang, String ghiChu, boolean TrangThaiTraTien, boolean TrangThaiHoaDon, float tongTien, float tienKhachDua, float tienTraLai, int trangThai, Integer idVoucher) {
         this.idHDB = idHDB;
         this.idUser = idUser;
         this.idKhachHang = idKhachHang;
@@ -41,11 +28,47 @@ public class HoaDonViewModel {
         this.ngayThanhToan = ngayThanhToan;
         this.tenKhachHang = tenKhachHang;
         this.ghiChu = ghiChu;
+        this.TrangThaiTraTien = TrangThaiTraTien;
+        this.TrangThaiHoaDon = TrangThaiHoaDon;
         this.tongTien = tongTien;
         this.tienKhachDua = tienKhachDua;
         this.tienTraLai = tienTraLai;
         this.trangThai = trangThai;
-        this.isVoucher = isVoucher;
+        this.idVoucher = idVoucher;
+    }
+
+    public boolean isTrangThaiTraTien() {
+        return TrangThaiTraTien;
+    }
+
+    public void setTrangThaiTraTien(boolean TrangThaiTraTien) {
+        this.TrangThaiTraTien = TrangThaiTraTien;
+    }
+
+    public boolean isTrangThaiHoaDon() {
+        return TrangThaiHoaDon;
+    }
+
+    public void setTrangThaiHoaDon(boolean TrangThaiHoaDon) {
+        this.TrangThaiHoaDon = TrangThaiHoaDon;
+    }
+
+   
+
+    public int getIdHDB() {
+        return idHDB;
+    }
+
+    public void setIdHDB(int idHDB) {
+        this.idHDB = idHDB;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public int getIdKhachHang() {
@@ -54,6 +77,14 @@ public class HoaDonViewModel {
 
     public void setIdKhachHang(int idKhachHang) {
         this.idKhachHang = idKhachHang;
+    }
+
+    public String getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(String ngayTao) {
+        this.ngayTao = ngayTao;
     }
 
     public String getNgayThanhToan() {
@@ -104,34 +135,6 @@ public class HoaDonViewModel {
         this.tienTraLai = tienTraLai;
     }
 
-    public Integer getIsVoucher() {
-        return isVoucher;
-    }
-
-    public void setIsVoucher(Integer isVoucher) {
-        this.isVoucher = isVoucher;
-    }
-    
-
-   
-
-    
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(String ngayTao) {
-        this.ngayTao = ngayTao;
-    }
-
     public int getTrangThai() {
         return trangThai;
     }
@@ -140,21 +143,14 @@ public class HoaDonViewModel {
         this.trangThai = trangThai;
     }
 
-    public String getTenUser() {
-        return tenUser;
+    public Integer getIdVoucher() {
+        return idVoucher;
     }
 
-    public void setTenUser(String tenUser) {
-        this.tenUser = tenUser;
+    public void setIdVoucher(Integer idVoucher) {
+        this.idVoucher = idVoucher;
     }
-
-    public int getIdHDB() {
-        return idHDB;
-    }
-
-    public void setIdHDB(int idHDB) {
-        this.idHDB = idHDB;
-    }
+    
     
     
 }

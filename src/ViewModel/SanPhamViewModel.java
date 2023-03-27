@@ -22,7 +22,7 @@ public class SanPhamViewModel {
     public SanPhamViewModel() {
     }
 
-    public SanPhamViewModel(String soImei, String tenSp, String tenDanhMuc, String mauSac, String tenDungLuong, float giaBan, String anh) {
+    public SanPhamViewModel(String soImei, String tenSp, String tenDanhMuc, String mauSac, String tenDungLuong, float giaBan, String anh, int soLuong) {
         this.soImei = soImei;
         this.tenSp = tenSp;
         this.tenDanhMuc = tenDanhMuc;
@@ -30,7 +30,10 @@ public class SanPhamViewModel {
         this.tenDungLuong = tenDungLuong;
         this.giaBan = giaBan;
         this.anh = anh;
+        this.soLuong = soLuong;
     }
+
+   
 
     public SanPhamViewModel(String soImei, String tenSp, int soLuong,float giaBan, String anh) {
         this.soImei = soImei;

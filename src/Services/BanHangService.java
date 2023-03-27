@@ -5,6 +5,7 @@
 package Services;
 
 import DomainModel.DanhMuc;
+import DomainModel.HoaDonBan;
 import ViewModel.HoaDonChiTietViewModel;
 import ViewModel.HoaDonViewModel;
 import ViewModel.SanPhamViewModel;
@@ -29,6 +30,7 @@ public interface BanHangService {
     public int getTongTien(String id);
     
     List<HoaDonViewModel> getListtt(int i);
+    public String insert (HoaDonBan hdbh);
     
 //    List<SanPhamViewModel> searchDanhMuc(String temp);
   

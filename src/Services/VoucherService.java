@@ -20,5 +20,5 @@ public interface VoucherService {
     String DeleteVoucher(Voucher v);
     List<Voucher> selectAllDate();
     public void updateSoLuongVouchers (Integer id);
-    List<Voucher> searchTen(String temp) ;
+    List<VouchersViewModel> searchTen(String temp) ;
 }

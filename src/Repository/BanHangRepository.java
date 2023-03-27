@@ -5,6 +5,7 @@
 package Repository;
 
 import DomainModel.DanhMuc;
+import DomainModel.HoaDonBan;
 import Utilities.DBConnection;
 import ViewModel.HoaDonChiTietViewModel;
 import ViewModel.HoaDonViewModel;
@@ -27,6 +28,11 @@ import view.logiin.Auth;
 public class BanHangRepository {
 
     private DBConnection dBConnection;
+    DBConnection db;
+    ResultSet rs = null;
+    Statement st = null;
+    PreparedStatement pst = null;
+    List<HoaDonBan> ListHoaDon = null;
 
     public Boolean saveHoaDon(HoaDonViewModel hoaDon) {
 
@@ -47,7 +53,32 @@ public class BanHangRepository {
         }
         return null;
     }
-
+public String insert (HoaDonBan hdbh){
+        String insert = "UPDATE dbo.HOADONBAN SET IDKHACHHANG = ?,IDVOUCHER = ?,NGAYTHANHTOAN = GETDATE(),\n" +
+"					 TENKhachHang = ?,statusPay=?,statusInvoice = ?,TONGTIEN = ?,TIENKHACHDUA = ?,\n" +
+"					 TIENTRALAI = ?, TRANGTHAI = ?,GHICHU = ? WHERE IDHOADONBAN = ?";
+      
+        try {
+            pst = db.getConnection().prepareStatement(insert);
+            pst.setInt(1, hdbh.getIdKhachHang());
+            pst.setObject(2, hdbh.getIdVoucher());
+           
+            pst.setString(3, hdbh.getTenKhachHang());
+            pst.setBoolean(4, hdbh.isTrangThaiTraTien());
+            pst.setBoolean(5, hdbh.isTrangThaiHoaDon());
+            pst.setFloat(6, hdbh.getTongTien());
+            pst.setFloat(7, hdbh.getTienKhachDua());
+            pst.setFloat(8, hdbh.getTienTraLai());
+            pst.setInt(9, hdbh.getTrangThai());
+            pst.setString(10, hdbh.getGhiChu());
+            pst.setInt(11, hdbh.getIdHDB());
+            pst.executeUpdate();
+            return "them thanh cong";
+        } catch (Exception e) {
+            
+        }
+        return "Them khong thanh cong";
+    }
     public ArrayList<HoaDonViewModel> getListHoaDon() {
         ArrayList<HoaDonViewModel> list = new ArrayList<>();
         String sql
@@ -77,23 +108,27 @@ public class BanHangRepository {
             sanPhamBanHangs = new ArrayList<>();
             Connection conn = dBConnection.getConnection();
             String sql = """
-SELECT dbo.CHITIETSANPHAM.SOIMEI, dbo.SANPHAM.TENSANPHAM, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.LOAIPIN.TELOAIPIN, dbo.SANPHAM.ANH, dbo.CHITIETSANPHAM.GIABAN
+SELECT dbo.CHITIETSANPHAM.SOIMEI, dbo.SANPHAM.TENSANPHAM,SOLUONGTON ,dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.LOAIPIN.TELOAIPIN, dbo.SANPHAM.ANH, dbo.CHITIETSANPHAM.GIABAN
 FROM   dbo.CHITIETSANPHAM INNER JOIN
              dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN
              dbo.BONHOTRONG ON dbo.CHITIETSANPHAM.IDBONHOTRONG = dbo.BONHOTRONG.IDBONHOTRONG INNER JOIN
              dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC INNER JOIN
-             dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN WHERE CHITIETSANPHAM.TRANGTHAI = 0 ORDER BY CHITIETSANPHAM.NGAYTAO DESC""";
+             dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN WHERE CHITIETSANPHAM.TRANGTHAI = 0 ORDER BY CHITIETSANPHAM.NGAYTAO DESC
+                         
+                         """;
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanPhamBanHangs.add(new SanPhamViewModel(
                         rs.getString("SOIMEI"),
-                        rs.getString("TENSANPHAM"),
+                        rs.getString("TENSANPHAM"),                       
                         rs.getString("TENDANHMUC"),
                         rs.getString("TENBONHOTRONG"),
                         rs.getString("TELOAIPIN"),
                         rs.getFloat("GIABAN"),
-                        rs.getString("ANH")));
+                        rs.getString("ANH"),
+                rs.getInt("SOLUONGTON")));
+                
             }
 
             return sanPhamBanHangs;

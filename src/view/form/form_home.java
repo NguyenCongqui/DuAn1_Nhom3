@@ -135,7 +135,7 @@ private void initNoticeBoard() {
 
             },
             new String [] {
-                "Tên Khách Hàng", "Số Lượng Mua", "Địa Chỉ", "Số Điện Thoại"
+                "Tên Khách Hàng", "Tên Sản Phẩm", "Màu Sắc", "Bộ Nhớ Trong", "Số Lượng Mua", "Địa Chỉ", "Số Điện Thoại"
             }
         ));
         jScrollPane1.setViewportView(tbl_danhSachKhachHang);

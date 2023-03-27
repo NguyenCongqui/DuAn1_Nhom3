@@ -23,19 +23,20 @@ import view.logiin.XDate;
 public class khuyenmai extends javax.swing.JPanel {
 
     private static final String chu = "abcdefghijklmnopqrstuvwxyz"; // a-z
-    private static final String ChuHoa= chu.toUpperCase(); // A-Z
+    private static final String ChuHoa = chu.toUpperCase(); // A-Z
     private static final String sO = "0123456789"; // 0-9
     private static final String ALPHA_NUMERIC = chu + ChuHoa + sO;
     DefaultTableModel tbl_model = new DefaultTableModel();
     VoucherService voucherService = new VoucherImpl();
     List<Voucher> ListVoucher = new ArrayList<>();
     List<VouchersViewModel> ListVoucherViewModel = new ArrayList<>();
-    int index =0;
+    int index = 0;
+
     public khuyenmai() {
         initComponents();
         setOpaque(false);
-       // btn_xoa.setEnabled(false);
-       // btn_sua.setEnabled(false);
+        // btn_xoa.setEnabled(false);
+        // btn_sua.setEnabled(false);
         tbl_model = (DefaultTableModel) tbl_khuyenMai.getModel();
         ListVoucherViewModel = voucherService.getListVouchers();
         filldata();
@@ -43,21 +44,23 @@ public class khuyenmai extends javax.swing.JPanel {
         btn_sua.setEnabled(false);
         btn_xoa.setEnabled(false);
     }
-  public void filldata(){
+
+    public void filldata() {
         tbl_model.setRowCount(0);
         for (VouchersViewModel v : ListVoucherViewModel) {
             tbl_model.addRow(new Object[]{
-                v.getIDVoucher(),v.getMaGiamGia(),v.getGiamgia(),v.getSoLuong(),v.getNgayBatDau(),v.getNgayKetThuc(),v.getNgaytao(),v.getNgaysua(),v.getTenNguoiTao(),v.isTrangThai() == true ?"Đang Hoạt Động":"Ngừng Hoạt Động"
+                v.getIDVoucher(), v.getMaGiamGia(), v.getGiamgia(), v.getSoLuong(), v.getNgayBatDau(), v.getNgayKetThuc(), v.getNgaytao(), v.getNgaysua(), v.getTenNguoiTao(), v.isTrangThai() == true ? "Đang Hoạt Động" : "Ngừng Hoạt Động"
             });
         }
-        
+
     }
     private static Random generator = new Random();
-    
-      public static int randomNumber(int min, int max) {
+
+    public static int randomNumber(int min, int max) {
         return generator.nextInt((max - min) + 1) + min;
     }
-     public String randomAlphaNumeric(int numberOfCharactor) {
+
+    public String randomAlphaNumeric(int numberOfCharactor) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < numberOfCharactor; i++) {
             int number = randomNumber(0, ALPHA_NUMERIC.length() - 1);
@@ -66,23 +69,9 @@ public class khuyenmai extends javax.swing.JPanel {
         }
         return sb.toString();
     }
-    public  Voucher guidata (){
-        Voucher v= new Voucher();
-       v.setMaGiamGia(randomAlphaNumeric(8));
-        v.setNgayBatDau(XDate.toDate(txt_NgayBatDau.getText(), "yyyy-MM-dd"));
-        v.setNgayKetThuc(XDate.toDate(txt_NgayKetThuc.getText(), "yyyy-MM-dd"));
-        v.setGiamgia(Float.parseFloat(txt_giamgia.getText()));
-        v.setSoLuong(Integer.parseInt(txt_soluong.getText()));
-        if (rdo_DangHoatDong.isSelected()) {
-            v.setTrangThai(true);
-        } else {
-             v.setTrangThai(false);
-        }
-         v.setIdUser(Auth.user.getIdUser());
-        return v;
-    }
-     public  Voucher guidata01 (){
-        Voucher v= new Voucher();
+
+    public Voucher guidata() {
+        Voucher v = new Voucher();
         v.setMaGiamGia(randomAlphaNumeric(8));
         v.setNgayBatDau(XDate.toDate(txt_NgayBatDau.getText(), "yyyy-MM-dd"));
         v.setNgayKetThuc(XDate.toDate(txt_NgayKetThuc.getText(), "yyyy-MM-dd"));
@@ -91,11 +80,28 @@ public class khuyenmai extends javax.swing.JPanel {
         if (rdo_DangHoatDong.isSelected()) {
             v.setTrangThai(true);
         } else {
-             v.setTrangThai(false);
+            v.setTrangThai(false);
+        }
+        v.setIdUser(Auth.user.getIdUser());
+        return v;
+    }
+
+    public Voucher guidata01() {
+        Voucher v = new Voucher();
+        v.setMaGiamGia(randomAlphaNumeric(8));
+        v.setNgayBatDau(XDate.toDate(txt_NgayBatDau.getText(), "yyyy-MM-dd"));
+        v.setNgayKetThuc(XDate.toDate(txt_NgayKetThuc.getText(), "yyyy-MM-dd"));
+        v.setGiamgia(Float.parseFloat(txt_giamgia.getText()));
+        v.setSoLuong(Integer.parseInt(txt_soluong.getText()));
+        if (rdo_DangHoatDong.isSelected()) {
+            v.setTrangThai(true);
+        } else {
+            v.setTrangThai(false);
         }
         return v;
     }
-    public void reset(){
+
+    public void reset() {
         txt_NgayBatDau.setText("");
         txt_NgayKetThuc.setText("");
         txt_giamgia.setText("");
@@ -105,7 +111,8 @@ public class khuyenmai extends javax.swing.JPanel {
         btn_sua.setEnabled(false);
         btn_xoa.setEnabled(false);
     }
-    public void showdeil(){
+
+    public void showdeil() {
         VouchersViewModel v = ListVoucherViewModel.get(index);
         txt_ID.setText(String.valueOf(v.getIDVoucher()));
         txt_giamgia.setText(String.valueOf(v.getGiamgia()));
@@ -118,62 +125,64 @@ public class khuyenmai extends javax.swing.JPanel {
             rdo_NgungHoatDong.setSelected(true);
         }
     }
-    public int getVoucher(){
+
+    public int getVoucher() {
         int rowindex = tbl_khuyenMai.getSelectedRow();
-        if (rowindex >= 0 ) {
+        if (rowindex >= 0) {
             int ID = Integer.valueOf(tbl_khuyenMai.getModel().getValueAt(rowindex, 0).toString());
             return ID;
-            
+
         } else {
             return 1;
         }
-        
+
     }
+
     public void fillTableMa() {
         DefaultTableModel model = (DefaultTableModel) tbl_khuyenMai.getModel();
         model.setRowCount(0);
         String keyString = txt_timkiem.getText();
-        List<Voucher> list =  voucherService.searchTen(keyString);
+        List<VouchersViewModel> list = voucherService.searchTen(keyString);
         if (list.isEmpty()) {
-            lbl_tim.setText("Không có Voucher nào" + keyString);
+            lbl_tim.setText("Không có Voucher nào " + keyString);
             return;
         }
-       
-       
-        for (Voucher v : list) {
+
+        for (VouchersViewModel v : ListVoucherViewModel) {
             tbl_model.addRow(new Object[]{
-                v.getIDVoucher(),v.getMaGiamGia(),v.getGiamgia(),v.getSoLuong(),v.getNgayBatDau(),v.getNgayKetThuc(),v.getNgaytao(),v.getNgaysua(),v.getIdUser(),v.isTrangThai() == true ?"Đang Hoạt Động":"Ngừng Hoạt Động"
+                v.getIDVoucher(), v.getMaGiamGia(), v.getGiamgia(), v.getSoLuong(), v.getNgayBatDau(), v.getNgayKetThuc(), v.getNgaytao(), v.getNgaysua(), v.getTenNguoiTao(), v.isTrangThai() == true ? "Đang Hoạt Động" : "Ngừng Hoạt Động"
             });
         }
-        
+
         lbl_tim.setText("");
     }
-    public boolean valedate(){
+
+    public boolean valedate() {
         if (txt_giamgia.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Bạn ơi Giảm Giá Đang Trống Nha");
+            JOptionPane.showMessageDialog(this, "Bạn ơi Giảm Giá Đang Trống Nha");
             return false;
         }
         if (txt_soluong.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this,"Bạn ơi Số Lượng Đang Trống Nha");
+            JOptionPane.showMessageDialog(this, "Bạn ơi Số Lượng Đang Trống Nha");
             return false;
         }
         try {
             Float.parseFloat(txt_giamgia.getText());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Bạn ơi, Giảm Giá Phải Là Số Nha");
+            JOptionPane.showMessageDialog(this, "Bạn ơi, Giảm Giá Phải Là Số Nha");
             return false;
         }
         try {
             Float.parseFloat(txt_soluong.getText());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Bạn ơi, Số Lượng Phải Là Số Nha");
+            JOptionPane.showMessageDialog(this, "Bạn ơi, Số Lượng Phải Là Số Nha");
             return false;
         }
         if (!rdo_DangHoatDong.isSelected() && !rdo_NgungHoatDong.isSelected()) {
-            JOptionPane.showMessageDialog(this,"Bạn ơi, Trạng Thái bạn chưa chọn nha");
+            JOptionPane.showMessageDialog(this, "Bạn ơi, Trạng Thái bạn chưa chọn nha");
             return false;
         }
-       return true;
+        return true;
     }
 
     /**
@@ -430,11 +439,11 @@ public class khuyenmai extends javax.swing.JPanel {
     private void btn_themActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_themActionPerformed
         // TODO add your handling code here:
         if (valedate()) {
-            Voucher v= guidata();
-        JOptionPane.showMessageDialog(this,voucherService.insert(v));
-        ListVoucherViewModel = voucherService.getListVouchers();
-        filldata();
-        reset();
+            Voucher v = guidata();
+            JOptionPane.showMessageDialog(this, voucherService.insert(v));
+            ListVoucherViewModel = voucherService.getListVouchers();
+            filldata();
+            reset();
         }
     }//GEN-LAST:event_btn_themActionPerformed
 
@@ -446,13 +455,13 @@ public class khuyenmai extends javax.swing.JPanel {
             btn_sua.setEnabled(true);
             btn_xoa.setEnabled(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this ," loi click");
+            JOptionPane.showMessageDialog(this, " loi click");
         }
     }//GEN-LAST:event_tbl_khuyenMaiMouseClicked
 
     private void btn_xoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xoaActionPerformed
         // TODO add your handling code here:
-          Voucher newv= guidata();
+        Voucher newv = guidata();
         newv.setIDVoucher(getVoucher());
         JOptionPane.showMessageDialog(this, voucherService.DeleteVoucher(newv));
         ListVoucherViewModel = voucherService.getListVouchers();
@@ -462,7 +471,7 @@ public class khuyenmai extends javax.swing.JPanel {
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
-        Voucher newv= guidata01();
+        Voucher newv = guidata01();
         newv.setIDVoucher(getVoucher());
         JOptionPane.showMessageDialog(this, voucherService.updateVoucher(newv));
         ListVoucherViewModel = voucherService.getListVouchers();
@@ -481,7 +490,7 @@ public class khuyenmai extends javax.swing.JPanel {
 
     private void btn_lammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lammoiActionPerformed
         // TODO add your handling code here:
-       reset();
+        reset();
     }//GEN-LAST:event_btn_lammoiActionPerformed
 
 
