@@ -1099,6 +1099,7 @@ public class banhang extends javax.swing.JPanel {
                 txt_TienThua.setText(nf.format(Float.valueOf(txt_TienKhachDua.getText()) - Float.valueOf(TotalBuy())));
             }
             txt_TongTien.setText(nf.format(TotalBuy()) + " đ");
+            //
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
