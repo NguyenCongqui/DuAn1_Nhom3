@@ -273,7 +273,7 @@ public class banhang extends javax.swing.JPanel {
 
         if (tblGioHang.getSelectedRowCount() == 1) {
             for (int i = 0; i < tblSanPham.getRowCount(); i++) {
-                if (tblSanPham.getValueAt(i, 0).equals(tblGioHang.getValueAt(index2, 0))) {
+                if (tblSanPham.getValueAt(i, 1).equals(tblGioHang.getValueAt(index2, 1))) {
                     int ii = (int) tblSanPham.getValueAt(i, 3) + (int) tblGioHang.getValueAt(index2, 3);
                     tblSanPham.setValueAt(ii, i, 3);
                     System.out.println("okooooo" + ii);
@@ -294,19 +294,19 @@ public class banhang extends javax.swing.JPanel {
 
     }
 
-    private void addTableGioHang(List<SanPhamViewModel> list) {
-        model = (DefaultTableModel) tblGioHang.getModel();
-        model.setRowCount(0);
-        for (SanPhamViewModel s : list) {
-            model.addRow(new Object[]{
-                model.getRowCount() + 1,
-                s.getSoImei(),
-                s.getTenSp(),
-                s.getSoLuong(),
-                s.getGiaBan()
-            });
-        }
-    }
+//    private void addTableGioHang(List<SanPhamViewModel> list) {
+//        model = (DefaultTableModel) tblGioHang.getModel();
+//        model.setRowCount(0);
+//        for (SanPhamViewModel s : list) {
+//            model.addRow(new Object[]{
+//                model.getRowCount() + 1,
+//                s.getSoImei(),
+//                s.getTenSp(),
+//                s.getSoLuong(),
+//                s.getGiaBan()
+//            });
+//        }
+//    }
 
     public DomainModel.HoaDonBan guidata() {
         DomainModel.HoaDonBan hoaDonBan = new DomainModel.HoaDonBan();
@@ -357,6 +357,7 @@ public class banhang extends javax.swing.JPanel {
                 
                 int index1 = tblGioHang.getRowCount();
                 for (int i = 0; i < ListChiTietHoaDonBan.size(); i++) {
+                    
                     ChiTietHoaDonBan cthd = ListChiTietHoaDonBan.get(i);
                     System.out.println(cthd.getSoLuong());
                    
@@ -1123,12 +1124,12 @@ public class banhang extends javax.swing.JPanel {
 
                 });
 
-                SanPhamViewModel cthdv = new SanPhamViewModel();
-                cthdv.setGiaBan(giaBan);
-                cthdv.setSoImei(soimei);
-                cthdv.setTenSp(tenSanPham);
-                cthdv.setSoLuong(soLuong);
-                sanPhams.add(cthdv);
+                ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
+                cthdb.setDonGia(giaBan);
+                cthdb.setSoImei(soimei);
+                //cthdb.set(tenSanPham);
+                cthdb.setSoLuong(soLuong);
+                ListChiTietHoaDonBan.add(cthdb);
                 int i = ((int) tblSanPham.getValueAt(row, 3)) - soLuong;
                 tblSanPham.setValueAt(i, row, 3);
                 System.out.println(i);
