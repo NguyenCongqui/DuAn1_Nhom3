@@ -133,6 +133,7 @@ public class banhang extends javax.swing.JPanel {
         }
     }
 
+    
     public void fillComboxDanhMuc() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cbo_DanhMuc.getModel();
         cbo_DanhMuc.removeAllItems();
@@ -201,16 +202,16 @@ public class banhang extends javax.swing.JPanel {
         }
     }
 
-    public void loadGioHang(String Id) {
-        List<HoaDonChiTietViewModel> hoaDonChiTietViewModels = banHangService.getGioHang(Id);
-        model = (DefaultTableModel) tblGioHang.getModel();
-        model.setRowCount(0);
-        for (HoaDonChiTietViewModel h : hoaDonChiTietViewModels) {
-            model.addRow(new Object[]{
-                model.getRowCount() + 1, h.getSoImei(), h.getTenSp(), h.getSoLuong(), h.getDonGia()
-            });
-        }
-    }
+//    public void loadGioHang(String Id) {
+//        List<HoaDonChiTietViewModel> hoaDonChiTietViewModels = banHangService.getGioHang(Id);
+//        model = (DefaultTableModel) tblGioHang.getModel();
+//        model.setRowCount(0);
+//        for (HoaDonChiTietViewModel h : hoaDonChiTietViewModels) {
+//            model.addRow(new Object[]{
+//                model.getRowCount() + 1, h.getSoImei(), h.getTenSp(), h.getSoLuong(), h.getDonGia()
+//            });
+//        }
+//    }
 
     public void loadHoaDontt(int i) {
         List<HoaDonViewModel> hoaDonViewModels = banHangService.getListtt(i);
@@ -358,6 +359,7 @@ public class banhang extends javax.swing.JPanel {
                 for (int i = 0; i < ListChiTietHoaDonBan.size(); i++) {
                     ChiTietHoaDonBan cthd = ListChiTietHoaDonBan.get(i);
                     System.out.println(cthd.getSoLuong());
+                   
                     JOptionPane.showMessageDialog(this,chiTietHoaDonService.insert(cthd)); 
                     JOptionPane.showMessageDialog(this,chiTietSanPhamServoce.updateSoLuongTon(cthd.getSoLuong(),cthd.getSoImei()));
                    txt_TongTien.setText("");
@@ -372,7 +374,7 @@ public class banhang extends javax.swing.JPanel {
                 try {
                     if (chk_Voucher.isSelected()) {
                     Voucher v1 =  (Voucher) cbo_MaGiamGia.getSelectedItem();
-                   voucherService.updateSoLuongTon(v1.getIDVoucher());
+                        JOptionPane.showMessageDialog(this,voucherService.updateSoLuongTon(v1.getIDVoucher()));
                  
                 } 
                 } catch (Exception e) {
@@ -609,6 +611,11 @@ public class banhang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDonMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHoaDon);
         if (tblHoaDon.getColumnModel().getColumnCount() > 0) {
             tblHoaDon.getColumnModel().getColumn(0).setResizable(false);
@@ -643,7 +650,7 @@ public class banhang extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -651,13 +658,6 @@ public class banhang extends javax.swing.JPanel {
             }
         });
         jScrollPane4.setViewportView(tblGioHang);
-        if (tblGioHang.getColumnModel().getColumnCount() > 0) {
-            tblGioHang.getColumnModel().getColumn(0).setResizable(false);
-            tblGioHang.getColumnModel().getColumn(1).setResizable(false);
-            tblGioHang.getColumnModel().getColumn(2).setResizable(false);
-            tblGioHang.getColumnModel().getColumn(3).setResizable(false);
-            tblGioHang.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -763,7 +763,7 @@ public class banhang extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -776,15 +776,6 @@ public class banhang extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tblSanPham);
-        if (tblSanPham.getColumnModel().getColumnCount() > 0) {
-            tblSanPham.getColumnModel().getColumn(0).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(1).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(2).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(3).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(4).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(5).setResizable(false);
-            tblSanPham.getColumnModel().getColumn(8).setResizable(false);
-        }
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1000,6 +991,7 @@ public class banhang extends javax.swing.JPanel {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void txt_TienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TienKhachDuaKeyReleased
@@ -1175,6 +1167,29 @@ public class banhang extends javax.swing.JPanel {
 //        cthdv.setGiaBan((float)(tblSanPham.getValueAt(row, 6)));
         }
     }//GEN-LAST:event_tblSanPhamMouseClicked
+
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+        // TODO add your handling code here:
+        try {
+            New();
+            int index = tblHoaDon.getSelectedRow();
+            String id = tblHoaDon.getValueAt(index, 1).toString();
+//            String ma = tblHoaDon.getValueAt(index, 2).toString();
+//            String ngaytao = tblHoaDon.getValueAt(index, 2).toString();
+            String ten = tblHoaDon.getValueAt(index, 3).toString();
+
+            //loadGioHang(id);
+            txtID.setText(id);
+//            txtMaHD.setText(ma);
+//            txtNgayTao.setText(ngaytao);
+            txtNhanVien.setText(ten);
+
+            int tongTien = banHangService.getTongTien(id);
+            txt_TongTien.setText(String.valueOf(tongTien));
+
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_tblHoaDonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

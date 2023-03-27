@@ -23,13 +23,12 @@ public class ChiTietHoaDonBanRepository {
     List<ChiTietHoaDonBan> ListchitietHoaDon = null;
     
     public String insert(ChiTietHoaDonBan cthd) {
-        String insert = "INSERT INTO dbo.CHITIETHOADONBAN\n" +
-"				(\n" +
-"				    IDHOADONBAN,\n" +
-"				    SOIMEI,\n" +
+        String insert = "INSERT INTO dbo.CHITIETHOADONBAN(\n" +
+"			      IDHOADONBAN,\n" +
+"			      SOIMEI,\n" +
 "				    SoLuong,\n" +
 "				    DonGia\n" +
-"				)\n" +
+"			)\n" +
 "				VALUES((SELECT TOP 1 IDHOADONBAN FROM dbo.HOADONBAN ORDER BY IDHOADONBAN DESC),?,?,?)";
         try {
             pst = db.getConnection().prepareStatement(insert);

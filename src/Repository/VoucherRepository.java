@@ -67,7 +67,7 @@ public class VoucherRepository {
     }
 
     public String updateSoLuongTon(Integer idVoucher) {
-        String update = "UPDATE dbo.Voucher SET SOLUONG = SoLuong - 1 WHERE IdVoucher = 1";
+        String update = "UPDATE dbo.Voucher SET SOLUONG = SoLuong - 1 WHERE IdVoucher = ?";
         try {
             pst = db.getConnection().prepareStatement(update);
 
