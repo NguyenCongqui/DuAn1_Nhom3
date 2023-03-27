@@ -4,17 +4,55 @@
  */
 package view.form;
 
+import Repository.HoaDonBanRepository;
+import Service.Impl.HoaDonBanImpl;
+import Services.HoaDonBanService;
+import ViewModel.CTHDBanViewModel;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author trung
  */
 public class CTHoaDonBan extends javax.swing.JFrame {
 
+    DefaultTableModel model;
+    int row;
+    List<CTHDBanViewModel> list;
+    HoaDonBanService banService;
+    int id;
+
     /**
      * Creates new form Camera
      */
-    public CTHoaDonBan() {
+    public CTHoaDonBan(int id, DefaultTableModel model, int row) {
         initComponents();
+        this.model = model;
+        this.row = row;
+        this.id = id;
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        banService = new HoaDonBanImpl();
+        fillTable(id);
+    }
+
+    public void fillTable(int id) {
+        DefaultTableModel model = (DefaultTableModel) table011.getModel();
+        model.setRowCount(0);
+        list = banService.selectByIdBan(id);
+        for (CTHDBanViewModel d : list) {
+            model.addRow(new Object[]{
+                d.getIdCTHoaDonBan(),
+                d.getSoImei(),
+                d.getTenSanPham(),
+                d.getDonGia() + " đ",
+                d.getDanhMuc(),
+                d.getDungLuong(),
+                d.getMauSac(),
+                d.getTenKhachHang(),});
+        }
     }
 
     /**
@@ -37,24 +75,34 @@ public class CTHoaDonBan extends javax.swing.JFrame {
 
         table011.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Mã Imei", "Số Lượng", "Đơn Giá"
+                "ID", "Mã Imei", "Tên Sản Phẩm", "Đơn Giá", "Danh Mục", "Dung Lượng", "Màu Sắc", "Tên Khách Hàng"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(table011);
+        if (table011.getColumnModel().getColumnCount() > 0) {
+            table011.getColumnModel().getColumn(0).setResizable(false);
+            table011.getColumnModel().getColumn(1).setResizable(false);
+            table011.getColumnModel().getColumn(2).setResizable(false);
+            table011.getColumnModel().getColumn(3).setResizable(false);
+            table011.getColumnModel().getColumn(4).setResizable(false);
+            table011.getColumnModel().getColumn(5).setResizable(false);
+            table011.getColumnModel().getColumn(6).setResizable(false);
+            table011.getColumnModel().getColumn(7).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,40 +134,7 @@ public class CTHoaDonBan extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CTHoaDonBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CTHoaDonBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CTHoaDonBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CTHoaDonBan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CTHoaDonBan().setVisible(true);
-            }
-        });
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
