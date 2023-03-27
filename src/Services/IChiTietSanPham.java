@@ -28,4 +28,5 @@ public interface IChiTietSanPham {
     public List<ChiTietSanPham> getAllImei(Integer idSP) throws SQLException;
     public boolean suaTrangThaiImei(ChiTietSanPham chiTiet ,String imei , Integer trangThai) throws SQLException ;
     public Integer count(Integer idSP) throws SQLException;
+    public String updateSoLuongTon(Integer soluong, String id);
 }

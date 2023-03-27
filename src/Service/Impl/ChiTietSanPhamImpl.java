@@ -66,4 +66,11 @@ public class ChiTietSanPhamImpl implements IChiTietSanPham{
     public Integer count(Integer idSP) throws SQLException {
         return ChiTietRepo.count(idSP);
     }
+
+    @Override
+    public String updateSoLuongTon(Integer soluong, String id) {
+       return ChiTietRepo.updateSoLuongTon(soluong, id);
+    }
+
+  
 }

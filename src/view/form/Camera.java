@@ -59,6 +59,11 @@ public class Camera extends javax.swing.JFrame {
         myButton1.setText("Thêm");
 
         myButton2.setText("Sửa ");
+        myButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton2ActionPerformed(evt);
+            }
+        });
 
         myButton3.setText("Xóa");
         myButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +138,10 @@ public class Camera extends javax.swing.JFrame {
     private void myButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_myButton4ActionPerformed
+
+    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myButton2ActionPerformed
 
     /**
      * @param args the command line arguments

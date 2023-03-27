@@ -53,7 +53,7 @@ public class BanHangRepository {
         }
         return null;
     }
-public String insert (HoaDonBan hdbh){
+public String insert (HoaDonBan hdbh,Integer id){
         String insert = "UPDATE dbo.HOADONBAN SET IDKHACHHANG = ?,IDVOUCHER = ?,NGAYTHANHTOAN = GETDATE(),\n" +
 "					 TENKhachHang = ?,statusPay=?,statusInvoice = ?,TONGTIEN = ?,TIENKHACHDUA = ?,\n" +
 "					 TIENTRALAI = ?, TRANGTHAI = ?,GHICHU = ? WHERE IDHOADONBAN = ?";
@@ -71,7 +71,7 @@ public String insert (HoaDonBan hdbh){
             pst.setFloat(8, hdbh.getTienTraLai());
             pst.setInt(9, hdbh.getTrangThai());
             pst.setString(10, hdbh.getGhiChu());
-            pst.setInt(11, hdbh.getIdHDB());
+            pst.setInt(11, id);
             pst.executeUpdate();
             return "them thanh cong";
         } catch (Exception e) {

@@ -64,8 +64,8 @@ public class BanHangImpl implements BanHangService{
 //    
 
     @Override
-    public String insert(HoaDonBan hdbh) {
-        return repo.insert(hdbh);
+    public String insert(HoaDonBan hdbh, Integer id) {
+        return repo.insert(hdbh,id);
     }
 
    

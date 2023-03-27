@@ -30,7 +30,7 @@ public interface BanHangService {
     public int getTongTien(String id);
     
     List<HoaDonViewModel> getListtt(int i);
-    public String insert (HoaDonBan hdbh);
+    public String insert (HoaDonBan hdbh,Integer id);
     
 //    List<SanPhamViewModel> searchDanhMuc(String temp);
   

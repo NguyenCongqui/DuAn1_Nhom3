@@ -85,6 +85,11 @@ public class KhachHang {
         this.trangThai = trangThai;
     }
 
+    @Override
+    public String toString() {
+        return  hoTen ;
+    }
+
    
 
    

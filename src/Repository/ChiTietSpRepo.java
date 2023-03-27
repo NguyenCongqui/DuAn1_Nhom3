@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 
 import java.util.List;
@@ -22,7 +23,13 @@ import view.duan.model.ViewSanPham;
  * @author trung
  */
 public class ChiTietSpRepo {
-
+DBConnection db;
+    ResultSet rs = null;
+    Statement st = null;
+    PreparedStatement pst = null;
+    List<ChiTietSanPham> ListChiTietSach = null;
+    
+    
     public List<ChiTietSanPham> getAll() throws SQLException {
         List<ChiTietSanPham> ChiTiet = new ArrayList();
         Connection conn = DBConnection.getConnection();
@@ -272,5 +279,20 @@ public class ChiTietSpRepo {
         } else {
             return true;
         }
+    }
+    
+    public String updateSoLuongTon(Integer soluong, String id) {
+        String update = "UPDATE dbo.CHITIETSANPHAM SET SOLUONGTON = SOLUONGTON - ? WHERE SOIMEI = ?";
+        try {
+            pst = db.getConnection().prepareStatement(update);
+
+            pst.setInt(1, soluong);           
+            pst.setString(2, id);
+            pst.executeUpdate();
+            return "sua thanh cong";
+        } catch (Exception e) {
+
+        }
+        return "sua khong thanh cong";
     }
 }

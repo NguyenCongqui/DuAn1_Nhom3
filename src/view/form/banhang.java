@@ -12,6 +12,7 @@ import DomainModel.Voucher;
 import Service.Impl.BanHangImpl;
 import Service.Impl.BoNhoTrongImpl;
 import Service.Impl.ChiTietHoaBanImpl;
+import Service.Impl.ChiTietSanPhamImpl;
 import Service.Impl.DanhMucIplm;
 import Service.Impl.KhachHangImpl;
 import Service.Impl.LoaiPinImpl;
@@ -19,6 +20,7 @@ import Service.Impl.VoucherImpl;
 import Services.BanHangService;
 import Services.ChiTietHoaBanService;
 import Services.IBoNhoTrongService;
+import Services.IChiTietSanPham;
 import Services.IDanhMucService;
 import ViewModel.HoaDonViewModel;
 import ViewModel.SanPhamViewModel;
@@ -65,6 +67,7 @@ public class banhang extends javax.swing.JPanel {
     List<LoaiPin> loaiPins = new ArrayList<>();
     LoaiPinService loaiPinService = new LoaiPinImpl();
     ChiTietHoaBanService chiTietHoaDonService = new ChiTietHoaBanImpl();
+    IChiTietSanPham chiTietSanPhamServoce = new ChiTietSanPhamImpl();
     
 
 //    private ImeiBanHangService imeiBanHangService;
@@ -114,7 +117,7 @@ public class banhang extends javax.swing.JPanel {
             cbo_KhachHang.removeAllItems();
             listKhachHang = KhachHangService.getAll();
             for (KhachHang kh : listKhachHang) {
-                model.addElement(kh.getHoTen());
+                model.addElement(kh);   
             }
         } catch (SQLException ex) {
             Logger.getLogger(banhang.class.getName()).log(Level.SEVERE, null, ex);
@@ -321,6 +324,7 @@ public class banhang extends javax.swing.JPanel {
             Voucher v = (Voucher) cbo_MaGiamGia.getSelectedItem();
             hoaDonBan.setIdVoucher(v.getIDVoucher());
         }
+        hoaDonBan.setTrangThai(2);
          
        
 
@@ -346,15 +350,16 @@ public class banhang extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this,"bạn ơi nhập lại số tiền khách đưa đi ạ");
                 return;
             } else {
+                Integer id = Integer.parseInt(txtID.getText());
                 DomainModel.HoaDonBan hdbh = guidata();
-                banHangService.insert(hdbh);
+                JOptionPane.showMessageDialog(this, banHangService.insert(hdbh,id)); 
                 
                 int index1 = tblGioHang.getRowCount();
                 for (int i = 0; i < ListChiTietHoaDonBan.size(); i++) {
                     ChiTietHoaDonBan cthd = ListChiTietHoaDonBan.get(i);
                     System.out.println(cthd.getSoLuong());
-                   chiTietHoaDonService.insert(cthd);
-//                   chitietsachService.updateSoLuongTon(cthd.getSoLuong(),cthd.getIdChiTietSach());
+                    JOptionPane.showMessageDialog(this,chiTietHoaDonService.insert(cthd)); 
+                  chiTietSanPhamServoce.updateSoLuongTon(cthd.getSoLuong(),cthd.getSoImei());
                    txt_TongTien.setText("");
                    txt_TienKhachDua.setText("");
                    txt_TienThua.setText("");
@@ -473,6 +478,9 @@ public class banhang extends javax.swing.JPanel {
         txt_TienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_TienKhachDuaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_TienKhachDuaKeyTyped(evt);
             }
         });
 
@@ -1031,10 +1039,7 @@ public class banhang extends javax.swing.JPanel {
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
         // TODO add your handling code here:
-        try {
-
-        } catch (Exception e) {
-        }
+       
         int index = tblHoaDon.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn trước khi thêm sản phẩm vào giỏ hàng !");
@@ -1068,6 +1073,28 @@ public class banhang extends javax.swing.JPanel {
                 System.out.println(i);
 
             }
+            
+            if (chk_Voucher.isSelected()) {
+            txt_TongTien.setText(nf.format(MaVoucher()) + " đ");
+            if (cbo_MaGiamGia.getSelectedItem()== null) {
+                return;
+            } else {
+                cbo_MaGiamGia.setSelectedIndex(0);
+                if (txt_TienKhachDua.getText().isEmpty()) {
+                    return;
+                }else{
+                    txt_TienThua.setText(nf.format(Float.valueOf(txt_TienKhachDua.getText()) - Float.valueOf(MaVoucher())));
+                }
+            }
+        } else {
+            txt_TongTien.setText(nf.format(TotalBuy()) + " đ");
+            if (txt_TienKhachDua.getText().isEmpty()) {
+                return;
+                
+            }else{
+                txt_TienThua.setText(nf.format(Float.valueOf(txt_TienKhachDua.getText()) - Float.valueOf(TotalBuy())));
+            }
+        }
 
 //            Integer idSanPham = Integer.parseInt(tblHoaDon.getValueAt(index, 0).toString());
 //            imeiBanHangService.setIdSanPham(idSanPham);
@@ -1155,6 +1182,7 @@ public class banhang extends javax.swing.JPanel {
 
     private void btn_BanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BanHangActionPerformed
         // TODO add your handling code here:
+        insertBanHang();
     }//GEN-LAST:event_btn_BanHangActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -1182,6 +1210,10 @@ public class banhang extends javax.swing.JPanel {
             txt_TongTien.setText(nf.format(TotalBuy()) + " đ");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void txt_TienKhachDuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_TienKhachDuaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_TienKhachDuaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
