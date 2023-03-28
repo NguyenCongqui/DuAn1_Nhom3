@@ -202,16 +202,16 @@ public class banhang extends javax.swing.JPanel {
         }
     }
 
-//    public void loadGioHang(String Id) {
-//        List<HoaDonChiTietViewModel> hoaDonChiTietViewModels = banHangService.getGioHang(Id);
-//        model = (DefaultTableModel) tblGioHang.getModel();
-//        model.setRowCount(0);
-//        for (HoaDonChiTietViewModel h : hoaDonChiTietViewModels) {
-//            model.addRow(new Object[]{
-//                model.getRowCount() + 1, h.getSoImei(), h.getTenSp(), h.getSoLuong(), h.getDonGia()
-//            });
-//        }
-//    }
+    public void loadGioHang(String Id) {
+        List<HoaDonChiTietViewModel> hoaDonChiTietViewModels = banHangService.getGioHang(Id);
+        model = (DefaultTableModel) tblGioHang.getModel();
+        model.setRowCount(0);
+        for (HoaDonChiTietViewModel h : hoaDonChiTietViewModels) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1, h.getSoImei(), h.getTenSp(), h.getSoLuong(), h.getDonGia()
+            });
+        }
+    }
 
     public void loadHoaDontt(int i) {
         List<HoaDonViewModel> hoaDonViewModels = banHangService.getListtt(i);
@@ -267,31 +267,48 @@ public class banhang extends javax.swing.JPanel {
     }
 
     public void delete() {
-        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
-        int index = tblSanPham.getSelectedRow();
-        int index2 = tblGioHang.getSelectedRow();
+//        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
+//        int index = tblSanPham.getSelectedRow();
+//        int index2 = tblGioHang.getSelectedRow();
+//
+//        if (tblGioHang.getSelectedRowCount() == 1) {
+//            for (int i = 0; i < tblSanPham.getRowCount(); i++) {
+//                if (tblSanPham.getValueAt(i, 1).equals(tblGioHang.getValueAt(index2, 1))) {
+//                    int ii = (int) tblSanPham.getValueAt(i, 3) + (int) tblGioHang.getValueAt(index2, 3);
+//                    tblSanPham.setValueAt(ii, i, 3);
+//                    System.out.println("okooooo" + ii);
+//                }
+//            }
+//            for (int j = 0; j < sanPhams.size(); j++) {
+//                if (sanPhams.get(j).getSoImei() == (String) tblGioHang.getValueAt(index2, 1)) {
+//                    model.removeRow(tblGioHang.getSelectedRow());
+//                    sanPhams.remove(sanPhams.get(j));
+//                    JOptionPane.showMessageDialog(this, "Xóa Thành Công");
+//                    return;
+//                }
+//            }
+////            model.setRowCount(0);
+////            ListChiTietHoaDonBan.clear();
+////                filldata01();
+//        }
 
-        if (tblGioHang.getSelectedRowCount() == 1) {
-            for (int i = 0; i < tblSanPham.getRowCount(); i++) {
-                if (tblSanPham.getValueAt(i, 1).equals(tblGioHang.getValueAt(index2, 1))) {
-                    int ii = (int) tblSanPham.getValueAt(i, 3) + (int) tblGioHang.getValueAt(index2, 3);
-                    tblSanPham.setValueAt(ii, i, 3);
-                    System.out.println("okooooo" + ii);
-                }
-            }
-            for (int j = 0; j < sanPhams.size(); j++) {
-                if (sanPhams.get(j).getSoImei() == (String) tblGioHang.getValueAt(index2, 1)) {
-                    model.removeRow(tblGioHang.getSelectedRow());
-                    sanPhams.remove(sanPhams.get(j));
-                    JOptionPane.showMessageDialog(this, "Xóa Thành Công");
-                    return;
-                }
-            }
-//            model.setRowCount(0);
-//            ListChiTietHoaDonBan.clear();
-//                filldata01();
-        }
-
+int row = tblGioHang.getSelectedRow();
+String soimei = (String) tblGioHang.getValueAt(row, 1);
+                String tenSanPham = (String) tblGioHang.getValueAt(row, 2);
+                int soLuong = (int) tblGioHang.getValueAt(row, 3);
+                float giaBan = (float) tblGioHang.getValueAt(row, 4);
+                
+ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
+                cthdb.setDonGia(giaBan);
+                cthdb.setSoImei(soimei);
+                //cthdb.set(tenSanPham);
+                //cthdb.setIDHoaDonBan(Integer.parseInt(txtID.getText()));
+                cthdb.setSoLuong(soLuong);
+                Integer id = Integer.parseInt(txtID.getText());
+              chiTietHoaDonService.delete(id, soimei);
+              JOptionPane.showMessageDialog(this,"Xóa Thành Công");
+//              loadGioHang(soimei);
+                
     }
 
 //    private void addTableGioHang(List<SanPhamViewModel> list) {
@@ -362,7 +379,7 @@ public class banhang extends javax.swing.JPanel {
                     System.out.println(cthd.getSoLuong());
                    
                     JOptionPane.showMessageDialog(this,chiTietHoaDonService.insert(cthd)); 
-                    JOptionPane.showMessageDialog(this,chiTietSanPhamServoce.updateSoLuongTon(cthd.getSoLuong(),cthd.getSoImei()));
+                    
                    txt_TongTien.setText("");
                    txt_TienKhachDua.setText("");
                    txt_TienThua.setText("");
@@ -387,8 +404,7 @@ public class banhang extends javax.swing.JPanel {
                 DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
                 model.setRowCount(0);
                 ListChiTietHoaDonBan.clear();
-//                ListBanHangViewModel = chitietsachService.getlistBanHang();
-//                filldata01();
+                hienThiSanPham();
             }
         }
       }
@@ -992,6 +1008,9 @@ public class banhang extends javax.swing.JPanel {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
+        Integer id = Integer.parseInt(txtID.getText());
+        JOptionPane.showMessageDialog(this,banHangService.upDateTrangThaiHuy(id));
+        loadHoaDon();
         
     }//GEN-LAST:event_btnHuyActionPerformed
 
@@ -1128,8 +1147,12 @@ public class banhang extends javax.swing.JPanel {
                 cthdb.setDonGia(giaBan);
                 cthdb.setSoImei(soimei);
                 //cthdb.set(tenSanPham);
+                cthdb.setIDHoaDonBan(Integer.parseInt(txtID.getText()));
                 cthdb.setSoLuong(soLuong);
-                ListChiTietHoaDonBan.add(cthdb);
+                
+                chiTietHoaDonService.add(cthdb);
+             chiTietSanPhamServoce.updateSoLuongTon(cthdb.getSoLuong(),cthdb.getSoImei());
+              //  ListChiTietHoaDonBan.add(cthdb);
                 int i = ((int) tblSanPham.getValueAt(row, 3)) - soLuong;
                 tblSanPham.setValueAt(i, row, 3);
                 System.out.println(i);
@@ -1179,7 +1202,7 @@ public class banhang extends javax.swing.JPanel {
 //            String ngaytao = tblHoaDon.getValueAt(index, 2).toString();
             String ten = tblHoaDon.getValueAt(index, 3).toString();
 
-            //loadGioHang(id);
+            loadGioHang(id);
             txtID.setText(id);
 //            txtMaHD.setText(ma);
 //            txtNgayTao.setText(ngaytao);

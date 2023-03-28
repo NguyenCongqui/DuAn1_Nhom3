@@ -79,6 +79,24 @@ public String insert (HoaDonBan hdbh,Integer id){
         }
         return "Them khong thanh cong";
     }
+
+
+public String upDateTrangThaiHuy (Integer id){
+        String insert = "UPDATE dbo.HOADONBAN SET TRANGTHAI = 2 WHERE IDHOADONBAN = ?";
+      
+        try {
+            pst = db.getConnection().prepareStatement(insert);
+            pst.setInt(1, id);
+            
+            pst.executeUpdate();
+            return "Hủy Hóa Đơn Thành Công";
+        } catch (Exception e) {
+            
+        }
+        return "Hủy Hóa Đơn Không Thành Công";
+    }
+
+
     public ArrayList<HoaDonViewModel> getListHoaDon() {
         ArrayList<HoaDonViewModel> list = new ArrayList<>();
         String sql
@@ -108,13 +126,14 @@ public String insert (HoaDonBan hdbh,Integer id){
             sanPhamBanHangs = new ArrayList<>();
             Connection conn = dBConnection.getConnection();
             String sql = """
+                
 SELECT dbo.CHITIETSANPHAM.SOIMEI, dbo.SANPHAM.TENSANPHAM,SOLUONGTON ,dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.LOAIPIN.TELOAIPIN, dbo.SANPHAM.ANH, dbo.CHITIETSANPHAM.GIABAN
 FROM   dbo.CHITIETSANPHAM INNER JOIN
              dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN
              dbo.BONHOTRONG ON dbo.CHITIETSANPHAM.IDBONHOTRONG = dbo.BONHOTRONG.IDBONHOTRONG INNER JOIN
              dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC INNER JOIN
-             dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN WHERE CHITIETSANPHAM.TRANGTHAI = 0 ORDER BY CHITIETSANPHAM.NGAYTAO DESC
-                         
+             dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN WHERE
+			 CHITIETSANPHAM.TRANGTHAI = 0 ORDER BY CHITIETSANPHAM.NGAYTAO DESC
                          """;
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

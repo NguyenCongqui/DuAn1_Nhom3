@@ -12,4 +12,6 @@ import DomainModel.ChiTietHoaDonBan;
  */
 public interface ChiTietHoaBanService {
      public String insert(ChiTietHoaDonBan cthd);
+     public void delete(int IdHoaDon, String soImei);
+     public void add(ChiTietHoaDonBan HDCT);
 }

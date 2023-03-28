@@ -6,8 +6,10 @@ package Repository;
 
 import DomainModel.ChiTietHoaDonBan;
 import Utilities.DBConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -41,5 +43,35 @@ public class ChiTietHoaDonBanRepository {
 
         }
         return "Them khong thanh cong";
+    }
+    
+     public void add(ChiTietHoaDonBan HDCT) throws SQLException {
+        Connection conn = db.getConnection();
+        String sql = """
+                     INSERT INTO dbo.CHITIETHOADONBAN
+                     (
+                         IDHOADONBAN,
+                         SOIMEI,
+                         SoLuong,
+                         DonGia
+                     )
+                     VALUES(?,?,?,?)
+                     """;
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, HDCT.getIDHoaDonBan());
+        ps.setString(2, HDCT.getSoImei());
+        ps.setInt(3, HDCT.getSoLuong());
+        ps.setFloat(4, HDCT.getDonGia());
+        ps.executeUpdate();
+    }
+
+    public void delete(int IdHoaDon, String soImei) throws SQLException {
+        Connection conn = db.getConnection();
+        String sql = "DELETE FROM dbo.CHITIETHOADONBAN WHERE IDHOADONBAN =? AND SOIMEI = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, IdHoaDon);
+        ps.setString(2, soImei);
+        ps.executeUpdate();
+
     }
 }

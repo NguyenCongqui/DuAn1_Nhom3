@@ -68,5 +68,10 @@ public class BanHangImpl implements BanHangService{
         return repo.insert(hdbh,id);
     }
 
+    @Override
+    public String upDateTrangThaiHuy(Integer id) {
+       return repo.upDateTrangThaiHuy(id);
+    }
+
    
 }

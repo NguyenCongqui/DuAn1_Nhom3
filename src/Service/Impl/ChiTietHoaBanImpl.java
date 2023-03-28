@@ -7,6 +7,9 @@ package Service.Impl;
 import DomainModel.ChiTietHoaDonBan;
 import Repository.ChiTietHoaDonBanRepository;
 import Services.ChiTietHoaBanService;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +21,24 @@ public class ChiTietHoaBanImpl implements ChiTietHoaBanService{
     @Override
     public String insert(ChiTietHoaDonBan cthd) {
         return rep.insert(cthd);
+    }
+
+    @Override
+    public void delete(int IdHoaDon, String soImei) {
+      try {
+            rep.delete(IdHoaDon, soImei);
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietHoaBanImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public void add(ChiTietHoaDonBan HDCT) {
+     try {
+            rep.add(HDCT);
+        } catch (SQLException ex) {
+            Logger.getLogger(ChiTietHoaBanImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

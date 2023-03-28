@@ -31,6 +31,7 @@ public interface BanHangService {
     
     List<HoaDonViewModel> getListtt(int i);
     public String insert (HoaDonBan hdbh,Integer id);
+    public String upDateTrangThaiHuy (Integer id);
     
 //    List<SanPhamViewModel> searchDanhMuc(String temp);
   
