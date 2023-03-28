@@ -29,4 +29,5 @@ public interface IChiTietSanPham {
     public boolean suaTrangThaiImei(ChiTietSanPham chiTiet ,String imei , Integer trangThai) throws SQLException ;
     public Integer count(Integer idSP) throws SQLException;
     public String updateSoLuongTon(Integer soluong, String id);
+    public String updateSoLuongTonVeChiTietSanPham(Integer soluong, String id);
 }

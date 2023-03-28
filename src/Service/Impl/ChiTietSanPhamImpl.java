@@ -72,5 +72,10 @@ public class ChiTietSanPhamImpl implements IChiTietSanPham{
        return ChiTietRepo.updateSoLuongTon(soluong, id);
     }
 
+    @Override
+    public String updateSoLuongTonVeChiTietSanPham(Integer soluong, String id) {
+      return ChiTietRepo.updateSoLuongTonVeChiTietSanPham(soluong, id);
+    }
+
   
 }

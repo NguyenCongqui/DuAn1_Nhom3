@@ -307,8 +307,10 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                 Integer id = Integer.parseInt(txtID.getText());
               chiTietHoaDonService.delete(id, soimei);
               JOptionPane.showMessageDialog(this,"Xóa Thành Công");
+             chiTietSanPhamServoce.updateSoLuongTonVeChiTietSanPham(soLuong, soimei);
 //              loadGioHang(soimei);
-                
+
+                hienThiSanPham();
     }
 
 //    private void addTableGioHang(List<SanPhamViewModel> list) {
@@ -370,23 +372,28 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
             } else {
                 Integer id = Integer.parseInt(txtID.getText());
                 DomainModel.HoaDonBan hdbh = guidata();
-                JOptionPane.showMessageDialog(this, banHangService.insert(hdbh,id)); 
-                
+               banHangService.insert(hdbh,id); 
+                txt_TongTien.setText("");
+                   txt_TienKhachDua.setText("");
+                   txt_TienThua.setText("");
                 int index1 = tblGioHang.getRowCount();
                 for (int i = 0; i < ListChiTietHoaDonBan.size(); i++) {
                     
                     ChiTietHoaDonBan cthd = ListChiTietHoaDonBan.get(i);
                     System.out.println(cthd.getSoLuong());
                    
-                    JOptionPane.showMessageDialog(this,chiTietHoaDonService.insert(cthd)); 
-                    
-                   txt_TongTien.setText("");
-                   txt_TienKhachDua.setText("");
-                   txt_TienThua.setText("");
+                   // JOptionPane.showMessageDialog(this,chiTietHoaDonService.insert(cthd)); 
+//                    
+//                   txt_TongTien.setText("");
+//                   txt_TienKhachDua.setText("");
+//                   txt_TienThua.setText("");
                   
                 }
                 hdbh.setTongTien(TotalBuy());
-                JOptionPane.showMessageDialog(this, "Bán " + ListChiTietHoaDonBan.size() + " Hóa Đơn Thành công");
+                JOptionPane.showMessageDialog(this,
+                        //"Bán " 
+//                        + ListChiTietHoaDonBan.size() + 
+                        "Bán Hóa Đơn Thành công");
                 
                
                 try {
@@ -405,6 +412,9 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                 model.setRowCount(0);
                 ListChiTietHoaDonBan.clear();
                 hienThiSanPham();
+               // New();
+               loadHoaDon();
+                
             }
         }
       }
@@ -1011,6 +1021,7 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
         Integer id = Integer.parseInt(txtID.getText());
         JOptionPane.showMessageDialog(this,banHangService.upDateTrangThaiHuy(id));
         loadHoaDon();
+        JOptionPane.showMessageDialog(this,chiTietSanPhamServoce.updateSoLuongTonVeChiTietSanPham(SOMEBITS, TOOL_TIP_TEXT_KEY));
         
     }//GEN-LAST:event_btnHuyActionPerformed
 

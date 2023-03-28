@@ -295,4 +295,18 @@ DBConnection db;
         }
         return "sua khong thanh cong";
     }
+    public String updateSoLuongTonVeChiTietSanPham(Integer soluong, String id) {
+        String update = "UPDATE dbo.CHITIETSANPHAM SET SOLUONGTON = SOLUONGTON + ? WHERE SOIMEI = ?";
+        try {
+            pst = db.getConnection().prepareStatement(update);
+
+            pst.setInt(1, soluong);           
+            pst.setString(2, id);
+            pst.executeUpdate();
+            return "sua thanh cong";
+        } catch (Exception e) {
+
+        }
+        return "sua khong thanh cong";
+    }
 }
