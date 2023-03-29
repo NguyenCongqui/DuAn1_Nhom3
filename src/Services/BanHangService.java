@@ -25,9 +25,9 @@ public interface BanHangService {
    
    List<SanPhamViewModel> getListSP();
    
-   List<HoaDonChiTietViewModel> getGioHang(String Id) ;
+   List<HoaDonChiTietViewModel> getGioHang(int Id) ;
    
-    public int getTongTien(String id);
+//    public int getTongTien(String id);
     
     List<HoaDonViewModel> getListtt(int i);
     public String insert (HoaDonBan hdbh,Integer id);
@@ -36,4 +36,6 @@ public interface BanHangService {
 //    List<SanPhamViewModel> searchDanhMuc(String temp);
   
 //     List<SanPhamViewModel> searchBNTrong(String temp) ;
+
+    public int getTongTien(float id);
 }

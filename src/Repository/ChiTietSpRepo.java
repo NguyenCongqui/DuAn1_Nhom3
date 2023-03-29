@@ -6,6 +6,7 @@ package Repository;
 
 import DomainModel.ChiTietSanPham;
 import Utilities.DBConnection;
+import ViewModel.SanPhamViewModel;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,6 +29,7 @@ DBConnection db;
     Statement st = null;
     PreparedStatement pst = null;
     List<ChiTietSanPham> ListChiTietSach = null;
+    List<SanPhamViewModel> ListSanPhamViewModel = null;
     
     
     public List<ChiTietSanPham> getAll() throws SQLException {
@@ -308,5 +310,14 @@ DBConnection db;
 
         }
         return "sua khong thanh cong";
+    }
+     public List<SanPhamViewModel> search(String temp) {
+        List<SanPhamViewModel> listTemp = new ArrayList<>();
+        for (SanPhamViewModel x : ListSanPhamViewModel) {
+            if (x.getSoImei().contains(temp)) {
+                listTemp.add(x);
+            }
+        }
+        return listTemp;
     }
 }

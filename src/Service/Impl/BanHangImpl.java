@@ -38,12 +38,12 @@ public class BanHangImpl implements BanHangService{
     }
 
     @Override
-    public List<HoaDonChiTietViewModel> getGioHang(String Id) {
+    public List<HoaDonChiTietViewModel> getGioHang(int Id) {
         return repo.getGioHang(Id);
     }
 
     @Override
-    public int getTongTien(String id) {
+    public int getTongTien(float id) {
         return repo.getTongTien(id);
     }
 
@@ -72,6 +72,8 @@ public class BanHangImpl implements BanHangService{
     public String upDateTrangThaiHuy(Integer id) {
        return repo.upDateTrangThaiHuy(id);
     }
+
+   
 
    
 }

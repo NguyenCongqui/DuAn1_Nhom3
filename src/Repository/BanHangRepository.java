@@ -41,7 +41,7 @@ public class BanHangRepository {
         String sql
                 = "INSERT INTO [dbo].[HOADONBAN] ([IDUSERS] ,[ngayTao],[TRANGTHAI])VALUES(?,?,?) ";
 //               "INSERT INTO [dbo].[HOADONBAN] ([ngayTao] ,[TRANGTHAI])VALUES(?,?)";
-        try ( Connection con = dBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = dBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, hoaDon.getIdUser());
             ps.setObject(2, hoaDon.getNgayTao());
             ps.setObject(3, hoaDon.getTrangThai());
@@ -53,16 +53,17 @@ public class BanHangRepository {
         }
         return null;
     }
-public String insert (HoaDonBan hdbh,Integer id){
-        String insert = "UPDATE dbo.HOADONBAN SET IDKHACHHANG = ?,IDVOUCHER = ?,NGAYTHANHTOAN = GETDATE(),\n" +
-"					 TENKhachHang = ?,statusPay=?,statusInvoice = ?,TONGTIEN = ?,TIENKHACHDUA = ?,\n" +
-"					 TIENTRALAI = ?, TRANGTHAI = ?,GHICHU = ? WHERE IDHOADONBAN = ?";
-      
+
+    public String insert(HoaDonBan hdbh, Integer id) {
+        String insert = "UPDATE dbo.HOADONBAN SET IDKHACHHANG = ?,IDVOUCHER = ?,NGAYTHANHTOAN = GETDATE(),\n"
+                + "					 TENKhachHang = ?,statusPay=?,statusInvoice = ?,TONGTIEN = ?,TIENKHACHDUA = ?,\n"
+                + "					 TIENTRALAI = ?, TRANGTHAI = ?,GHICHU = ? WHERE IDHOADONBAN = ?";
+
         try {
             pst = db.getConnection().prepareStatement(insert);
             pst.setInt(1, hdbh.getIdKhachHang());
             pst.setObject(2, hdbh.getIdVoucher());
-           
+
             pst.setString(3, hdbh.getTenKhachHang());
             pst.setBoolean(4, hdbh.isTrangThaiTraTien());
             pst.setBoolean(5, hdbh.isTrangThaiHoaDon());
@@ -75,35 +76,36 @@ public String insert (HoaDonBan hdbh,Integer id){
             pst.executeUpdate();
             return "them thanh cong";
         } catch (Exception e) {
-            
+
         }
         return "Them khong thanh cong";
     }
 
-
-public String upDateTrangThaiHuy (Integer id){
+    public String upDateTrangThaiHuy(Integer id) {
         String insert = "UPDATE dbo.HOADONBAN SET TRANGTHAI = 2 WHERE IDHOADONBAN = ?";
-      
+
         try {
             pst = db.getConnection().prepareStatement(insert);
             pst.setInt(1, id);
-            
+
             pst.executeUpdate();
             return "Hủy Hóa Đơn Thành Công";
         } catch (Exception e) {
-            
+
         }
         return "Hủy Hóa Đơn Không Thành Công";
     }
 
-
+// gọi list hoa don 
     public ArrayList<HoaDonViewModel> getListHoaDon() {
         ArrayList<HoaDonViewModel> list = new ArrayList<>();
         String sql
                 = //                "SELECT * from HOADONBAN";
                 "SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.HOADONBAN.ngayTao, "
-                + "dbo.HOADONBAN.TRANGTHAI, dbo.USERS.HOTEN FROM   dbo.HOADONBAN INNER JOIN dbo.USERS ON dbo.HOADONBAN.IDUSERS = dbo.USERS.IDUSERS ORDER BY dbo.HOADONBAN.ngayTao DESC";
-        try ( Connection con = dBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+                + "dbo.HOADONBAN.TRANGTHAI, dbo.USERS.HOTEN FROM   "
+                + "dbo.HOADONBAN INNER JOIN dbo.USERS ON dbo.HOADONBAN.IDUSERS = "
+                + "dbo.USERS.IDUSERS ORDER BY dbo.HOADONBAN.ngayTao DESC";
+        try (Connection con = dBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 HoaDonViewModel hoaDon = new HoaDonViewModel();
@@ -140,14 +142,14 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
             while (rs.next()) {
                 sanPhamBanHangs.add(new SanPhamViewModel(
                         rs.getString("SOIMEI"),
-                        rs.getString("TENSANPHAM"),                       
+                        rs.getString("TENSANPHAM"),
                         rs.getString("TENDANHMUC"),
                         rs.getString("TENBONHOTRONG"),
                         rs.getString("TELOAIPIN"),
                         rs.getFloat("GIABAN"),
                         rs.getString("ANH"),
-                rs.getInt("SOLUONGTON")));
-                
+                        rs.getInt("SOLUONGTON")));
+
             }
 
             return sanPhamBanHangs;
@@ -157,7 +159,7 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         return null;
     }
 
-    public List<HoaDonChiTietViewModel> getGioHang(String Id) {
+    public List<HoaDonChiTietViewModel> getGioHang(int Id) {
         try {
             List<HoaDonChiTietViewModel> list = new ArrayList<>();
             Connection conn = dBConnection.getConnection();
@@ -167,7 +169,7 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
                     + "             dbo.HOADONBAN ON dbo.CHITIETHOADONBAN.IDHOADONBAN = dbo.HOADONBAN.IDHOADONBAN INNER JOIN\n"
                     + "             dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM WHERE CHITIETHOADONBAN.IDHOADONBAN = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, Id);
+            ps.setInt(1, Id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new HoaDonChiTietViewModel(rs.getString("SOIMEI"), rs.getString("TENSANPHAM"), rs.getInt("SoLuong"), rs.getInt("DonGia")));
@@ -179,13 +181,13 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         return null;
     }
 
-    public int getTongTien(String id) {
+    public int getTongTien(float id) {
         try {
             int max = 0;
             Connection conn = dBConnection.getConnection();
             String sql = "			 SELECT Sum(SoLuong * DonGia) as 'TongTien' FROM CHITIETHOADONBAN where IDHOADONBAN = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, id);
+            ps.setFloat(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 max = rs.getInt("TongTien");
@@ -203,7 +205,8 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
             Connection conn = dBConnection.getConnection();
             String sql = "SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.HOADONBAN.ngayTao, \n"
                     + "dbo.HOADONBAN.TRANGTHAI, dbo.USERS.HOTEN FROM   dbo.HOADONBAN INNER JOIN \n"
-                    + "dbo.USERS ON dbo.HOADONBAN.IDUSERS = dbo.USERS.IDUSERS WHERE dbo.HOADONBAN.TRANGTHAI = ? ORDER BY dbo.HOADONBAN.ngayTao DESC ";
+                    + "dbo.USERS ON dbo.HOADONBAN.IDUSERS = dbo.USERS.IDUSERS WHERE dbo.HOADONBAN.TRANGTHAI = ?"
+                    + " ORDER BY dbo.HOADONBAN.ngayTao DESC ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, i);
             ResultSet rs = ps.executeQuery();
@@ -264,8 +267,6 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
 //        }
 //        return list;
 //    }
-
-    
 //     public List<SanPhamViewModel> searchBNTrong(String temp) {
 //        List<SanPhamViewModel> listTemp = new ArrayList<>();
 //        for (SanPhamViewModel dongSP : list) {

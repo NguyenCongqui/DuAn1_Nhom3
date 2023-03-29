@@ -5,6 +5,7 @@
 package Services;
 
 import DomainModel.ChiTietSanPham;
+import ViewModel.SanPhamViewModel;
 import java.sql.SQLException;
 import java.util.List;
 import view.duan.model.ViewSanPham;
@@ -30,4 +31,5 @@ public interface IChiTietSanPham {
     public Integer count(Integer idSP) throws SQLException;
     public String updateSoLuongTon(Integer soluong, String id);
     public String updateSoLuongTonVeChiTietSanPham(Integer soluong, String id);
+     public List<SanPhamViewModel> search(String temp);
 }

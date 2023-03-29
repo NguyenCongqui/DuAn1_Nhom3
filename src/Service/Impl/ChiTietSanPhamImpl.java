@@ -7,6 +7,7 @@ package Service.Impl;
 import DomainModel.ChiTietSanPham;
 import Repository.ChiTietSpRepo;
 import Services.IChiTietSanPham;
+import ViewModel.SanPhamViewModel;
 import java.sql.SQLException;
 import java.util.List;
 import view.duan.model.ViewSanPham;
@@ -15,6 +16,7 @@ import view.duan.model.ViewSanPham;
  *
  * @author trung
  */
+
 public class ChiTietSanPhamImpl implements IChiTietSanPham{
     ChiTietSpRepo ChiTietRepo;
     
@@ -75,6 +77,11 @@ public class ChiTietSanPhamImpl implements IChiTietSanPham{
     @Override
     public String updateSoLuongTonVeChiTietSanPham(Integer soluong, String id) {
       return ChiTietRepo.updateSoLuongTonVeChiTietSanPham(soluong, id);
+    }
+
+    @Override
+    public List<SanPhamViewModel> search(String temp) {
+      return ChiTietRepo.search(temp);
     }
 
   
