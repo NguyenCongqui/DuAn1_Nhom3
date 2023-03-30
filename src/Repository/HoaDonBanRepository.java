@@ -92,8 +92,8 @@ public class HoaDonBanRepository {
                     i.setGhiChu(rs.getString("GhiChu"));
 //                    i.setStatusPay(rs.getBoolean("statusPay"));
 //                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
-                    i.setTenKhachHang(rs.getString(17));
-                    i.setTenUser(rs.getString(25));
+                    i.setTenKhachHang(rs.getString(16));
+                    i.setTenUser(rs.getString(26));
                     i.setTongTien(rs.getFloat("TONGTIEN"));
                     i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
                     i.setTienTraLai(rs.getFloat("TIENTRALAI"));
@@ -123,8 +123,8 @@ public class HoaDonBanRepository {
                     i.setGhiChu(rs.getString("GhiChu"));
 //                    i.setStatusPay(rs.getBoolean("statusPay"));
 //                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
-                    i.setTenKhachHang(rs.getString(17));
-                    i.setTenUser(rs.getString(25));
+                    i.setTenKhachHang(rs.getString(16));
+                    i.setTenUser(rs.getString(26));
                     i.setTongTien(rs.getFloat("TONGTIEN"));
                     i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
                     i.setTienTraLai(rs.getFloat("TIENTRALAI"));

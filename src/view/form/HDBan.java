@@ -91,6 +91,7 @@ public class HDBan extends javax.swing.JPanel {
 for (HoaDonViewModel i : listCTB) {
     for (int j = 0; j < listKHg.size(); j++) {
         if (i.getIdKhachHang() == listKHg.get(j).getId()) {
+            
             phone = listKHg.get(j).getSoDienThoai();
         }
     }
@@ -331,14 +332,14 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
             },
             new String [] {
-                "Ma HD Ban", "Ten KH", "SDT", "Ten Nv", "Tổng Tiền", "Ngày Mua", "Ngày TT", "Ghi chú", "Trạng Thái"
+                "Ma HD Ban", "Ten KH", "SDT", "Ten Nv", "Tổng Tiền", "Ngày TT", "Ghi chú", "Trạng Thái"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -364,7 +365,6 @@ table1.setValueAt("Đã bảo hành", i, 7);
             table1.getColumnModel().getColumn(5).setResizable(false);
             table1.getColumnModel().getColumn(6).setResizable(false);
             table1.getColumnModel().getColumn(7).setResizable(false);
-            table1.getColumnModel().getColumn(8).setResizable(false);
         }
 
         txt_timtheoma.setLabelText("Tìm Kiếm");
