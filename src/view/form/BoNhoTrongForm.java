@@ -89,7 +89,7 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
         btnThem = new chucNang.MyButton();
         btnSua = new chucNang.MyButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {

@@ -26,11 +26,12 @@ public class ChiTietSanPham {
     private Integer loaiPin;
     private Integer tanSoQuet;
     private Integer dungLuongPin;
+    private Integer mauSac;
     private boolean trangThai;
     public ChiTietSanPham() {
     }
 
-    public ChiTietSanPham(String SoImei, String moTa, Double giaNhap, Double giaBan, String thoiGianBaoHanh, Integer sanPham, Integer heDieuHanh, Integer camera, Integer ram, Integer KichThuocManHinh, Integer Cpu, Integer boNhoTrong, Integer loaiPin, Integer tanSoQuet, Integer dungLuongPin, boolean trangThai) {
+    public ChiTietSanPham(String SoImei, String moTa, Double giaNhap, Double giaBan, String thoiGianBaoHanh, Integer sanPham, Integer heDieuHanh, Integer camera, Integer ram, Integer KichThuocManHinh, Integer Cpu, Integer boNhoTrong, Integer loaiPin, Integer tanSoQuet, Integer dungLuongPin, Integer mauSac, boolean trangThai) {
         this.SoImei = SoImei;
         this.moTa = moTa;
         this.giaNhap = giaNhap;
@@ -46,8 +47,11 @@ public class ChiTietSanPham {
         this.loaiPin = loaiPin;
         this.tanSoQuet = tanSoQuet;
         this.dungLuongPin = dungLuongPin;
+        this.mauSac = mauSac;
         this.trangThai = trangThai;
     }
+
+    
 
     public String getSoImei() {
         return SoImei;
@@ -169,6 +173,14 @@ public class ChiTietSanPham {
         this.dungLuongPin = dungLuongPin;
     }
 
+    public Integer getMauSac() {
+        return mauSac;
+    }
+
+    public void setMauSac(Integer mauSac) {
+        this.mauSac = mauSac;
+    }
+
     public boolean isTrangThai() {
         return trangThai;
     }
@@ -177,8 +189,5 @@ public class ChiTietSanPham {
         this.trangThai = trangThai;
     }
 
-    
    
-
-    
 }

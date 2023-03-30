@@ -51,10 +51,8 @@ public class MauSac extends javax.swing.JFrame {
             if (trangThai == 0) {
                 Object[] data = new Object[]{
                     mauSac.getId(),
-                    mauSac.getName(),mauSac.getNgaySua(),mauSac.getNgayTao()};
-                
+                    mauSac.getName(),};
                 model.addRow(data);
-                
             }
         }
     }
@@ -92,7 +90,7 @@ public class MauSac extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtId = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Màu Sắc");
@@ -101,17 +99,17 @@ public class MauSac extends javax.swing.JFrame {
 
         tbMauSac.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Màu Sắc", "Ngày Sửa", "Ngày Tạo"
+                "ID", "Màu Sắc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

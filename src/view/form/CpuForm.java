@@ -87,7 +87,7 @@ public class CpuForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtCpu = new chucNang.TextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbCpu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

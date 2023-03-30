@@ -28,12 +28,13 @@ public class ViewSanPham {
     private Integer idloaiPin ;
     private Integer idTanSoQuet;
     private  Integer idungLuongPin;
+    private Integer idMauSac;
     private boolean  trangThai ;
 
     public ViewSanPham() {
     }
 
-    public ViewSanPham(Integer idSanPham, String tenSanPham, String moTa, Integer soLuongTon, Date thoigianBaoHanh, BigDecimal giaNhap, BigDecimal giaBan, Integer idHeDieuHanh, Integer idcamera, Integer idRam, Integer idKichThuocMan, Integer idCpu, Integer idboNhoTrong, Integer idloaiPin, Integer idTanSoQuet, Integer idungLuongPin, boolean trangThai) {
+    public ViewSanPham(Integer idSanPham, String tenSanPham, String moTa, Integer soLuongTon, Date thoigianBaoHanh, BigDecimal giaNhap, BigDecimal giaBan, Integer idHeDieuHanh, Integer idcamera, Integer idRam, Integer idKichThuocMan, Integer idCpu, Integer idboNhoTrong, Integer idloaiPin, Integer idTanSoQuet, Integer idungLuongPin, Integer idMauSac, boolean trangThai) {
         this.idSanPham = idSanPham;
         this.tenSanPham = tenSanPham;
         this.moTa = moTa;
@@ -50,6 +51,7 @@ public class ViewSanPham {
         this.idloaiPin = idloaiPin;
         this.idTanSoQuet = idTanSoQuet;
         this.idungLuongPin = idungLuongPin;
+        this.idMauSac = idMauSac;
         this.trangThai = trangThai;
     }
 
@@ -181,6 +183,14 @@ public class ViewSanPham {
         this.idungLuongPin = idungLuongPin;
     }
 
+    public Integer getIdMauSac() {
+        return idMauSac;
+    }
+
+    public void setIdMauSac(Integer idMauSac) {
+        this.idMauSac = idMauSac;
+    }
+
     public boolean isTrangThai() {
         return trangThai;
     }
@@ -188,8 +198,6 @@ public class ViewSanPham {
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
+    
+    }
 
-   
-    
-    
-}

@@ -582,7 +582,7 @@ public class ThemNhanVien extends javax.swing.JFrame implements Runnable, Thread
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_Them, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                                .addComponent(btn_Them, javax.swing.GroupLayout.PREFERRED_SIZE, 67, Short.MAX_VALUE)
                                 .addGap(48, 48, 48)
                                 .addComponent(btn_sua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(64, 64, 64))

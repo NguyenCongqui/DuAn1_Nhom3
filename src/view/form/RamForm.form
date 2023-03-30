@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -98,7 +98,7 @@
     </Component>
     <Component class="chucNang.TextField" name="txtRam">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="T&#xea;n Ram"/>
+        <Property name="labelText" type="java.lang.String" value="T&#xea;n Camera"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
