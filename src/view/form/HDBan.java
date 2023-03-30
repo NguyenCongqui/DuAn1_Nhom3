@@ -30,6 +30,7 @@ public class HDBan extends javax.swing.JPanel {
     HoaDonBanService chitiethoadonservice = new HoaDonBanImpl();
     List<KhachHang> listKHg;
     BaoHanhService baoHanhService = new BaoHanhImpl();
+ 
     
       boolean flag = false;
     /**
@@ -79,12 +80,13 @@ public class HDBan extends javax.swing.JPanel {
   public void fillData() {
         try {
             tableModel = (DefaultTableModel) table1.getModel();
+           tableModel.setRowCount(0);
             listCTB = chitiethoadonservice.getAll("");
             IKhachHangService khachHangService = new KhachHangImpl();
             listKHg = khachHangService.getAll();
             String phone = "";
             String status = "";
-//        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
        List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
 for (HoaDonViewModel i : listCTB) {
     for (int j = 0; j < listKHg.size(); j++) {
@@ -102,22 +104,22 @@ for (HoaDonViewModel i : listCTB) {
         i.getGhiChu()
     });
 }
-//for (int i = 0; i < listCTB.size(); i++) {
-//    for (int j = 0; j < listDangBH.size(); j++) {
-//        if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
-////                    status = "Đã trả hàng";
-//table1.setValueAt("Đang bảo hành", i, 7);
-//        }
-//    }
-//}
-//for (int i = 0; i < listCTB.size(); i++) {
-//    for (int z = 0; z < listDaBH.size(); z++) {
-//        if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
-////                    status = "Đã đổi hàng";
-//table1.setValueAt("Đã bảo hàng", i, 7);
-//        }
-//    }
-//}
+for (int i = 0; i < listCTB.size(); i++) {
+    for (int j = 0; j < listDangBH.size(); j++) {
+        if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
+//                    status = "Đã trả hàng";
+table1.setValueAt("Đang bảo hành", i, 7);
+        }
+    }
+}
+for (int i = 0; i < listCTB.size(); i++) {
+    for (int z = 0; z < listDaBH.size(); z++) {
+        if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
+//                    status = "Đã đổi hàng";
+table1.setValueAt("Đã bảo hành", i, 7);
+        }
+    }
+}
         } catch (SQLException ex) {
             Logger.getLogger(HDBan.class.getName()).log(Level.SEVERE, null, ex);
         }
