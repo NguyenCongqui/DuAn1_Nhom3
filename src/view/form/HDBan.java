@@ -84,7 +84,7 @@ public class HDBan extends javax.swing.JPanel {
             listKHg = khachHangService.getAll();
             String phone = "";
             String status = "";
-        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+//        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
        List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
 for (HoaDonViewModel i : listCTB) {
     for (int j = 0; j < listKHg.size(); j++) {
@@ -102,22 +102,22 @@ for (HoaDonViewModel i : listCTB) {
         i.getGhiChu()
     });
 }
-for (int i = 0; i < listCTB.size(); i++) {
-    for (int j = 0; j < listDangBH.size(); j++) {
-        if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
-//                    status = "Đã trả hàng";
-table1.setValueAt("Đang bảo hành", i, 7);
-        }
-    }
-}
-for (int i = 0; i < listCTB.size(); i++) {
-    for (int z = 0; z < listDaBH.size(); z++) {
-        if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
-//                    status = "Đã đổi hàng";
-table1.setValueAt("Đã bảo hàng", i, 7);
-        }
-    }
-}
+//for (int i = 0; i < listCTB.size(); i++) {
+//    for (int j = 0; j < listDangBH.size(); j++) {
+//        if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
+////                    status = "Đã trả hàng";
+//table1.setValueAt("Đang bảo hành", i, 7);
+//        }
+//    }
+//}
+//for (int i = 0; i < listCTB.size(); i++) {
+//    for (int z = 0; z < listDaBH.size(); z++) {
+//        if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
+////                    status = "Đã đổi hàng";
+//table1.setValueAt("Đã bảo hàng", i, 7);
+//        }
+//    }
+//}
         } catch (SQLException ex) {
             Logger.getLogger(HDBan.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -448,6 +448,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
             int id = (int) table1.getValueAt(row, 0);
             new CTHoaDonBan(id, (DefaultTableModel) table1.getModel(), table1.getSelectedRow()).setVisible(true);
             //            System.out.println(table1.getValueAt(row, 5).toString());
+            System.out.println(table1.getValueAt(row, 0).toString());
         }
     }//GEN-LAST:event_table1MouseClicked
 

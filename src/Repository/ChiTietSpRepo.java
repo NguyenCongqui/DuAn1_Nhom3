@@ -29,7 +29,7 @@ DBConnection db;
     Statement st = null;
     PreparedStatement pst = null;
     List<ChiTietSanPham> ListChiTietSach = null;
-    List<SanPhamViewModel> ListSanPhamViewModel = null;
+    List<SanPhamViewModel> ListSanPhamViewModel = new ArrayList<>();
     
     
     public List<ChiTietSanPham> getAll() throws SQLException {

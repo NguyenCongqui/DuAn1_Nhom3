@@ -441,7 +441,8 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                 sanPham.getTenDungLuong(),
                 sanPham.getMauSac(),
                nf.format(sanPham.getGiaBan()) +" đ",
-                sanPham.getAnh()});
+                sanPham.getAnh()
+            });
         }
         //lbl_tim.setText("");
     }
