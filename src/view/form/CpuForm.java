@@ -195,18 +195,48 @@ public class CpuForm extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        Integer id = Integer.parseInt(txtId.getText());
-        try {
-            if(iCpuservice.xoa(id)){
-               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
-               HienThi();
+//        Integer id = Integer.parseInt(txtId.getText());
+//        try {
+//            if(iCpuservice.xoa(id)){
+//               JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+//               HienThi();
+//            }
+//            else{
+//                JOptionPane.showMessageDialog(this, "Xoa that bai");
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+try {
+            // TODO add your handling code here:
+            int index = tbCpu.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi xóa :)) ","Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Xoa that bai");
+//            int index1 = tbCpu.getRowCount();
+//            if (index1 == 0) {
+//                JOptionPane.showMessageDialog(this, "Không có dữ kiệu có dữ liệu để xóa :))");
+//                return;
+//            }
+            int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa khum ? ","Thông Báo", JOptionPane.ERROR_MESSAGE);
+            if (check != JOptionPane.YES_OPTION) {
+                return;
+            } else {
+                String idString = tbCpu.getValueAt(index, 0).toString();
+                Integer id = Integer.parseInt(idString);
+                if (iCpuservice.xoa(id) == true) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công  :)) ","Thông Báo", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại :))","Thông Báo", JOptionPane.ERROR_MESSAGE);
+                }
+                HienThi();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
         }
+
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -222,9 +252,24 @@ public class CpuForm extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        if(txtCpu.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Không được để trống");
+        String checkChu = "^[a-zA-Z\\s]*$";
+        String khoangTrang = "^[\\s]*$";
+        String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+        if (txtCpu.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên Cpu trước khi thêm !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        if (!txtCpu.getText().matches(checkKiTu)) {
+            JOptionPane.showMessageDialog(this, "Tên Cpu không được chưa kí tự đặc biệt !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtCpu.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên cpu không được nhập toàn khoản trắng !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+//        if(txtCpu.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
         if(txtCpu.getText().length() > 30){
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
@@ -232,11 +277,11 @@ public class CpuForm extends javax.swing.JFrame {
         Cpu c = LayTT();
         try {
             if(iCpuservice.them(c)){
-               JOptionPane.showMessageDialog(this, "Them thanh cong");
+               JOptionPane.showMessageDialog(this, "Thêm thành Công");
                HienThi();
             }
             else{
-                JOptionPane.showMessageDialog(this, "Them that bai");
+                JOptionPane.showMessageDialog(this, "Thêm thất bại");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,9 +290,24 @@ public class CpuForm extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(txtCpu.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Không được để trống");
+        String checkChu = "^[a-zA-Z\\s]*$";
+        String khoangTrang = "^[\\s]*$";
+        String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+        if (txtCpu.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập chọn 1 bản ghi trước khi sửa !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        if (!txtCpu.getText().matches(checkKiTu)) {
+            JOptionPane.showMessageDialog(this, "Tên Cpu không được chưa kí tự đặc biệt !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtCpu.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên cpu không được nhập toàn khoản trắng !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+//        if(txtCpu.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
         if(txtCpu.getText().length() > 30){
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
             return;
@@ -256,11 +316,11 @@ public class CpuForm extends javax.swing.JFrame {
         Integer id = Integer.parseInt(txtId.getText());
         try {
             if(iCpuservice.sua(c,id)){
-               JOptionPane.showMessageDialog(this, "Sua thanh cong");
+               JOptionPane.showMessageDialog(this, "Sửa thành công");
                HienThi();
             }
             else{
-                JOptionPane.showMessageDialog(this, "Sua that bai");
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
