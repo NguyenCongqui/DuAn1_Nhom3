@@ -38,4 +38,5 @@ public interface BanHangService {
 //     List<SanPhamViewModel> searchBNTrong(String temp) ;
 
     public int getTongTien(float id);
+     public List<SanPhamViewModel> search(String temp);
 }

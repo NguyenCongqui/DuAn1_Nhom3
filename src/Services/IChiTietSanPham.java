@@ -31,5 +31,5 @@ public interface IChiTietSanPham {
     public Integer count(Integer idSP) throws SQLException;
     public String updateSoLuongTon(Integer soluong, String id);
     public String updateSoLuongTonVeChiTietSanPham(Integer soluong, String id);
-     public List<SanPhamViewModel> search(String temp);
+    
 }

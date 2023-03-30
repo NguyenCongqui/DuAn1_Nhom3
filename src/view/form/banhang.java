@@ -32,13 +32,27 @@ import Services.LoaiPinService;
 import Services.VoucherService;
 import javax.swing.DefaultComboBoxModel;
 import ViewModel.HoaDonChiTietViewModel;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import view.logiin.Auth;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -50,7 +64,7 @@ import javax.swing.JOptionPane;
  *
  * @author ACER
  */
-public class banhang extends javax.swing.JPanel {
+public class banhang extends javax.swing.JPanel implements Runnable,ThreadFactory {
 
     List<KhachHang> listKhachHang = new ArrayList<>();
     DefaultTableModel model = null;
@@ -69,6 +83,10 @@ public class banhang extends javax.swing.JPanel {
     ChiTietHoaBanService chiTietHoaDonService = new ChiTietHoaBanImpl();
     IChiTietSanPham chiTietSanPhamServoce = new ChiTietSanPhamImpl();
     
+    private WebcamPanel panel = null;
+    private static Webcam webcam = null;
+    private Executor executor = Executors.newSingleThreadExecutor(this);
+    
 
 //    private ImeiBanHangService imeiBanHangService;
     public banhang() {
@@ -85,7 +103,60 @@ public class banhang extends javax.swing.JPanel {
         fillComboxDanhMuc();
         fillComboxBoNhoTrong();
         fillComboxMauSac();
+        initwebcam();
     }
+  
+    public void run(){
+    do {        
+        try {
+             Thread.sleep(100);
+        } catch (Exception e) {
+        }
+        Result result =null;
+        BufferedImage image = null;
+        if (webcam.isOpen()) {
+            if ((image = webcam.getImage() )== null) {
+                continue;
+            }
+        }
+        if (image == null) {
+            continue;
+        }
+        LuminanceSource soure = new BufferedImageLuminanceSource(image);
+        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(soure));
+        try {
+             result = new MultiFormatReader().decode(bitmap);
+        } catch (Exception e) {
+        }
+        if (result != null) {
+            txt_Search.setText(result.getText());
+            
+        }
+       
+        
+        
+       
+    } while (true);
+}
+     public static void closeCam(){
+        if (webcam == null) {
+            return;
+        }
+        webcam.close();
+    }
+   private void initwebcam(){
+    Dimension size = WebcamResolution.QQVGA.getSize();
+    webcam = Webcam.getWebcams().get(0);
+    webcam.setViewSize(size);
+    panel = new WebcamPanel(webcam);
+    panel.setPreferredSize(size);
+    panel.setFPSDisplayed(true);
+  
+   jPanel11.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 150));
+  
+    executor.execute( this);
+    
+}  
 
 //    public static void loadGioHang(DomainModel.ChiTietSanPham c) {
 //        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
@@ -426,7 +497,7 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         String keyString = txt_Search.getText();
-        List<SanPhamViewModel> list = chiTietSanPhamServoce.search(keyString);
+        List<SanPhamViewModel> list = banHangService.search(keyString);
         if (list.isEmpty()) {
            // lbl_tim.setText("Không có khách hàng " + keyString);
             return;
@@ -498,6 +569,7 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
         btnHuy = new chucNang.MyButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
+        myButton1 = new chucNang.MyButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -915,6 +987,13 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                 .addContainerGap())
         );
 
+        myButton1.setText("Tắt Camera");
+        myButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -950,10 +1029,15 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                         .addGap(0, 4, Short.MAX_VALUE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -962,7 +1046,9 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rdoDaTT)
-                            .addComponent(rdoDaHuy)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rdoDaHuy)
+                                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rdoAll)
                                 .addComponent(rdoChoTT)))
@@ -1293,6 +1379,14 @@ String soimei = (String) tblGioHang.getValueAt(row, 1);
         fillTableWhenFind();
     }//GEN-LAST:event_txt_SearchKeyReleased
 
+    private void myButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton1ActionPerformed
+        // TODO add your handling code here:
+         if (webcam == null) {
+            return;
+        }
+        webcam.close();
+    }//GEN-LAST:event_myButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private chucNang.MyButton btnHuy;
@@ -1322,6 +1416,7 @@ String soimei = (String) tblGioHang.getValueAt(row, 1);
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private chucNang.MyButton myButton1;
     private chucNang.MyButton myButton5;
     private javax.swing.JRadioButton rdoAll;
     private javax.swing.JRadioButton rdoChoTT;
@@ -1338,5 +1433,12 @@ String soimei = (String) tblGioHang.getValueAt(row, 1);
     private chucNang.TextField txt_TienThua;
     private chucNang.TextField txt_TongTien;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Thread newThread(Runnable r) {
+         Thread t = new Thread(r, "My Thread");
+        t.setDaemon(true);
+        return t ;
+    }
 
 }

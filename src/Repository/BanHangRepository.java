@@ -33,6 +33,7 @@ public class BanHangRepository {
     Statement st = null;
     PreparedStatement pst = null;
     List<HoaDonBan> ListHoaDon = null;
+    List<SanPhamViewModel> sanPhamBanHangs = null;
 
     public Boolean saveHoaDon(HoaDonViewModel hoaDon) {
 
@@ -124,7 +125,7 @@ public class BanHangRepository {
 
     public List<SanPhamViewModel> getListSP() {
         try {
-            List<SanPhamViewModel> sanPhamBanHangs = new ArrayList<>();
+         sanPhamBanHangs   = new ArrayList<>();
             sanPhamBanHangs = new ArrayList<>();
             Connection conn = dBConnection.getConnection();
             String sql = """
@@ -135,7 +136,7 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
              dbo.BONHOTRONG ON dbo.CHITIETSANPHAM.IDBONHOTRONG = dbo.BONHOTRONG.IDBONHOTRONG INNER JOIN
              dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC INNER JOIN
              dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN WHERE
-			 CHITIETSANPHAM.TRANGTHAI = 0 ORDER BY CHITIETSANPHAM.NGAYTAO DESC
+			 CHITIETSANPHAM.TRANGTHAI = 0 and CHITIETSANPHAM.SOLUONGTON =1 ORDER BY CHITIETSANPHAM.NGAYTAO DESC
                          """;
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -223,6 +224,16 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
             Logger.getLogger(BanHangRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+       public List<SanPhamViewModel> search(String temp) {
+         List<SanPhamViewModel> listTemp = new ArrayList<>();
+        for (SanPhamViewModel x : sanPhamBanHangs) {
+            if (x.getSoImei().contains(temp)) {
+                listTemp.add(x);
+            }
+        }
+        return listTemp;
     }
 
 //    List<SanPhamViewModel> list;

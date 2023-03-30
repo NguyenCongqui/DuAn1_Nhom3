@@ -41,7 +41,7 @@ public class HoaDonBanRepository {
                                   dbo.BONHOTRONG ON dbo.CHITIETSANPHAM.IDBONHOTRONG = dbo.BONHOTRONG.IDBONHOTRONG INNER JOIN
                                   dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC INNER JOIN
                                   dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN 
-                     			 WHERE CHITIETHOADONBAN.IDCHITIETHOADONBAN = ?
+                     			WHERE HOADONBAN.IDHOADONBAN = ?
                      """;
                  
         try {

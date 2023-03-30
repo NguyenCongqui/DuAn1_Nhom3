@@ -79,10 +79,7 @@ public class ChiTietSanPhamImpl implements IChiTietSanPham{
       return ChiTietRepo.updateSoLuongTonVeChiTietSanPham(soluong, id);
     }
 
-    @Override
-    public List<SanPhamViewModel> search(String temp) {
-      return ChiTietRepo.search(temp);
-    }
+   
 
   
 }

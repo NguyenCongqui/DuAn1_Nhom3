@@ -73,6 +73,11 @@ public class BanHangImpl implements BanHangService{
        return repo.upDateTrangThaiHuy(id);
     }
 
+    @Override
+    public List<SanPhamViewModel> search(String temp) {
+       return repo.search(temp);
+    }
+
    
 
    
