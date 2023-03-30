@@ -86,20 +86,7 @@ public class khuyenmai extends javax.swing.JPanel {
         return v;
     }
 
-    public Voucher guidata01() {
-        Voucher v = new Voucher();
-        v.setMaGiamGia(randomAlphaNumeric(8));
-        v.setNgayBatDau(XDate.toDate(txt_NgayBatDau.getText(), "yyyy-MM-dd"));
-        v.setNgayKetThuc(XDate.toDate(txt_NgayKetThuc.getText(), "yyyy-MM-dd"));
-        v.setGiamgia(Float.parseFloat(txt_giamgia.getText()));
-        v.setSoLuong(Integer.parseInt(txt_soluong.getText()));
-        if (rdo_DangHoatDong.isSelected()) {
-            v.setTrangThai(true);
-        } else {
-            v.setTrangThai(false);
-        }
-        return v;
-    }
+
 
     public void reset() {
         txt_NgayBatDau.setText("");
@@ -142,7 +129,7 @@ public class khuyenmai extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tbl_khuyenMai.getModel();
         model.setRowCount(0);
         String keyString = txt_timkiem.getText();
-        List<VouchersViewModel> list = voucherService.searchTen(keyString);
+        List<VouchersViewModel> list = voucherService.SearchTen(keyString);
         if (list.isEmpty()) {
             lbl_tim.setText("Không có Voucher nào " + keyString);
             return;
@@ -184,7 +171,31 @@ public class khuyenmai extends javax.swing.JPanel {
         }
         return true;
     }
-
+    public void TimTheoTen() {
+        String temp = txt_timkiem.getText();
+        List<VouchersViewModel> listSearch = new ArrayList<>();
+        listSearch = voucherService.SearchTen(temp);
+        tbl_model = (DefaultTableModel) tbl_khuyenMai.getModel();
+        tbl_model.setRowCount(0); 
+        if (listSearch.isEmpty()) {
+            lbl_tim.setText("Không tìm thay san pham : " + temp);
+            return;
+        }
+        for (VouchersViewModel p : listSearch) {
+            tbl_model.addRow(new Object[]{
+                p.getIDVoucher(),
+                p.getMaGiamGia(),
+                p.getGiamgia(),
+                p.getSoLuong(),
+                p.getNgayBatDau(),
+                p.getNgayKetThuc(),
+                p.getNgaytao(),
+                p.getNgaysua(),
+                p.getTenNguoiTao(),
+                p.isTrangThai() == true ? "Hoạt Động" : "Ngừng Hoạt Động",});
+        }
+    }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -215,7 +226,6 @@ public class khuyenmai extends javax.swing.JPanel {
         btn_sua = new chucNang.MyButton();
         btn_xoa = new chucNang.MyButton();
         btn_lammoi = new chucNang.MyButton();
-        myButton1 = new chucNang.MyButton();
         lbl_tim = new javax.swing.JLabel();
 
         Date.setDateFormat("yyyy-MM-dd");
@@ -383,8 +393,6 @@ public class khuyenmai extends javax.swing.JPanel {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        myButton1.setText("Tìm Kiếm");
-
         lbl_tim.setText("tim kiem theo ma");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -405,8 +413,6 @@ public class khuyenmai extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_tim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txt_timkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
-                        .addGap(43, 43, 43)
-                        .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -419,9 +425,7 @@ public class khuyenmai extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txt_timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_tim)
                 .addGap(28, 28, 28)
@@ -471,7 +475,7 @@ public class khuyenmai extends javax.swing.JPanel {
 
     private void btn_suaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_suaActionPerformed
         // TODO add your handling code here:
-        Voucher newv = guidata01();
+        Voucher newv = guidata();
         newv.setIDVoucher(getVoucher());
         JOptionPane.showMessageDialog(this, voucherService.updateVoucher(newv));
         ListVoucherViewModel = voucherService.getListVouchers();
@@ -480,12 +484,11 @@ public class khuyenmai extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_suaActionPerformed
 
     private void txt_timkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_timkiemActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txt_timkiemActionPerformed
 
     private void txt_timkiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_timkiemCaretUpdate
-        // TODO add your handling code here:
-        fillTableMa();
+        TimTheoTen();
     }//GEN-LAST:event_txt_timkiemCaretUpdate
 
     private void btn_lammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lammoiActionPerformed
@@ -508,7 +511,6 @@ public class khuyenmai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_tim;
-    private chucNang.MyButton myButton1;
     private chucNang.RadioButtonCustom rdo_DangHoatDong;
     private chucNang.RadioButtonCustom rdo_NgungHoatDong;
     private chucNang.Table01 tbl_khuyenMai;

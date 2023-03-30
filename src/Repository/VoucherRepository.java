@@ -7,6 +7,7 @@ package Repository;
 import DomainModel.Voucher;
 import Utilities.DBConnection;
 import ViewModel.VouchersViewModel;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,6 +48,23 @@ public class VoucherRepository {
         }
 
         return ListVoucherViewModel;
+    }
+    public List<VouchersViewModel> searchTen(String temp) {
+        String query = "SELECT IDVOUCHER,MAGIAMGIA,GIAMGIA,VOUCHER.NGAYTAO,VOUCHER.NGAYSUA,NGAYBATDAU,\n" +
+"	NGAYKETTHUC,SOLUONG,VOUCHER.TRANGTHAI,USERS.IDUSERS,HOTEN\n" +
+"	FROM dbo.Voucher INNER JOIN dbo.USERS ON USERS.IDUSERS = VOUCHER.IDUSERS where MAGIAMGIA like '%" + temp +"%'";
+        List<VouchersViewModel> listSearch = new ArrayList<>();
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               VouchersViewModel vc = new VouchersViewModel(rs.getInt(1), rs.getString(2), rs.getFloat(3), rs.getString(4),rs.getString(5), rs.getDate(6),rs.getDate(7), rs.getInt(8), rs.getBoolean(9), rs.getInt(10),rs.getString(11));
+               listSearch.add(vc);
+            }
+            return listSearch;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
     }
 
     public List<Voucher> selectAllDate() {
@@ -170,13 +188,6 @@ public class VoucherRepository {
         return -3;
     }
 
-    public List<VouchersViewModel> searchTen(String temp) {
-        List<VouchersViewModel> listTemp = new ArrayList<>();
-        for (VouchersViewModel x : ListVoucherViewModel) {
-            if (x.getMaGiamGia().contains(temp)) {
-                listTemp.add(x);
-            }
-        }
-        return listTemp;
-    }
+   
+    
 }

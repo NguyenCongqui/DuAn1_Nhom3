@@ -51,8 +51,10 @@ public class MauSac extends javax.swing.JFrame {
             if (trangThai == 0) {
                 Object[] data = new Object[]{
                     mauSac.getId(),
-                    mauSac.getName(),};
+                    mauSac.getName(),mauSac.getNgaySua(),mauSac.getNgayTao()};
+                
                 model.addRow(data);
+                
             }
         }
     }
@@ -99,17 +101,17 @@ public class MauSac extends javax.swing.JFrame {
 
         tbMauSac.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Màu Sắc"
+                "ID", "Màu Sắc", "Ngày Sửa", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
