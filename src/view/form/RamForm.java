@@ -91,7 +91,7 @@ public class RamForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("RAM");
 
-        txtRam.setLabelText("Tên Camera");
+        txtRam.setLabelText("Tên Ram");
 
         tblRam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

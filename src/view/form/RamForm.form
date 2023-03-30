@@ -98,7 +98,7 @@
     </Component>
     <Component class="chucNang.TextField" name="txtRam">
       <Properties>
-        <Property name="labelText" type="java.lang.String" value="T&#xea;n Camera"/>
+        <Property name="labelText" type="java.lang.String" value="T&#xea;n Ram"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
