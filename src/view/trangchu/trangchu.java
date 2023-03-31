@@ -9,6 +9,7 @@ import java.awt.PopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -35,6 +36,8 @@ import view.form.banhang;
 import view.form.form_home;
 import view.form.khuyenmai;
 import view.form.mainform;
+import view.logiin.Auth;
+import view.logiin.DangNhap;
 
 /**
  *
@@ -43,93 +46,143 @@ import view.form.mainform;
 public class trangchu extends javax.swing.JFrame {
 
     private MigLayout layout;
-   private menu menu;
-   private Header header;
-   private Animator animator;
-   private mainform main;
+    private menu menu;
+    private Header header;
+    private Animator animator;
+    private mainform main;
+    private DangNhap dangNhap = new DangNhap();
+
     public trangchu() {
         initComponents();
         init();
-          setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
-     private void init() {
+    private void init() {
         layout = new MigLayout("fill", "0[]0[100%, fill]0", "0[fill, top]0");
         bg.setLayout(layout);
         menu = new menu();
         header = new Header();
         main = new mainform();
         menu.addEvent(new EventMenuSelected() {
-           
 
             @Override
             public void menuSelect(int menuIndex, int subMenuIndex) {
-               System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
-                if (menuIndex == 0) {
+                System.out.println("Menu Index : " + menuIndex + " SubMenu Index " + subMenuIndex);
+
+                if (Auth.isManager()) {
+                    if (menuIndex == 0) {
+                        if (subMenuIndex == -1) {
+                            main.showForm(new form_home());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new form_home());
+                        }
+
+                    } else if (menuIndex == 1) {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new SanPhamForm());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new ChiTietSanPham());
+                        }
+                    } // giao dich
+                    else if (menuIndex == 2) {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new banhang());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new BaoHanh());
+                        } else if (subMenuIndex == 2) {
+                            main.showForm(new HDBan());
+                        } else if (subMenuIndex == 3) {
+                            main.showForm(new BaoHanh());
+                        }
+                    } // khach hang
+                    else if (menuIndex == 3) {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new KhachHangForm());
+                        }
+                    } // nhan vien
+                    else if (menuIndex == 4) {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new NhanVien());
+                        }
+                    } // thong ke
+                    else if (menuIndex == 5) {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new DoanhThu());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new DoanhSo());
+                        }
+                    } // ca nhan
+                    else if (menuIndex == 6) {
+                        if (subMenuIndex == 0) {
+                            main.showForm(new ThongTinCaNhan());
+                        } else if (subMenuIndex == 1) {
+                            main.showForm(new DoiMatKhau());
+                        }
+                    } // khuyen mai
+                    else if (menuIndex == 7) {
+                        if (subMenuIndex == -1) {
+                            main.showForm(new khuyenmai());
+                        }
+                    } else {
+                        int i = JOptionPane.showConfirmDialog(rootPane, "bạn có muốn đăng xuất không ");
+                        if (i == JOptionPane.YES_OPTION) {
+
+                            dispose();
+                            dangNhap.setVisible(true);
+
+                        } else {
+                            return;
+                        }
+                    }
+                } else {
+                    // nhân viên đang nhập 
+                    if (menuIndex == 0) {
                     if (subMenuIndex == -1) {
                         main.showForm(new form_home());
                     } else if (subMenuIndex == 1) {
                         main.showForm(new form_home());
                     }
-                    
-                    
-                }else if (menuIndex == 1) {
-                    if (subMenuIndex ==0) {
-                             main.showForm(new SanPhamForm() );
-                        }else if (subMenuIndex == 1) {
-                            main.showForm(new ChiTietSanPham());                  
+
+                }  // giao dich
+                else if (menuIndex == 1) {
+                    if (subMenuIndex == 0) {
+                        main.showForm(new banhang());
+                    } else if (subMenuIndex == 1) {
+                        main.showForm(new BaoHanh());
+                    } else if (subMenuIndex == 2) {
+                        main.showForm(new HDBan());
+                    } else if (subMenuIndex == 3) {
+                        main.showForm(new BaoHanh());
                     }
-                }
-                // giao dich
+                } // khach hang
                 else if (menuIndex == 2) {
-                    if (subMenuIndex ==0) {
-                             main.showForm(new banhang() );
-                        }else if (subMenuIndex == 1) {
-                            main.showForm(new BaoHanh());                  
-                    }else if (subMenuIndex == 2) {
-                            main.showForm(new HDBan());                  
-                    }else if (subMenuIndex == 3) {
-                            main.showForm(new BaoHanh());                  
+                    if (subMenuIndex == 0) {
+                        main.showForm(new KhachHangForm());
+                    }
+                } 
+                 // ca nhan
+                else if (menuIndex == 3) {
+                    if (subMenuIndex == 0) {
+                        main.showForm(new ThongTinCaNhan());
+                    } else if (subMenuIndex == 1) {
+                        main.showForm(new DoiMatKhau());
+                    }
+                } 
+              else {
+                    int i = JOptionPane.showConfirmDialog(rootPane, "bạn có muốn đăng xuất không ");
+                    if (i == JOptionPane.YES_OPTION) {
+
+                        dispose();
+                        dangNhap.setVisible(true);
+
+                    } else {
+                        return;
                     }
                 }
-                
-                // khach hang
-                else if (menuIndex == 3) {
-                    if (subMenuIndex ==0) {
-                             main.showForm(new KhachHangForm() );
-                        }
+
                 }
-                // nhan vien
-                else if (menuIndex == 4) {
-                    if (subMenuIndex ==0) {
-                             main.showForm(new NhanVien() );
-                        }
-                }
-                // thong ke
-                else if (menuIndex == 5) {
-                    if (subMenuIndex ==0) {
-                             main.showForm(new DoanhThu() );
-                        }else if (subMenuIndex ==1) {
-                             main.showForm(new DoanhSo() );
-                        }
-                }
-                // ca nhan
-                else if (menuIndex == 6) {
-                    if (subMenuIndex ==0) {
-                             main.showForm(new ThongTinCaNhan() );
-                        }else if (subMenuIndex ==1) {
-                             main.showForm(new DoiMatKhau() );
-                        }
-                }
-                // khuyen mai
-                else if (menuIndex == 7) {
-                    if (subMenuIndex ==-1) {
-                             main.showForm(new khuyenmai() );
-                        }
-                }
-                
-                
-                
+
             }
         });
         menu.addEventShowPopup(new EventShowPopupMenu() {
@@ -137,7 +190,7 @@ public class trangchu extends javax.swing.JFrame {
             public void showPopup(Component com) {
                 MenuItem item = (MenuItem) com;
                 //PopupMenu popup = new PopupMenu(Main.this, item.getIndex(), item.getEventSelected(), item.getMenu().getSubMenu());
-                view.duan.swing.PopupMenu popup= new view.duan.swing.PopupMenu(trangchu.this,item.getIndex(), item.getEnventSelect(), item.getMenu().getSubMenu());
+                view.duan.swing.PopupMenu popup = new view.duan.swing.PopupMenu(trangchu.this, item.getIndex(), item.getEnventSelect(), item.getMenu().getSubMenu());
                 int x = trangchu.this.getX() + 52;
                 int y = trangchu.this.getY() + com.getY() + 86;
                 popup.setLocation(x, y);
@@ -185,10 +238,11 @@ public class trangchu extends javax.swing.JFrame {
             }
         });
         //  Init google icon font
-         IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
+        IconFontSwing.register(GoogleMaterialDesignIcons.getIconFont());
         //  Start with this form
-       main.showForm(new form_home());
+        main.showForm(new form_home());
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -83,13 +83,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace pref="19" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="radioButtonCustom2" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdo_bieudocot" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="myButton1" min="-2" max="-2" attributes="0"/>
-                          <Component id="radioButtonCustom1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_bieudo" min="-2" max="-2" attributes="0"/>
+                          <Component id="rdo_bieudoduong" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="combobox2" alignment="0" pref="150" max="32767" attributes="0"/>
-                      <Component id="combobox1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cbo_thang" alignment="0" pref="150" max="32767" attributes="0"/>
+                      <Component id="cbo_nam" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="36" max="32767" attributes="0"/>
               </Group>
@@ -99,32 +99,38 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Component id="combobox1" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbo_nam" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Component id="combobox2" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbo_thang" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="radioButtonCustom1" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdo_bieudoduong" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="radioButtonCustom2" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdo_bieudocot" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="myButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_bieudo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="chucNang.Combobox" name="combobox1">
+        <Component class="chucNang.Combobox" name="cbo_nam">
           <Properties>
             <Property name="labeText" type="java.lang.String" value="N&#x103;m"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbo_namActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="chucNang.Combobox" name="combobox2">
+        <Component class="chucNang.Combobox" name="cbo_thang">
           <Properties>
             <Property name="labeText" type="java.lang.String" value="Th&#xe1;ng"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbo_thangActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom1">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_bieudoduong">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
@@ -132,7 +138,7 @@
             <Property name="text" type="java.lang.String" value="Bi&#x1ec3;u &#x110;&#x1ed3; &#x110;&#x1b0;&#x1edd;ng"/>
           </Properties>
         </Component>
-        <Component class="chucNang.RadioButtonCustom" name="radioButtonCustom2">
+        <Component class="chucNang.RadioButtonCustom" name="rdo_bieudocot">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
@@ -140,10 +146,13 @@
             <Property name="text" type="java.lang.String" value="Bi&#x1ec3;u &#x110;&#x1ed3; C&#x1ed9;t"/>
           </Properties>
         </Component>
-        <Component class="chucNang.MyButton" name="myButton1">
+        <Component class="chucNang.MyButton" name="btn_bieudo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Bi&#x1ec3;u &#x110;&#x1ed3;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_bieudoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -162,7 +171,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="chucNang.Table01" name="table011">
+        <Component class="chucNang.Table01" name="tbl_thongkedoanhso">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="3" rowCount="0">

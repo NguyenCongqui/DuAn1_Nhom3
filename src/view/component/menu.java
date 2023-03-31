@@ -22,6 +22,7 @@ import view.duan1.event.EventMenuSelected;
 import view.duan1.event.EventShowPopupMenu;
 
 import view.duan1.event.ScrollBarCustom;
+import view.logiin.Auth;
 
 /**
  *
@@ -29,12 +30,12 @@ import view.duan1.event.ScrollBarCustom;
  */
 public class menu extends javax.swing.JPanel {
 
-   private final MigLayout layout;
+    private final MigLayout layout;
 //   private final Animator animator;
-   private EventShowPopupMenu eventShowPopup;
-   private EventMenuSelected event;
-   private boolean enableMenu = true;
-   private boolean showMenu = true;
+    private EventShowPopupMenu eventShowPopup;
+    private EventMenuSelected event;
+    private boolean enableMenu = true;
+    private boolean showMenu = true;
 
     public EventShowPopupMenu getEventShowPopup() {
         return eventShowPopup;
@@ -51,7 +52,6 @@ public class menu extends javax.swing.JPanel {
     public void setEnableMenu(boolean enableMenu) {
         this.enableMenu = enableMenu;
     }
-   
 
     public EventMenuSelected getEvent() {
         return event;
@@ -61,10 +61,10 @@ public class menu extends javax.swing.JPanel {
         this.event = event;
     }
 
-  
- public void addEvent(EventMenuSelected event) {
+    public void addEvent(EventMenuSelected event) {
         this.event = event;
     }
+
     public boolean isShowMenu() {
         return showMenu;
     }
@@ -88,10 +88,11 @@ public class menu extends javax.swing.JPanel {
     public void setSp(JScrollPane sp) {
         this.sp = sp;
     }
+
     public void addEventShowPopup(EventShowPopupMenu eventShowPopup) {
         this.eventShowPopup = eventShowPopup;
     }
-   
+
     public menu() {
         initComponents();
         setOpaque(false);
@@ -103,29 +104,40 @@ public class menu extends javax.swing.JPanel {
 //            
 //        }
     }
-    
-     public void initMenuItem() {
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Trang Chủ"));       
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/12.png")), "Quản Lý Điện Thoại", "Sản Phẩm", "Chi Tiết Sản Phẩm"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/4.png")), "Giao Dịch", "Bán Hàng", "Bảo Hành", "Hóa Đơn Bán","Hóa Đơn Bảo Hành"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/10.png")), "Khách Hàng","Danh sách Khách Hàng"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/5.png")), "Nhân Viên","Danh Sách Nhân Viên"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Thống kê", "Doanh Thu", "Doanh Số"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/canhan.png")), "Cá Nhân", "Thông Tin", "Đổi Mật Khẩu"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Khuyến Mãi"));
-        addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/18.png")), "Đăng Xuất"));
+
+    public void initMenuItem() {
+
+        if (Auth.isManager()) {
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Trang Chủ"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/12.png")), "Quản Lý Điện Thoại", "Sản Phẩm", "Chi Tiết Sản Phẩm"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/4.png")), "Giao Dịch", "Bán Hàng", "Bảo Hành", "Hóa Đơn Bán", "Hóa Đơn Bảo Hành"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/10.png")), "Khách Hàng", "Danh sách Khách Hàng"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/5.png")), "Nhân Viên", "Danh Sách Nhân Viên"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Thống kê", "Doanh Thu", "Doanh Số"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/canhan.png")), "Cá Nhân", "Thông Tin", "Đổi Mật Khẩu"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Khuyến Mãi"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/18.png")), "Đăng Xuất"));
+
+        } else {
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/1.png")), "Trang Chủ"));         
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/4.png")), "Giao Dịch", "Bán Hàng", "Bảo Hành", "Hóa Đơn Bán", "Hóa Đơn Bảo Hành"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/10.png")), "Khách Hàng", "Danh sách Khách Hàng"));
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/canhan.png")), "Cá Nhân", "Thông Tin", "Đổi Mật Khẩu"));  
+            addMenu(new ModelMenu(new ImageIcon(getClass().getResource("/duan1/icon/18.png")), "Đăng Xuất"));
+            
+        }
 
     }
-      
-   private void addMenu(ModelMenu menu) {
+
+    private void addMenu(ModelMenu menu) {
         panel.add(new MenuItem(menu, getEventMeu(), event, panel.getComponentCount()), "h 40!");
     }
-   
-private EventMenu getEventMeu(){
-    return new EventMenu() {
-        @Override
-        public boolean menuPressed(Component com, boolean open) {
-           if (enableMenu) {
+
+    private EventMenu getEventMeu() {
+        return new EventMenu() {
+            @Override
+            public boolean menuPressed(Component com, boolean open) {
+                if (enableMenu) {
                     if (isShowMenu()) {
                         if (open) {
                             new MenuAnimation(layout, com).openMenu();
@@ -137,11 +149,12 @@ private EventMenu getEventMeu(){
                         eventShowPopup.showPopup(com);
                     }
                 }
-           return false;
-        }
-    };
-}
- public void hideallMenu() {
+                return false;
+            }
+        };
+    }
+
+    public void hideallMenu() {
         for (Component com : panel.getComponents()) {
             MenuItem item = (MenuItem) com;
             if (item.isOpen()) {
@@ -150,6 +163,7 @@ private EventMenu getEventMeu(){
             }
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -203,9 +217,9 @@ private EventMenu getEventMeu(){
 
     @Override
     protected void paintComponent(Graphics grphcs) {
-        Graphics2D g2 =(Graphics2D)grphcs;
+        Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint gra = new GradientPaint(0,0, new Color(33,105,249),getWidth(), 0,new Color(93,58,196));
+        GradientPaint gra = new GradientPaint(0, 0, new Color(33, 105, 249), getWidth(), 0, new Color(93, 58, 196));
         g2.setPaint(gra);
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(grphcs); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
