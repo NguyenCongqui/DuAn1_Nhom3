@@ -87,7 +87,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane6" alignment="1" min="-2" pref="578" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btn_Clear" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_Xoa" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -98,7 +98,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane6" pref="162" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btn_Clear" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_Xoa" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -115,12 +115,14 @@
                 <Component class="javax.swing.JTable" name="tbl2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="0">
+                      <Table columnCount="8" rowCount="0">
+                        <Column editable="false" title="" type="java.lang.Object"/>
                         <Column editable="false" title="S&#x1ed1; Imei" type="java.lang.Object"/>
                         <Column editable="false" title="T&#xea;n SP" type="java.lang.Object"/>
-                        <Column editable="true" title="Danh M&#x1ee5;c" type="java.lang.Object"/>
-                        <Column editable="true" title="Dung L&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
-                        <Column editable="true" title="M&#xe0;u S&#x1eaf;c" type="java.lang.Object"/>
+                        <Column editable="false" title="Danh M&#x1ee5;c" type="java.lang.Object"/>
+                        <Column editable="false" title="Dung L&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xe0;u S&#x1eaf;c" type="java.lang.Object"/>
+                        <Column editable="false" title="S&#x1ed1; L&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                         <Column editable="false" title="&#x110;&#x1a1;n Gi&#xe1;" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -136,17 +138,27 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -171,12 +183,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="chucNang.MyButton" name="btn_Clear">
+            <Component class="chucNang.MyButton" name="btn_Xoa">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ClearActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_XoaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -364,7 +376,7 @@
             </Component>
             <Component class="chucNang.MyButton" name="btnHTBH">
               <Properties>
-                <Property name="text" type="java.lang.String" value="B&#x1ea3;o H&#xe0;nh"/>
+                <Property name="text" type="java.lang.String" value="Ho&#xe0;n th&#xe0;nh"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHTBHActionPerformed"/>

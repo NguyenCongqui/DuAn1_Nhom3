@@ -14,13 +14,14 @@ public class BaoHanhViewModel {
       private int idHDBH;
     private int idHDBan;
     private int idKhachHang;
-//    private int IDUsers;
+    private int IDUsers;
     private Date thoiGian;
     private String khachHang;
     private int Sdt;
 //    private float tongTienHoanTra;
     private String ghiChu;
-
+    private int trangThai;
+    
     public BaoHanhViewModel() {
     }
 
@@ -33,6 +34,8 @@ public class BaoHanhViewModel {
         this.Sdt = Sdt;
         this.ghiChu = ghiChu;
     }
+
+
 
     public int getIdHDBH() {
         return idHDBH;
@@ -88,6 +91,22 @@ public class BaoHanhViewModel {
 
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
+    }
+
+    public int getIDUsers() {
+        return IDUsers;
+    }
+
+    public void setIDUsers(int IDUsers) {
+        this.IDUsers = IDUsers;
+    }
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
     }
     
     

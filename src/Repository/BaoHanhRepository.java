@@ -7,6 +7,7 @@ package Repository;
 import Utilities.DBConnection;
 import ViewModel.BaoHanhViewModel;
 import ViewModel.CTHDViewModel;
+import ViewModel.ChiTietBaoHanhViewModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ public class BaoHanhRepository {
     PreparedStatement pst = null;
 
     public List<CTHDViewModel> selectById(int id) {
-        String sql = "SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.CHITIETHOADONBAN.IDCHITIETHOADONBAN, dbo.SANPHAM.TENSANPHAM, dbo.CHITIETHOADONBAN.SoLuong, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.MAUSAC.TENMAUSAC, \n" +
+        String sql = "		   SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.CHITIETHOADONBAN.IDCHITIETHOADONBAN, dbo.SANPHAM.TENSANPHAM, dbo.CHITIETHOADONBAN.SoLuong, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.MAUSAC.TENMAUSAC, \n" +
 "             dbo.CHITIETHOADONBAN.DonGia, dbo.KHACHHANG.HOTEN, dbo.KHACHHANG.IDKHACHHANG, dbo.HOADONBAN.NGAYTHANHTOAN, dbo.CHITIETHOADONBAN.SOIMEI\n" +
 "FROM   dbo.BONHOTRONG INNER JOIN\n" +
 "             dbo.CHITIETSANPHAM ON dbo.BONHOTRONG.IDBONHOTRONG = dbo.CHITIETSANPHAM.IDBONHOTRONG INNER JOIN\n" +
@@ -38,7 +39,7 @@ public class BaoHanhRepository {
 "             dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
 "             dbo.MAUSAC ON dbo.CHITIETSANPHAM.IDMAUSAC = dbo.MAUSAC.IDMAUSAC INNER JOIN\n" +
 "             dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN\n" +
-"             dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC";
+"             dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC WHERE HOADONBAN.TRANGTHAI= 0 AND CHITIETHOADONBAN.IDHOADONBAN = ?  ";
         List<CTHDViewModel> list = new ArrayList<>();
         try {
             //st = db.getConnection().createStatement();
@@ -56,7 +57,7 @@ public class BaoHanhRepository {
                 p.setDanhMuc(rs.getString("TENDANHMUC"));
                 p.setMauSac(rs.getString("TENMAUSAC"));
                 p.setDungLuong(rs.getString("TENBONHOTRONG"));
-                p.setTenKH(rs.getString("TENKhachHang"));
+                p.setTenKH(rs.getString("HOTEN"));
                 p.setIdKH(rs.getInt("IDKHACHHANG"));
                 p.setNgayTao(rs.getString("NGAYTHANHTOAN"));
                 list.add(p);
@@ -117,5 +118,47 @@ public class BaoHanhRepository {
             e.printStackTrace(System.out);
         }
         return null;
+    }
+      
+      
+      public String insertBaoHanh(BaoHanhViewModel e) {
+        try {
+            String sql = "INSERT INTO [dbo].[BAOHANH]\n" +
+"           ([IDUSERS]\n" +
+"           ,[IDKHACHHANG]\n" +
+"           ,[TRANGTHAI]\n" +
+"           ,[GHICHU]\n" +
+"           ,[IDHOADONBAN],[NGAYTAO])\n" +
+"     VALUES(?,?,0,?,?,GETDATE())";
+            pst = db.getConnection().prepareStatement(sql);
+            pst.setInt(1, e.getIDUsers());
+            pst.setInt(2, e.getIdKhachHang());
+            pst.setInt(3, e.getTrangThai());
+            pst.setString(4, e.getGhiChu());
+            pst.setInt(5, e.getIdHDBan());
+            pst.executeUpdate();
+            return "Bao hanh thanh cong";
+        } catch (SQLException ex) {
+            Logger.getLogger(BaoHanhViewModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Bao hanh khong thanh cong";
+    }
+      
+       public String insertCTBH(ChiTietBaoHanhViewModel e) {
+        try {
+        String sql = "INSERT INTO [dbo].[CHITIETBAOHANH]\n" +
+"           ([IDBAOHANH]\n" +
+"           ,[IDCHITIETHOADONBAN])\n" +
+"     VALUES\n" +
+"           ((SELECT TOP 1 [IDBAOHANH] FROM dbo.BAOHANH ORDER BY IDBAOHANH DESC),?)";
+     pst = db.getConnection().prepareStatement(sql);
+            // pst.setInt(1, cthdnsvm.getIDHoaDonNhapSanPham());
+            pst.setInt(1, e.getIdCTSP());
+            pst.executeUpdate();
+            return "Them vao CTHDTra thanh cong";
+        } catch (SQLException ex) {
+            Logger.getLogger(BaoHanhRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Them CTHDTra khong thanh cong";
     }
 }

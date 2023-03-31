@@ -8,11 +8,14 @@ import Service.Impl.BaoHanhImpl;
 import Services.BaoHanhService;
 import ViewModel.BaoHanhViewModel;
 import ViewModel.CTHDViewModel;
+import ViewModel.ChiTietBaoHanhViewModel;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.logiin.Auth;
 import view.logiin.XDate;
 
 /**
@@ -22,8 +25,10 @@ import view.logiin.XDate;
 public class BaoHanh extends javax.swing.JPanel {
 
     DefaultTableModel model = null;
+    DefaultTableModel modelList = null;
     List<CTHDViewModel> listBH;
     BaoHanhService baoHanhService = new BaoHanhImpl();
+    List<ChiTietBaoHanhViewModel> CTBHVModels = new ArrayList<>();
 
     /**
      * Creates new form BaoHanh
@@ -47,11 +52,12 @@ public class BaoHanh extends javax.swing.JPanel {
                 d.getDanhMuc(),
                 d.getDungLuong(),
                 d.getMauSac(),
-                d.getSoLuong() == 1,
+                d.getSoLuong(),
                 d.getDonGia()
             });
             txtKhachHang.setText(d.getTenKH());
             txtHoaDon.setText(d.getIdHoaDon() + "");
+            txtImei.setText(d.getSoImei());
         }
         if (listBH.size() > 0) {
             return true;
@@ -81,8 +87,8 @@ public class BaoHanh extends javax.swing.JPanel {
         return true;
 
     }
-    
-       public boolean checkDangBH() {
+
+    public boolean checkDangBH() {
         List<BaoHanhViewModel> list = baoHanhService.selectDangBH();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getIdHDBan() == Integer.parseInt(txtTimKiem.getText())) {
@@ -91,8 +97,8 @@ public class BaoHanh extends javax.swing.JPanel {
         }
         return true;
     }
-       
-       public boolean checkDaBH() {
+
+    public boolean checkDaBH() {
         List<BaoHanhViewModel> list = baoHanhService.selectDaBH();
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getIdHDBan() == Integer.parseInt(txtTimKiem.getText())) {
@@ -101,31 +107,73 @@ public class BaoHanh extends javax.swing.JPanel {
         }
         return true;
     }
-       
-//        public void deleteTemp() {
-//        DefaultTableModel model = (DefaultTableModel) tbl2.getModel();
-//        int row = tbl1.getSelectedRow();
-//        int rowTemp = tbl2.getSelectedRow();
-//
-//        if (tbl2.getSelectedRowCount() == 1) {
-//            for (int i = 0; i < tbl1.getRowCount(); i++) {
-//                if (tbl1.getValueAt(i, 1).equals(tbl2.getValueAt(rowTemp, 0))) {
-//                    int ii = (int) tbl1.getValueAt(i, 3) + (int) tbl2.getValueAt(rowTemp, 2);
-//                    tbl1.setValueAt(ii, i, 3);
-//                }
-//            }
-//            priceTotal = priceTotal - (float) tbl2.getValueAt(tbl2.getSelectedRow(), 6) * (int) tbl2.getValueAt(tbl2.getSelectedRow(), 2);
-//            txt_tienhoantra.setText(nf.format(priceTotal) + " đ");
-//            for (int j = 0; j < list.size(); j++) {
-//                if (list.get(j).getIdCtSach() == (int) tbl2.getValueAt(rowTemp, 0)) {
-//                    model.removeRow(tbl2.getSelectedRow());
-//                    list.remove(list.get(j));
-//                    return;
-//                }
-//            }
-//        }
-//
-//    }
+
+    public void fillTableIn4Invoice() {
+        try {
+            int index = tbl1.getSelectedRow();
+            if (index == 2) {
+                int slg = 1;
+                int row = tbl1.getSelectedRow();
+                if (slg > (int) tbl1.getValueAt(row, 6));
+                return;
+            } else {
+                boolean flag = false;
+                int row = tbl1.getSelectedRow();
+//            int idHDBan = (int) tbl1.getValueAt(row, 0);
+                String soImei = (String) tbl1.getValueAt(row, 1);
+                String tenSP = (String) tbl1.getValueAt(row, 2);
+                String DanhMuc = (String) tbl1.getValueAt(row, 3);
+                String DungLuong = (String) tbl1.getValueAt(row, 4);
+                String MauSac = (String) tbl1.getValueAt(row, 5);
+                int slg = (int) tbl1.getValueAt(row, 6);
+                float gia = (float) tbl1.getValueAt(row, 7);
+
+                modelList = (DefaultTableModel) tbl2.getModel();
+                modelList.addRow(new Object[]{
+                    soImei, tenSP, DanhMuc, DungLuong, MauSac, slg, gia
+                });
+                ChiTietBaoHanhViewModel ctbhvm = new ChiTietBaoHanhViewModel();
+                ctbhvm.setSoImei(soImei);
+                CTBHVModels.add(ctbhvm);
+                tbl1.clearSelection();
+                int i = ((int) tbl1.getValueAt(row, 6)) - slg;
+                tbl1.setValueAt(i, row, 6);
+                System.out.println(i);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Bạn ơi, Sản Phẩm này đã được chọn ");
+        }
+
+    }
+
+    public BaoHanhViewModel getInvoiceReturn() {
+        BaoHanhViewModel ir = new BaoHanhViewModel();
+        ir.setGhiChu(txtGhiChu.getText());
+        ir.setIdHDBan(Integer.valueOf(txtHoaDon.getText()));
+        ir.setIDUsers(Auth.user.getIdUser());
+
+        List<CTHDViewModel> items = baoHanhService.selectById(Integer.valueOf(txtTimKiem.getText()));
+        for (CTHDViewModel p : items) {
+            ir.setIdKhachHang(p.getIdKH());
+            ir.setKhachHang(p.getTenKH());
+            break;
+        }
+
+        return ir;
+    }
+
+    public void insertInvoiceReturn() {
+        BaoHanhViewModel ir = getInvoiceReturn();
+        System.out.println(baoHanhService.insertBaoHanh(ir));
+        JOptionPane.showMessageDialog(this, "Bạn đã bảo hành thành công!!!");
+        int row = tbl2.getRowCount();
+        for (int i = 0; i < CTBHVModels.size(); i++) {
+            ChiTietBaoHanhViewModel de = CTBHVModels.get(i);
+            System.out.println(baoHanhService.insertCTBH(de));
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,7 +187,7 @@ public class BaoHanh extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tbl2 = new javax.swing.JTable();
-        btn_Clear = new chucNang.MyButton();
+        btn_Xoa = new chucNang.MyButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tbl1 = new javax.swing.JTable();
@@ -168,11 +216,11 @@ public class BaoHanh extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Số Imei", "Tên SP", "Danh Mục", "Dung Lượng", "Màu Sắc", "Đơn Giá"
+                "", "Số Imei", "Tên SP", "Danh Mục", "Dung Lượng", "Màu Sắc", "Số Lượng", "Đơn Giá"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -188,13 +236,18 @@ public class BaoHanh extends javax.swing.JPanel {
         if (tbl2.getColumnModel().getColumnCount() > 0) {
             tbl2.getColumnModel().getColumn(0).setResizable(false);
             tbl2.getColumnModel().getColumn(1).setResizable(false);
+            tbl2.getColumnModel().getColumn(2).setResizable(false);
+            tbl2.getColumnModel().getColumn(3).setResizable(false);
+            tbl2.getColumnModel().getColumn(4).setResizable(false);
             tbl2.getColumnModel().getColumn(5).setResizable(false);
+            tbl2.getColumnModel().getColumn(6).setResizable(false);
+            tbl2.getColumnModel().getColumn(7).setResizable(false);
         }
 
-        btn_Clear.setText("Clear");
-        btn_Clear.addActionListener(new java.awt.event.ActionListener() {
+        btn_Xoa.setText("Clear");
+        btn_Xoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_ClearActionPerformed(evt);
+                btn_XoaActionPerformed(evt);
             }
         });
 
@@ -204,7 +257,7 @@ public class BaoHanh extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(btn_Clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
         jPanel4Layout.setVerticalGroup(
@@ -213,7 +266,7 @@ public class BaoHanh extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Clear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -290,7 +343,7 @@ public class BaoHanh extends javax.swing.JPanel {
 
         lblSearch.setForeground(new java.awt.Color(255, 0, 0));
 
-        btnHTBH.setText("Bảo Hành");
+        btnHTBH.setText("Hoàn thành");
         btnHTBH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHTBHActionPerformed(evt);
@@ -450,20 +503,56 @@ public class BaoHanh extends javax.swing.JPanel {
 
     private void tbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl1MouseClicked
         // TODO add your handling code here:
-//           if (evt.getClickCount() == 2) {
-//            if (checkDayReturn() == false) {
-//                JOptionPane.showMessageDialog(this, "Hoá đơn đã quá hạn bảo hành");
-//                return;
-//            } else if (checkDangBH() == false) {
-//                JOptionPane.showMessageDialog(this, "Hoá đơn đang bảo hành");
-//                return;
-//            } else if (check == false) {
-//                JOptionPane.showMessageDialog(this, "Hoá đơn đã bảo hành");
-//                return;
-//            } else {
-//                fillTableIn4Invoice();
-//            }
-//        }
+     
+        if (evt.getClickCount() == 1) {
+            if (checkDayReturn() == false) {
+                JOptionPane.showMessageDialog(this, "Hoá đơn đã quá hạn bảo hành");
+                return;
+            } else if (checkDangBH() == false) {
+                JOptionPane.showMessageDialog(this, "Hoá đơn đang bảo hành");
+                 btnHTBH.setVisible(true);
+               
+                return;
+            } else if (checkDaBH() == false) {
+                JOptionPane.showMessageDialog(this, "Hoá đơn đã bảo hành");
+                return;
+            } else {
+                try {
+                    int index = tbl1.getSelectedRow();
+                    if (index != -1) {
+//                        JOptionPane.showMessageDialog(this, "Vui lòng chọn hóa đơn trước khi thêm sản phẩm vào giỏ hàng !");
+//                    } else {
+                        int soluongton = 1;
+                        int row = tbl1.getSelectedRow();
+                        if (soluongton > (int) tbl1.getValueAt(row, 6)) {
+//                            JOptionPane.showMessageDialog(this, "Bạn ơi,  Sản Phẩm này đã được chọn ");
+                            return;
+                        } else {
+                            boolean flag = false;
+                            int idHDBan = (int) tbl1.getValueAt(row, 0);
+                            String soImei = (String) tbl1.getValueAt(row, 1);
+                            String tenSP = (String) tbl1.getValueAt(row, 2);
+                            String DanhMuc = (String) tbl1.getValueAt(row, 3);
+                            String DungLuong = (String) tbl1.getValueAt(row, 4);
+                            String MauSac = (String) tbl1.getValueAt(row, 5);
+                            int slg = (int) tbl1.getValueAt(row, 6);
+                            float gia = (float) tbl1.getValueAt(row, 7);
+
+                            modelList = (DefaultTableModel) tbl2.getModel();
+                            modelList.addRow(new Object[]{
+                                idHDBan, soImei, tenSP, DanhMuc, DungLuong, MauSac, slg, gia
+                            });
+                            tbl1.clearSelection();
+                            int i = ((int) tbl1.getValueAt(row, 6)) - slg;
+                            tbl1.setValueAt(i, row, 6);
+//                            System.out.println(i);
+                        }
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Bạn ơi, Lỗi ");
+                }
+            }
+        }
 
     }//GEN-LAST:event_tbl1MouseClicked
 
@@ -479,13 +568,71 @@ public class BaoHanh extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKhachHangActionPerformed
 
-    private void btn_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ClearActionPerformed
-        // TODO add your handling code here:
+//    public void deleteRowInTableTemp() {
+//
+//        DefaultTableModel model = (DefaultTableModel) tbl2.getModel();
+//        int row = tbl1.getSelectedRow();
+//        int rowTemp = tbl2.getSelectedRow();
+//
+//        if (tbl2.getSelectedRowCount() == 1) {
+//            for (int i = 0; i < tbl1.getRowCount(); i++) {
+//                if (tbl1.getValueAt(i, 0).equals(tbl2.getValueAt(rowTemp, 0))) {
+//                    int ii = (int) tbl1.getValueAt(i, 6) + (int) tbl2.getValueAt(rowTemp, 6);
+//                    tbl1.setValueAt(ii, i, 6);
+//                }
+//            }
+//
+//             for (int j = 0; j < CTBHVModels.size(); j++) {
+//                if (CTBHVModels.get(j).getIdBh()== (int) tbl2.getValueAt(rowTemp, 0)) {
+//                    model.removeRow(tbl2.getSelectedRow());
+//                    CTBHVModels.remove(CTBHVModels.get(j));
+//                    return;
+//                }
+//            }
+//        }
+//    }
+    public void deleteRow() {
+        int row = tbl2.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tbl2.getModel();
+        int rowTemp = tbl2.getSelectedRow();
 
-    }//GEN-LAST:event_btn_ClearActionPerformed
+        if (tbl2.getSelectedRowCount() == 1) {
+            for (int i = 0; i < tbl1.getRowCount(); i++) {
+                if (tbl1.getValueAt(i, 0).equals(tbl2.getValueAt(rowTemp, 0))) {
+                    int ii = (int) tbl1.getValueAt(i, 6) + (int) tbl2.getValueAt(rowTemp, 6);
+                    tbl1.setValueAt(ii, i, 6);
+                }
+            }
+            for (int i = 0; i < tbl2.getRowCount(); i++) {
+//            if (row == i) {
+                model.removeRow(tbl2.getSelectedRow());
+                listBH.remove(listBH.get(i));
+                JOptionPane.showMessageDialog(this, "Xóa Mặt Hàng Thành Công");
+                //btn_xoa.setEnabled(false);
+                return;
+            }
+//        }
+        }
+    }
+    private void btn_XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_XoaActionPerformed
+        // TODO add your handling code here:
+        deleteRow();
+    }//GEN-LAST:event_btn_XoaActionPerformed
 
     private void btnBaoHanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaoHanhActionPerformed
         // TODO add your handling code here:
+        try {
+            insertInvoiceReturn();
+            model.setRowCount(0);
+            modelList.setRowCount(0);
+            lblSearch.setText("");
+            txtKhachHang.setText("");
+            txtHoaDon.setText("");
+            txtGhiChu.setText("");
+            txtTimKiem.setText("");
+        } catch (Exception e) {
+            System.out.println("Mời nhập lại");
+        }
     }//GEN-LAST:event_btnBaoHanhActionPerformed
 
     private void txtImeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtImeiActionPerformed
@@ -494,7 +641,7 @@ public class BaoHanh extends javax.swing.JPanel {
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
-           if (txtTimKiem.getText().isEmpty()) {
+        if (txtTimKiem.getText().isEmpty()) {
             txtKhachHang.setText("");
             txtHoaDon.setText("");
             lblSearch.setText("");
@@ -528,7 +675,7 @@ public class BaoHanh extends javax.swing.JPanel {
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
         // TODO add your handling code here:
-          lblSearch.setText("");
+        lblSearch.setText("");
     }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void btnHTBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHTBHActionPerformed
@@ -539,7 +686,7 @@ public class BaoHanh extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private chucNang.MyButton btnBaoHanh;
     private chucNang.MyButton btnHTBH;
-    private chucNang.MyButton btn_Clear;
+    private chucNang.MyButton btn_Xoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

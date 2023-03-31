@@ -6,6 +6,7 @@ package Services;
 
 import ViewModel.BaoHanhViewModel;
 import ViewModel.CTHDViewModel;
+import ViewModel.ChiTietBaoHanhViewModel;
 import java.util.List;
 
 /**
@@ -18,4 +19,8 @@ public interface BaoHanhService {
     List<BaoHanhViewModel> selectDangBH();
     
     List<BaoHanhViewModel> selectDaBH();
+    
+    String insertBaoHanh(BaoHanhViewModel e) ;
+    
+    String insertCTBH(ChiTietBaoHanhViewModel e);
 }

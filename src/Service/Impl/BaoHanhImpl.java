@@ -8,6 +8,7 @@ import Repository.BaoHanhRepository;
 import Services.BaoHanhService;
 import ViewModel.BaoHanhViewModel;
 import ViewModel.CTHDViewModel;
+import ViewModel.ChiTietBaoHanhViewModel;
 import java.util.List;
 
 /**
@@ -30,6 +31,16 @@ public class BaoHanhImpl implements BaoHanhService{
     @Override
     public List<BaoHanhViewModel> selectDaBH() {
         return repo.selectDaBH();
+    }
+
+    @Override
+    public String insertBaoHanh(BaoHanhViewModel e) {
+        return repo.insertBaoHanh(e);
+    }
+
+    @Override
+    public String insertCTBH(ChiTietBaoHanhViewModel e) {
+        return repo.insertCTBH(e);
     }
     
 }
