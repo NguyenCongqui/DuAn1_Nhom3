@@ -128,14 +128,15 @@ public class BaoHanhRepository {
 "           ,[IDKHACHHANG]\n" +
 "           ,[TRANGTHAI]\n" +
 "           ,[GHICHU]\n" +
-"           ,[IDHOADONBAN],[NGAYTAO])\n" +
+"           ,[IDHOADONBAN],"
+                    + "[NGAYTAO])\n" +
 "     VALUES(?,?,0,?,?,GETDATE())";
             pst = db.getConnection().prepareStatement(sql);
             pst.setInt(1, e.getIDUsers());
             pst.setInt(2, e.getIdKhachHang());
-            pst.setInt(3, e.getTrangThai());
-            pst.setString(4, e.getGhiChu());
-            pst.setInt(5, e.getIdHDBan());
+          //;  pst.setInt(3, e.getTrangThai());
+            pst.setString(3, e.getGhiChu());
+            pst.setInt(4, e.getIdHDBan());
             pst.executeUpdate();
             return "Bao hanh thanh cong";
         } catch (SQLException ex) {
