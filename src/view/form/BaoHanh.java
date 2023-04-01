@@ -503,17 +503,22 @@ public class BaoHanh extends javax.swing.JPanel {
 
     private void tbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl1MouseClicked
         // TODO add your handling code here:
-     
-        if (evt.getClickCount() == 1) {
+        if (checkDangBH() == false) {
+             btnHTBH.setVisible(true);
+             return;
+        } else 
+        
+        if (evt.getClickCount() == 2) {
             if (checkDayReturn() == false) {
                 JOptionPane.showMessageDialog(this, "Hoá đơn đã quá hạn bảo hành");
                 return;
-            } else if (checkDangBH() == false) {
+            }
+            else if (checkDangBH() == false) {
                 JOptionPane.showMessageDialog(this, "Hoá đơn đang bảo hành");
                  btnHTBH.setVisible(true);
-               
-                return;
-            } else if (checkDaBH() == false) {
+                    return;
+            }
+            else if (checkDaBH() == false) {
                 JOptionPane.showMessageDialog(this, "Hoá đơn đã bảo hành");
                 return;
             } else {
