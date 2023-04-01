@@ -13,13 +13,13 @@ import java.util.Date;
 public class KhachHang {
     private Integer id;
     private String hoTen;
-    private Date ngaySinh;
+    private String ngaySinh;
     private boolean gioiTinh;
     private String soDienThoai;
     private String diaChi;
     private boolean trangThai;
 
-    public KhachHang(Integer id, String hoTen, Date ngaySinh, boolean gioiTinh, String soDienThoai, String diaChi, boolean trangThai) {
+    public KhachHang(Integer id, String hoTen, String ngaySinh, boolean gioiTinh, String soDienThoai, String diaChi, boolean trangThai) {
         this.id = id;
         this.hoTen = hoTen;
         this.ngaySinh = ngaySinh;
@@ -28,6 +28,12 @@ public class KhachHang {
         this.diaChi = diaChi;
         this.trangThai = trangThai;
     }
+
+    public KhachHang() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+        
 
     public Integer getId() {
         return id;
@@ -45,11 +51,11 @@ public class KhachHang {
         this.hoTen = hoTen;
     }
 
-    public Date getNgaySinh() {
+    public String getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(Date ngaySinh) {
+    public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 

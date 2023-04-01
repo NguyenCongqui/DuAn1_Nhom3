@@ -72,7 +72,9 @@ public class KhachHangForm extends javax.swing.JPanel {
         String ten = txtTenKhachHang.getText();
         //String ngaySinh = "MM-dd-yyyy";
         //DateFormat df = new SimpleDateFormat(ngaySinh);
-        Date ngaySinhs = (XDate.toDate(txtNgaySinh.getText(), "yyyy-MM-dd"));;
+        String ngaySinhs;
+        ngaySinhs = (txtNgaySinh.getText());
+
         //String ngaySinhs = df.format(date);
         Boolean gioiTinh = true;
         if (rbNam.isSelected() == true) {
@@ -126,7 +128,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        dateChooser1 = new com.raven.datechooser.DateChooser();
+        date = new com.raven.datechooser.DateChooser();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbKhachHang = new chucNang.Table01();
@@ -144,8 +146,8 @@ public class KhachHangForm extends javax.swing.JPanel {
         txtSodienthoai = new chucNang.TextField();
         txtNgaySinh = new chucNang.TextField();
 
-        dateChooser1.setDateFormat("yyyy-MM-dd");
-        dateChooser1.setTextRefernce(txtNgaySinh);
+        date.setDateFormat("yyyy-MM-dd");
+        date.setTextRefernce(txtNgaySinh);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -421,7 +423,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     private chucNang.MyButton btnThem;
     private chucNang.MyButton btnXoa;
     private javax.swing.ButtonGroup buttonGroup1;
-    private com.raven.datechooser.DateChooser dateChooser1;
+    private com.raven.datechooser.DateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
