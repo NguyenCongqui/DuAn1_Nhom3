@@ -4,19 +4,73 @@
  */
 package view.form;
 
+import Repository.ThongKeDoanhThuRepository;
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ADMIN
  */
 public class DoanhThu extends javax.swing.JPanel {
 
-    /**
-     * Creates new form DoanhThu
-     */
+    DefaultTableModel tbl_model = new DefaultTableModel();
+    ThongKeDoanhThuRepository rep = new ThongKeDoanhThuRepository();
+    
     public DoanhThu() {
         initComponents();
+        fillYear();
+         rdo_bieudoduong.setSelected(true);
+        for (int i = 0; i < tbl_thongkedoanhso.getRowCount(); i++) {
+            tbl_thongkedoanhso.setValueAt(nf.format(tbl_thongkedoanhso.getValueAt(i, 2)) + " đ", i, 2);
+            tbl_thongkedoanhso.setValueAt(nf.format(tbl_thongkedoanhso.getValueAt(i, 3)) + " đ", i, 3);
+            tbl_thongkedoanhso.setValueAt(nf.format(tbl_thongkedoanhso.getValueAt(i, 4)) + " đ", i, 4);
+            tbl_thongkedoanhso.setValueAt(nf.format(tbl_thongkedoanhso.getValueAt(i, 5)) + " đ", i, 5);
+        }
     }
-
+     Locale lc = new Locale("nv", "VN");
+    NumberFormat nf = NumberFormat.getInstance(lc);
+    
+ public void fillYear() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cbo_nam.getModel();
+        model.removeAllElements();
+        List<Integer> list = rep.selectYears();
+        for (Integer i : list) {
+            model.addElement(i);
+        }
+    }
+ public String deleteLastKey(String str) {
+        if (str.charAt(str.length() - 1) == 'đ') {
+            str = str.replace(str.substring(str.length() - 1), "");
+            return str;
+        } else {
+            return str;
+        }
+    }
+      public String fomartFloat(String txt) {
+        String pattern = deleteLastKey(txt);
+        return pattern = pattern.replaceAll(",", "");
+    }
+      public void fillTable() throws Exception {
+        DefaultTableModel model = (DefaultTableModel) tbl_thongkedoanhso.getModel();
+        model.setRowCount(0);
+        int year = (int) cbo_nam.getSelectedItem();
+        List<Object[]> list = rep.getSalesStatisticalRevenue(year);
+        for (Object[] o : list) {  
+            model.addRow(o);
+        }
+        for (int i = 0; i < tbl_thongkedoanhso.getRowCount(); i++) {
+           // int moneyImport = rep.getSelectImport((int) tbl_thongkedoanhso.getValueAt(i, 0), (int) cbo_nam.getSelectedItem());
+            int giaNhap = (int) tbl_thongkedoanhso.getValueAt(i, 3);
+            int tongGiaKhuyenMai = (int) tbl_thongkedoanhso.getValueAt(i, 4);
+            tbl_thongkedoanhso.setValueAt(giaNhap, i, 3);
+            tbl_thongkedoanhso.setValueAt(tongGiaKhuyenMai, i, 4);
+            tbl_thongkedoanhso.setValueAt((int) tbl_thongkedoanhso.getValueAt(i, 2) - (giaNhap + tongGiaKhuyenMai), i, 5);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,12 +83,12 @@ public class DoanhThu extends javax.swing.JPanel {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        combobox1 = new chucNang.Combobox();
-        radioButtonCustom1 = new chucNang.RadioButtonCustom();
-        radioButtonCustom2 = new chucNang.RadioButtonCustom();
-        myButton1 = new chucNang.MyButton();
+        cbo_nam = new chucNang.Combobox();
+        rdo_bieudoduong = new chucNang.RadioButtonCustom();
+        rdo_bieudocot = new chucNang.RadioButtonCustom();
+        btn_bieudo = new chucNang.MyButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table011 = new chucNang.Table01();
+        tbl_thongkedoanhso = new chucNang.Table01();
         myButton2 = new chucNang.MyButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -45,15 +99,25 @@ public class DoanhThu extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        combobox1.setLabeText("Năm");
+        cbo_nam.setLabeText("Năm");
+        cbo_nam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_namActionPerformed(evt);
+            }
+        });
 
-        buttonGroup1.add(radioButtonCustom1);
-        radioButtonCustom1.setText("Biểu Đồ Đường ");
+        buttonGroup1.add(rdo_bieudoduong);
+        rdo_bieudoduong.setText("Biểu Đồ Đường ");
 
-        buttonGroup1.add(radioButtonCustom2);
-        radioButtonCustom2.setText("Biểu Đồ Cột");
+        buttonGroup1.add(rdo_bieudocot);
+        rdo_bieudocot.setText("Biểu Đồ Cột");
 
-        myButton1.setText("Biểu Đồ");
+        btn_bieudo.setText("Biểu Đồ");
+        btn_bieudo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bieudoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -64,37 +128,37 @@ public class DoanhThu extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(radioButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(radioButtonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rdo_bieudoduong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdo_bieudocot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_bieudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(combobox1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbo_nam, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(combobox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbo_nam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(radioButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rdo_bieudoduong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(radioButtonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rdo_bieudocot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_bieudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        table011.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_thongkedoanhso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tháng", "Sản Phẩm Đã Bán", "Tổng Giá Bán", "Tổng Giấ Chi", "Tổng Nhập Hàng", "Lợi Nhuận"
+                "Tháng", "Sản Phẩm Đã Bán", "Tổng Giá Bán", "Tổng Giá Nhập", "Tổng Giá Khuyến Mãi", "Lợi Nhuận"
             }
         ));
-        jScrollPane1.setViewportView(table011);
+        jScrollPane1.setViewportView(tbl_thongkedoanhso);
 
         myButton2.setText("Xuất");
 
@@ -130,17 +194,35 @@ public class DoanhThu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbo_namActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_namActionPerformed
+        // TODO add your handling code here:
+        try {
+            fillTable();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cbo_namActionPerformed
+
+    private void btn_bieudoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bieudoActionPerformed
+        // TODO add your handling code here:
+        if (rdo_bieudoduong.isSelected()) {
+            new BieuDoDuong((DefaultTableModel) tbl_thongkedoanhso.getModel(),null).setVisible(true);
+        
+        } else {
+            new BieuDoCot((DefaultTableModel) tbl_thongkedoanhso.getModel()).setVisible(true);
+        }
+    }//GEN-LAST:event_btn_bieudoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chucNang.MyButton btn_bieudo;
     private javax.swing.ButtonGroup buttonGroup1;
-    private chucNang.Combobox combobox1;
+    private chucNang.Combobox cbo_nam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private chucNang.MyButton myButton1;
     private chucNang.MyButton myButton2;
-    private chucNang.RadioButtonCustom radioButtonCustom1;
-    private chucNang.RadioButtonCustom radioButtonCustom2;
-    private chucNang.Table01 table011;
+    private chucNang.RadioButtonCustom rdo_bieudocot;
+    private chucNang.RadioButtonCustom rdo_bieudoduong;
+    private chucNang.Table01 tbl_thongkedoanhso;
     // End of variables declaration//GEN-END:variables
 }

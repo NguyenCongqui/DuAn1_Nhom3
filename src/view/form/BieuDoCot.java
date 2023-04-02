@@ -25,8 +25,8 @@ public class BieuDoCot extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         getContentPane().setBackground(new Color(250, 250, 250));
         chart1.addLegend("Tổng giá bán", new Color(135, 189, 245));
-        chart1.addLegend("Tổng giá chi", new Color(189, 135, 245));
-        chart1.addLegend("Tổng giá Nhập", new Color(245, 189, 135));
+        chart1.addLegend("Tổng giá nhập", new Color(189, 135, 245));
+        chart1.addLegend("Tổng giá khuyến mãi", new Color(245, 189, 135));
         chart1.addLegend("Doanh thu", new Color(139, 229, 222));
 
         for (int j = 0; j < tbl_cot.getRowCount(); j++) {

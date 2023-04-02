@@ -58,7 +58,7 @@ public class BanHangRepository {
     public String insert(HoaDonBan hdbh, Integer id) {
         String insert = "UPDATE dbo.HOADONBAN SET IDKHACHHANG = ?,IDVOUCHER = ?,NGAYTHANHTOAN = GETDATE(),\n"
                 + "					 TENKhachHang = ?,statusPay=?,statusInvoice = ?,TONGTIEN = ?,TIENKHACHDUA = ?,\n"
-                + "					 TIENTRALAI = ?, TRANGTHAI = ?,GHICHU = ? WHERE IDHOADONBAN = ?";
+                + "					 TIENTRALAI = ?, TRANGTHAI = ?,GHICHU = ?,TONGCONGTIENPHAITRA = ? , TIENVOUCHER = ? WHERE IDHOADONBAN = ?";
 
         try {
             pst = db.getConnection().prepareStatement(insert);
@@ -73,7 +73,9 @@ public class BanHangRepository {
             pst.setFloat(8, hdbh.getTienTraLai());
             pst.setInt(9, hdbh.getTrangThai());
             pst.setString(10, hdbh.getGhiChu());
-            pst.setInt(11, id);
+            pst.setFloat(11, hdbh.getTongCongTienPhaiTra());
+            pst.setFloat(12, hdbh.getTienApVoucher());
+            pst.setInt(13, id);
             pst.executeUpdate();
             return "them thanh cong";
         } catch (Exception e) {

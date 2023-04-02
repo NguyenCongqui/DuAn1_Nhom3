@@ -13,7 +13,7 @@ public class HoaDonBan {
     private int idUser,idKhachHang;
     private String ngayTao,ngayThanhToan,tenKhachHang,ghiChu;
     private boolean TrangThaiTraTien,TrangThaiHoaDon;
-    private float tongTien,tienKhachDua,tienTraLai;
+    private float tongTien,tienKhachDua,tienTraLai,tongCongTienPhaiTra,tienApVoucher;
     private int trangThai;
     private Integer idVoucher;
 
@@ -37,6 +37,25 @@ public class HoaDonBan {
         this.idVoucher = idVoucher;
     }
 
+    public HoaDonBan(int idHDB, int idUser, int idKhachHang, String ngayTao, String ngayThanhToan, String tenKhachHang, String ghiChu, boolean TrangThaiTraTien, boolean TrangThaiHoaDon, float tongTien, float tienKhachDua, float tienTraLai, float tongCongTienPhaiTra, float tienApVoucher, int trangThai, Integer idVoucher) {
+        this.idHDB = idHDB;
+        this.idUser = idUser;
+        this.idKhachHang = idKhachHang;
+        this.ngayTao = ngayTao;
+        this.ngayThanhToan = ngayThanhToan;
+        this.tenKhachHang = tenKhachHang;
+        this.ghiChu = ghiChu;
+        this.TrangThaiTraTien = TrangThaiTraTien;
+        this.TrangThaiHoaDon = TrangThaiHoaDon;
+        this.tongTien = tongTien;
+        this.tienKhachDua = tienKhachDua;
+        this.tienTraLai = tienTraLai;
+        this.tongCongTienPhaiTra = tongCongTienPhaiTra;
+        this.tienApVoucher = tienApVoucher;
+        this.trangThai = trangThai;
+        this.idVoucher = idVoucher;
+    }
+
     public boolean isTrangThaiTraTien() {
         return TrangThaiTraTien;
     }
@@ -51,6 +70,22 @@ public class HoaDonBan {
 
     public void setTrangThaiHoaDon(boolean TrangThaiHoaDon) {
         this.TrangThaiHoaDon = TrangThaiHoaDon;
+    }
+
+    public float getTongCongTienPhaiTra() {
+        return tongCongTienPhaiTra;
+    }
+
+    public void setTongCongTienPhaiTra(float tongCongTienPhaiTra) {
+        this.tongCongTienPhaiTra = tongCongTienPhaiTra;
+    }
+
+    public float getTienApVoucher() {
+        return tienApVoucher;
+    }
+
+    public void setTienApVoucher(float tienApVoucher) {
+        this.tienApVoucher = tienApVoucher;
     }
 
    

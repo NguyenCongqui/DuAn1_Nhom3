@@ -59,8 +59,8 @@ public class BieuDoDuong extends javax.swing.JFrame {
     }
      private void initRevenue(DefaultTableModel tbl_thongkedoanhso) {
         chart.addLegend("Tổng giá bán", new Color(5, 125, 0), new Color(95, 209, 69));
-        chart.addLegend("Tống giá chi", new Color(186, 37, 37), new Color(241, 100, 120));
-        chart.addLegend("Tổng giá nhập", new Color(54, 4, 143), new Color(104, 49, 200));
+        chart.addLegend("Tống giá nhập", new Color(186, 37, 37), new Color(241, 100, 120));
+        chart.addLegend("Tổng giá khuyến mãi", new Color(54, 4, 143), new Color(104, 49, 200));
         chart.addLegend("Doanh thu", new Color(12, 84, 175), new Color(0, 108, 247));
 
         for (int j = 0; j < tbl_thongkedoanhso.getRowCount(); j++) {
