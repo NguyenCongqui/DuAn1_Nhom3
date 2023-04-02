@@ -27,6 +27,7 @@ import view.form.DoanhSo;
 import view.form.DoanhThu;
 import view.form.DoiMatKhau;
 import view.form.HDBan;
+import view.form.HoaDonBaoHanh;
 import view.form.KhachHangForm;
 import view.form.KhachHangForm;
 import view.form.NhanVien;
@@ -93,7 +94,7 @@ public class trangchu extends javax.swing.JFrame {
                         } else if (subMenuIndex == 2) {
                             main.showForm(new HDBan());
                         } else if (subMenuIndex == 3) {
-                            main.showForm(new BaoHanh());
+                            main.showForm(new HoaDonBaoHanh());
                         }
                     } // khach hang
                     else if (menuIndex == 3) {
@@ -153,7 +154,7 @@ public class trangchu extends javax.swing.JFrame {
                     } else if (subMenuIndex == 2) {
                         main.showForm(new HDBan());
                     } else if (subMenuIndex == 3) {
-                        main.showForm(new BaoHanh());
+                        main.showForm(new HoaDonBaoHanh());
                     }
                 } // khach hang
                 else if (menuIndex == 2) {
