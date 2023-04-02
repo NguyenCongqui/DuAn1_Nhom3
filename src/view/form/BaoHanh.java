@@ -28,7 +28,7 @@ public class BaoHanh extends javax.swing.JPanel {
     DefaultTableModel modelList = null;
     List<CTHDViewModel> listBH;
     BaoHanhService baoHanhService = new BaoHanhImpl();
-    List<ChiTietBaoHanhViewModel> CTBHVModels = new ArrayList<>();
+    List<ChiTietBaoHanhViewModel> listCTBH = new ArrayList<>();
 
     /**
      * Creates new form BaoHanh
@@ -36,6 +36,10 @@ public class BaoHanh extends javax.swing.JPanel {
     public BaoHanh() {
         initComponents();
         model = new DefaultTableModel();
+
+        txtKhachHang.disable();
+        txtHoaDon.disable();
+        btnBaoHanh.setVisible(false);
         btnHTBH.setVisible(false);
     }
 
@@ -119,7 +123,7 @@ public class BaoHanh extends javax.swing.JPanel {
             } else {
                 boolean flag = false;
                 int row = tbl1.getSelectedRow();
-//            int idHDBan = (int) tbl1.getValueAt(row, 0);
+                int idHDBan = (int) tbl1.getValueAt(row, 0);
                 String soImei = (String) tbl1.getValueAt(row, 1);
                 String tenSP = (String) tbl1.getValueAt(row, 2);
                 String DanhMuc = (String) tbl1.getValueAt(row, 3);
@@ -130,15 +134,17 @@ public class BaoHanh extends javax.swing.JPanel {
 
                 modelList = (DefaultTableModel) tbl2.getModel();
                 modelList.addRow(new Object[]{
-                    soImei, tenSP, DanhMuc, DungLuong, MauSac, slg, gia
+                    idHDBan, soImei, tenSP, DanhMuc, DungLuong, MauSac, slg, gia
                 });
-                ChiTietBaoHanhViewModel ctbhvm = new ChiTietBaoHanhViewModel();
-                ctbhvm.setSoImei(soImei);
-                CTBHVModels.add(ctbhvm);
+                ChiTietBaoHanhViewModel dir = new ChiTietBaoHanhViewModel();
+                dir.setSoImei(soImei);
+//                dir.setIdCTSP(idHDBan);
+                listCTBH.add(dir);
                 tbl1.clearSelection();
                 int i = ((int) tbl1.getValueAt(row, 6)) - slg;
                 tbl1.setValueAt(i, row, 6);
-                System.out.println(i);
+//                System.out.println(i);
+
             }
 
         } catch (Exception e) {
@@ -168,10 +174,19 @@ public class BaoHanh extends javax.swing.JPanel {
         System.out.println(baoHanhService.insertBaoHanh(ir));
         JOptionPane.showMessageDialog(this, "Bạn đã bảo hành thành công!!!");
         int row = tbl2.getRowCount();
-        for (int i = 0; i < CTBHVModels.size(); i++) {
-            ChiTietBaoHanhViewModel de = CTBHVModels.get(i);
+        for (int i = 0; i < listCTBH.size(); i++) {
+            ChiTietBaoHanhViewModel de = listCTBH.get(i);
             System.out.println(baoHanhService.insertCTBH(de));
         }
+    }
+
+    public BaoHanhViewModel update() {
+        BaoHanhViewModel ir = new BaoHanhViewModel();
+        ir.setGhiChu(txtGhiChu.getText());
+        ir.setIdHDBan(Integer.valueOf(txtHoaDon.getText()));
+//        ir.setIDUsers(Auth.user.getIdUser());
+
+        return ir;
     }
 
     /**
@@ -501,27 +516,44 @@ public class BaoHanh extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl2MouseClicked
 
+    public void reset() {
+        txtImei.setText("");
+        txtGhiChu.setText("");
+        txtKhachHang.setText("");
+        txtTimKiem.setText("");
+        lblSearch.setText("");
+        model.setRowCount(0);
+        modelList.setRowCount(0);
+        btnHTBH.setVisible(false);
+        btnBaoHanh.setVisible(false);
+    }
     private void tbl1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl1MouseClicked
         // TODO add your handling code here:
         if (checkDangBH() == false) {
-             btnHTBH.setVisible(true);
-             return;
-        } else 
-        
-        if (evt.getClickCount() == 2) {
+            btnHTBH.setVisible(true);
+
+            return;
+        } else if (evt.getClickCount() == 2) {
+
             if (checkDayReturn() == false) {
                 JOptionPane.showMessageDialog(this, "Hoá đơn đã quá hạn bảo hành");
+                btnHTBH.setVisible(false);
+                btnBaoHanh.setVisible(false);
                 return;
-            }
-            else if (checkDangBH() == false) {
+            } else if (checkDangBH() == false) {
                 JOptionPane.showMessageDialog(this, "Hoá đơn đang bảo hành");
-                 btnHTBH.setVisible(true);
-                    return;
-            }
-            else if (checkDaBH() == false) {
+
+                btnHTBH.setVisible(true);
+                btnBaoHanh.setVisible(false);
+                return;
+            } else if (checkDaBH() == false) {
                 JOptionPane.showMessageDialog(this, "Hoá đơn đã bảo hành");
+                btnHTBH.setVisible(false);
+                btnBaoHanh.setVisible(false);
                 return;
             } else {
+                btnHTBH.setVisible(false);
+                btnBaoHanh.setVisible(true);
                 try {
                     int index = tbl1.getSelectedRow();
                     if (index != -1) {
@@ -533,24 +565,7 @@ public class BaoHanh extends javax.swing.JPanel {
 //                            JOptionPane.showMessageDialog(this, "Bạn ơi,  Sản Phẩm này đã được chọn ");
                             return;
                         } else {
-                            boolean flag = false;
-                            int idHDBan = (int) tbl1.getValueAt(row, 0);
-                            String soImei = (String) tbl1.getValueAt(row, 1);
-                            String tenSP = (String) tbl1.getValueAt(row, 2);
-                            String DanhMuc = (String) tbl1.getValueAt(row, 3);
-                            String DungLuong = (String) tbl1.getValueAt(row, 4);
-                            String MauSac = (String) tbl1.getValueAt(row, 5);
-                            int slg = (int) tbl1.getValueAt(row, 6);
-                            float gia = (float) tbl1.getValueAt(row, 7);
-
-                            modelList = (DefaultTableModel) tbl2.getModel();
-                            modelList.addRow(new Object[]{
-                                idHDBan, soImei, tenSP, DanhMuc, DungLuong, MauSac, slg, gia
-                            });
-                            tbl1.clearSelection();
-                            int i = ((int) tbl1.getValueAt(row, 6)) - slg;
-                            tbl1.setValueAt(i, row, 6);
-//                            System.out.println(i);
+                            fillTableIn4Invoice();
                         }
                     }
                 } catch (Exception e) {
@@ -646,16 +661,22 @@ public class BaoHanh extends javax.swing.JPanel {
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
+       
         if (txtTimKiem.getText().isEmpty()) {
             txtKhachHang.setText("");
             txtHoaDon.setText("");
             lblSearch.setText("");
             model.setRowCount(0);
+//           modelList.setRowCount(0);
+            btnHTBH.setVisible(false);
+            btnBaoHanh.setVisible(false);
             return;
         }
-        try {
+         try {
             if (ShearchKeyFillTable(Integer.valueOf(txtTimKiem.getText())) == false) {
                 lblSearch.setText("Hoá đơn không tồn tại");
+                btnHTBH.setVisible(false);
+                btnBaoHanh.setVisible(false);
                 return;
             } else {
                 lblSearch.setText("");
@@ -663,18 +684,22 @@ public class BaoHanh extends javax.swing.JPanel {
             }
             if (checkDangBH() == false) {
                 lblSearch.setText("Hoá đơn đang bảo hành");
+                btnHTBH.setVisible(true);
+                btnBaoHanh.setVisible(false);
                 return;
             }
             if (checkDaBH() == false) {
                 lblSearch.setText("Hoá đơn đã bảo hành");
+                btnHTBH.setVisible(false);
+                btnBaoHanh.setVisible(false);
                 return;
             }
             if (checkDayReturn() == false) {
                 return;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            lblSearch.setText("Vui lòng nhập lại -.-");
+        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+            lblSearch.setText("Vui lòng nhập lại số");
         }
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
@@ -685,6 +710,9 @@ public class BaoHanh extends javax.swing.JPanel {
 
     private void btnHTBHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHTBHActionPerformed
         // TODO add your handling code here:
+
+        JOptionPane.showMessageDialog(this, baoHanhService.updateToDB(Integer.parseInt(txtHoaDon.getText()), update()));
+        reset();
     }//GEN-LAST:event_btnHTBHActionPerformed
 
 

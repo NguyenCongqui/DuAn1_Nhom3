@@ -30,16 +30,16 @@ public class BaoHanhRepository {
     PreparedStatement pst = null;
 
     public List<CTHDViewModel> selectById(int id) {
-        String sql = "		   SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.CHITIETHOADONBAN.IDCHITIETHOADONBAN, dbo.SANPHAM.TENSANPHAM, dbo.CHITIETHOADONBAN.SoLuong, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.MAUSAC.TENMAUSAC, \n" +
-"             dbo.CHITIETHOADONBAN.DonGia, dbo.KHACHHANG.HOTEN, dbo.KHACHHANG.IDKHACHHANG, dbo.HOADONBAN.NGAYTHANHTOAN, dbo.CHITIETHOADONBAN.SOIMEI\n" +
-"FROM   dbo.BONHOTRONG INNER JOIN\n" +
-"             dbo.CHITIETSANPHAM ON dbo.BONHOTRONG.IDBONHOTRONG = dbo.CHITIETSANPHAM.IDBONHOTRONG INNER JOIN\n" +
-"             dbo.CHITIETHOADONBAN ON dbo.CHITIETSANPHAM.SOIMEI = dbo.CHITIETHOADONBAN.SOIMEI INNER JOIN\n" +
-"             dbo.HOADONBAN ON dbo.CHITIETHOADONBAN.IDHOADONBAN = dbo.HOADONBAN.IDHOADONBAN INNER JOIN\n" +
-"             dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
-"             dbo.MAUSAC ON dbo.CHITIETSANPHAM.IDMAUSAC = dbo.MAUSAC.IDMAUSAC INNER JOIN\n" +
-"             dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN\n" +
-"             dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC WHERE HOADONBAN.TRANGTHAI= 0 AND CHITIETHOADONBAN.IDHOADONBAN = ?  ";
+        String sql = "		   SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.CHITIETHOADONBAN.IDCHITIETHOADONBAN, dbo.SANPHAM.TENSANPHAM, dbo.CHITIETHOADONBAN.SoLuong, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.MAUSAC.TENMAUSAC, \n"
+                + "             dbo.CHITIETHOADONBAN.DonGia, dbo.KHACHHANG.HOTEN, dbo.KHACHHANG.IDKHACHHANG, dbo.HOADONBAN.NGAYTHANHTOAN, dbo.CHITIETHOADONBAN.SOIMEI\n"
+                + "FROM   dbo.BONHOTRONG INNER JOIN\n"
+                + "             dbo.CHITIETSANPHAM ON dbo.BONHOTRONG.IDBONHOTRONG = dbo.CHITIETSANPHAM.IDBONHOTRONG INNER JOIN\n"
+                + "             dbo.CHITIETHOADONBAN ON dbo.CHITIETSANPHAM.SOIMEI = dbo.CHITIETHOADONBAN.SOIMEI INNER JOIN\n"
+                + "             dbo.HOADONBAN ON dbo.CHITIETHOADONBAN.IDHOADONBAN = dbo.HOADONBAN.IDHOADONBAN INNER JOIN\n"
+                + "             dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n"
+                + "             dbo.MAUSAC ON dbo.CHITIETSANPHAM.IDMAUSAC = dbo.MAUSAC.IDMAUSAC INNER JOIN\n"
+                + "             dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN\n"
+                + "             dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC WHERE HOADONBAN.TRANGTHAI= 0 AND CHITIETHOADONBAN.IDHOADONBAN = ?  ";
         List<CTHDViewModel> list = new ArrayList<>();
         try {
             //st = db.getConnection().createStatement();
@@ -68,14 +68,13 @@ public class BaoHanhRepository {
         }
         return list;
     }
-    
-    
-     public List<BaoHanhViewModel> selectDangBH() {
-        String sql = "SELECT dbo.BAOHANH.IDBAOHANH, dbo.BAOHANH.NGAYTAO, dbo.BAOHANH.NGAYBAOHANH, dbo.BAOHANH.NGAYSUA, dbo.BAOHANH.IDUSERS, dbo.BAOHANH.IDKHACHHANG, dbo.BAOHANH.TRANGTHAI, dbo.BAOHANH.GHICHU, dbo.BAOHANH.IDHOADONBAN, \n" +
-"dbo.KHACHHANG.HOTEN FROM   dbo.BAOHANH INNER JOIN\n" +
-"dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG WHERE BAOHANH.TRANGTHAI = 0 ORDER BY IDBAOHANH DESC";
+
+    public List<BaoHanhViewModel> selectDangBH() {
+        String sql = "SELECT dbo.BAOHANH.IDBAOHANH, dbo.BAOHANH.NGAYTAO, dbo.BAOHANH.NGAYBAOHANH, dbo.BAOHANH.NGAYSUA, dbo.BAOHANH.IDUSERS, dbo.BAOHANH.IDKHACHHANG, dbo.BAOHANH.TRANGTHAI, dbo.BAOHANH.GHICHU, dbo.BAOHANH.IDHOADONBAN, \n"
+                + "dbo.KHACHHANG.HOTEN FROM   dbo.BAOHANH INNER JOIN\n"
+                + "dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG WHERE BAOHANH.TRANGTHAI = 0 ORDER BY IDBAOHANH DESC";
         List<BaoHanhViewModel> list = new ArrayList<>();
-        try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 BaoHanhViewModel p = new BaoHanhViewModel();
@@ -94,13 +93,13 @@ public class BaoHanhRepository {
         }
         return null;
     }
-     
-      public List<BaoHanhViewModel> selectDaBH() {
-        String sql = "SELECT dbo.BAOHANH.IDBAOHANH, dbo.BAOHANH.NGAYTAO, dbo.BAOHANH.NGAYBAOHANH, dbo.BAOHANH.NGAYSUA, dbo.BAOHANH.IDUSERS, dbo.BAOHANH.IDKHACHHANG, dbo.BAOHANH.TRANGTHAI, dbo.BAOHANH.GHICHU, dbo.BAOHANH.IDHOADONBAN, \n" +
-"dbo.KHACHHANG.HOTEN FROM   dbo.BAOHANH INNER JOIN\n" +
-"dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG WHERE BAOHANH.TRANGTHAI = 1 ORDER BY IDBAOHANH DESC";
+
+    public List<BaoHanhViewModel> selectDaBH() {
+        String sql = "SELECT dbo.BAOHANH.IDBAOHANH, dbo.BAOHANH.NGAYTAO, dbo.BAOHANH.NGAYBAOHANH, dbo.BAOHANH.NGAYSUA, dbo.BAOHANH.IDUSERS, dbo.BAOHANH.IDKHACHHANG, dbo.BAOHANH.TRANGTHAI, dbo.BAOHANH.GHICHU, dbo.BAOHANH.IDHOADONBAN, \n"
+                + "dbo.KHACHHANG.HOTEN FROM   dbo.BAOHANH INNER JOIN\n"
+                + "dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG WHERE BAOHANH.TRANGTHAI = 1 ORDER BY IDBAOHANH DESC";
         List<BaoHanhViewModel> list = new ArrayList<>();
-        try (Connection con = DBConnection.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 BaoHanhViewModel p = new BaoHanhViewModel();
@@ -119,22 +118,21 @@ public class BaoHanhRepository {
         }
         return null;
     }
-      
-      
-      public String insertBaoHanh(BaoHanhViewModel e) {
+
+    public String insertBaoHanh(BaoHanhViewModel e) {
         try {
-            String sql = "INSERT INTO [dbo].[BAOHANH]\n" +
-"           ([IDUSERS]\n" +
-"           ,[IDKHACHHANG]\n" +
-"           ,[TRANGTHAI]\n" +
-"           ,[GHICHU]\n" +
-"           ,[IDHOADONBAN],"
-                    + "[NGAYTAO])\n" +
-"     VALUES(?,?,0,?,?,GETDATE())";
+            String sql = "INSERT INTO [dbo].[BAOHANH]\n"
+                    + "           ([IDUSERS]\n"
+                    + "           ,[IDKHACHHANG]\n"
+                    + "           ,[TRANGTHAI]\n"
+                    + "           ,[GHICHU]\n"
+                    + "           ,[IDHOADONBAN],"
+                    + "[NGAYTAO])\n"
+                    + "     VALUES(?,?,0,?,?,GETDATE())";
             pst = db.getConnection().prepareStatement(sql);
             pst.setInt(1, e.getIDUsers());
             pst.setInt(2, e.getIdKhachHang());
-          //;  pst.setInt(3, e.getTrangThai());
+            //;  pst.setInt(3, e.getTrangThai());
             pst.setString(3, e.getGhiChu());
             pst.setInt(4, e.getIdHDBan());
             pst.executeUpdate();
@@ -144,17 +142,19 @@ public class BaoHanhRepository {
         }
         return "Bao hanh khong thanh cong";
     }
-      
-       public String insertCTBH(ChiTietBaoHanhViewModel e) {
+
+    public String insertCTBH(ChiTietBaoHanhViewModel e) {
         try {
-        String sql = "INSERT INTO [dbo].[CHITIETBAOHANH]\n" +
-"           ([IDBAOHANH]\n" +
-"           ,[IDCHITIETHOADONBAN])\n" +
-"     VALUES\n" +
-"           ((SELECT TOP 1 [IDBAOHANH] FROM dbo.BAOHANH ORDER BY IDBAOHANH DESC),?)";
-     pst = db.getConnection().prepareStatement(sql);
+            String sql = "INSERT INTO [dbo].[CHITIETBAOHANH]\n" +
+"      ([NGAYBATDAU]\n" +
+"           ,[IDBAOHANH]\n" +
+"          ,SOIMEI)\n" +
+"   VALUES\n" +
+" ((SELECT TOP 1 NGAYTAO FROM dbo.BAOHANH ORDER BY BAOHANH.NGAYTAO DESC),(SELECT TOP 1 [IDBAOHANH] FROM dbo.BAOHANH ORDER BY BAOHANH.IDBAOHANH DESC),?)";
+            pst = db.getConnection().prepareStatement(sql);
             // pst.setInt(1, cthdnsvm.getIDHoaDonNhapSanPham());
-            pst.setInt(1, e.getIdCTSP());
+            pst.setString(1, e.getSoImei());
+//            pst.setString(2, e.getSoImei());
             pst.executeUpdate();
             return "Them vao CTHDTra thanh cong";
         } catch (SQLException ex) {
@@ -162,4 +162,42 @@ public class BaoHanhRepository {
         }
         return "Them CTHDTra khong thanh cong";
     }
+
+    public boolean update(String id, BaoHanhViewModel ncc) {
+        int check = 0;
+        try {
+            String sql = "UPDATE [dbo].[BAOHANH]\n"
+                    + "   SET [NGAYSUA] = GETDATE()\n"
+                    + "      ,[TRANGTHAI] = 1\n"
+                    + "      ,[GHICHU] = ?\n"
+                    + " WHERE IDBAOHANH = ?";
+
+            pst = db.getConnection().prepareStatement(sql);
+            pst.setObject(1, ncc.getGhiChu());
+            pst.setObject(2, id);
+            check = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(BaoHanhRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return check > 0;
+    }
+
+    public String updateToDB(int id, BaoHanhViewModel ban) {
+        try {
+            String sql = "UPDATE [dbo].[BAOHANH]\n"
+                    + "   SET [NGAYSUA] = GETDATE()\n"
+                    + "      ,[TRANGTHAI] = 1\n"
+                    + "      ,[GHICHU] = ?\n"
+                    + " WHERE IDHOADONBAN = ?";
+            pst = db.getConnection().prepareStatement(sql);
+            pst.setString(1, ban.getGhiChu());
+            pst.setInt(2, id);
+            pst.executeUpdate();
+            return "Hoàn thành bảo hành";
+        } catch (SQLException ex) {
+            Logger.getLogger(BaoHanhRepository.class.getName()).log(Level.SEVERE, null, ex);
+            return "Thất bại";
+        }
+    }
+
 }
