@@ -13,12 +13,14 @@ import Services.HoaDonBanService;
 import Services.IKhachHangService;
 import ViewModel.BaoHanhViewModel;
 import ViewModel.HoaDonViewModel;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.duan.swing.Excel;
 
 /**
  *
@@ -204,6 +206,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
         table1 = new chucNang.Table01();
         txt_timtheoma = new chucNang.TextField();
         btn_Tim = new chucNang.MyButton();
+        btn_xuat = new chucNang.MyButton();
 
         dateChooser1.setDateFormat("yyyy-MM-dd");
         dateChooser1.setTextRefernce(txt_ThoiGian);
@@ -368,10 +371,17 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
         txt_timtheoma.setLabelText("Tìm Kiếm");
 
-        btn_Tim.setText("Tìm");
+        btn_Tim.setText("tìm");
         btn_Tim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_TimActionPerformed(evt);
+            }
+        });
+
+        btn_xuat.setText("Xuất");
+        btn_xuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xuatActionPerformed(evt);
             }
         });
 
@@ -391,8 +401,10 @@ table1.setValueAt("Đã bảo hành", i, 7);
                         .addComponent(jLabel1)
                         .addGap(124, 124, 124)
                         .addComponent(txt_timtheoma, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(34, 34, 34)
+                        .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(350, 350, 350)
+                        .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(3034, 3034, 3034)
                 .addComponent(lbl_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -407,7 +419,8 @@ table1.setValueAt("Đã bảo hành", i, 7);
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_timtheoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
@@ -521,6 +534,18 @@ table1.setValueAt("Đã bảo hành", i, 7);
         fillData();
     }//GEN-LAST:event_btnLastActionPerformed
 
+public void excelHoaDonBan() throws IOException {
+        Excel.outExcel((DefaultTableModel) table1.getModel());
+        JOptionPane.showMessageDialog(this,"Xuất File thành công");
+    }
+    private void btn_xuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatActionPerformed
+        // TODO add your handling code here:
+        try {
+            excelHoaDonBan();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_xuatActionPerformed
+
      public void search() {
          if (txt_timtheoma.getText().trim().equals("")) {
              return;
@@ -579,6 +604,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
     private chucNang.MyButton btnReset;
     private chucNang.MyButton btn_Tim;
     private chucNang.MyButton btn_loc;
+    private chucNang.MyButton btn_xuat;
     private javax.swing.JComboBox<String> cbbPagination;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JLabel jLabel1;

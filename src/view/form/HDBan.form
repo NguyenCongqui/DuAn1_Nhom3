@@ -67,8 +67,10 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
                           <Component id="txt_timtheoma" min="-2" pref="313" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="btn_Tim" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
+                          <Component id="btn_xuat" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="3034" max="-2" attributes="0"/>
@@ -89,6 +91,7 @@
                       <Component id="txt_timtheoma" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btn_Tim" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btn_xuat" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -355,10 +358,18 @@
         </Component>
         <Component class="chucNang.MyButton" name="btn_Tim">
           <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xec;m"/>
+            <Property name="text" type="java.lang.String" value="t&#xec;m"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_TimActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="chucNang.MyButton" name="btn_xuat">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xuatActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
