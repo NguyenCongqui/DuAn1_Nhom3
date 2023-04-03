@@ -5,9 +5,12 @@
 package view.form;
 
 import Repository.ThongKeDoanhSoRepository;
+import java.io.IOException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.duan.swing.Excel;
 
 /**
  *
@@ -153,6 +156,11 @@ public class DoanhSo extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tbl_thongkedoanhso);
 
         myButton2.setText("Xuất");
+        myButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -193,7 +201,10 @@ public class DoanhSo extends javax.swing.JPanel {
         // TODO add your handling code here:
         fillComboboxThang();
     }//GEN-LAST:event_cbo_namActionPerformed
-
+public void excelSell() throws IOException {
+        Excel.outExcel((DefaultTableModel) tbl_thongkedoanhso.getModel());
+       JOptionPane.showMessageDialog(this,"Xuất file thành công");
+    }
     private void cbo_thangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_thangActionPerformed
         // TODO add your handling code here:
          if (cbo_thang.getSelectedItem() == null) {
@@ -212,6 +223,14 @@ public class DoanhSo extends javax.swing.JPanel {
             new BieuDoDuong((DefaultTableModel) tbl_thongkedoanhso.getModel()).setVisible(true);
         }
     }//GEN-LAST:event_btn_bieudoActionPerformed
+
+    private void myButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton2ActionPerformed
+        // TODO add your handling code here:
+        try {
+            excelSell();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_myButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

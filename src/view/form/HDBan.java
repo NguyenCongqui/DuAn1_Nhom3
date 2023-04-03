@@ -140,6 +140,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
             edit();
             tableModel = (DefaultTableModel) table1.getModel();
             tableModel.setRowCount(0);
+            
             listCTB = chitiethoadonservice.getAll(txt_ThoiGian.getText());
             IKhachHangService khachHangService = new KhachHangImpl();
             listKHg = khachHangService.getAll();
@@ -207,11 +208,13 @@ table1.setValueAt("Đã bảo hành", i, 7);
         btnReset = new chucNang.MyButton();
         btn_loc = new chucNang.MyButton();
         txt_ThoiGian = new chucNang.TextField();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new chucNang.Table01();
         txt_timtheoma = new chucNang.TextField();
         btn_Tim = new chucNang.MyButton();
 
+        dateChooser1.setDateFormat("yyyy-MM-dd");
         dateChooser1.setTextRefernce(txt_ThoiGian);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -277,6 +280,8 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
         txt_ThoiGian.setLabelText("Thời Gian");
 
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -297,15 +302,18 @@ table1.setValueAt("Đã bảo hành", i, 7);
                                 .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(345, 345, 345))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbbPagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbbPagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -324,7 +332,9 @@ table1.setValueAt("Đã bảo hành", i, 7);
                     .addComponent(cbbPagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNext)
                     .addComponent(btnLast))
-                .addGap(325, 325, 325))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(294, 294, 294))
         );
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -589,6 +599,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
     private javax.swing.JComboBox<String> cbbPagination;
     private com.raven.datechooser.DateChooser dateChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
