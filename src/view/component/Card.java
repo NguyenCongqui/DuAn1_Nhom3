@@ -11,7 +11,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.text.DecimalFormat;
+import javax.swing.JLabel;
 import view.duan.model.ModelCard;
+import view.duan.swing.ProgressBarCustom;
 
 /**
  *
@@ -19,17 +21,28 @@ import view.duan.model.ModelCard;
  */
 public class Card extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Card
-     */
+     public Color getColorGradient() {
+        return colorGradient;
+    }
+
+    public void setColorGradient(Color colorGradient) {
+        this.colorGradient = colorGradient;
+    }
      private Color colorGradient;
     public Card() {
         initComponents();
         setOpaque(false);
         setBackground(new Color(112, 69, 246));
         colorGradient = new Color(255, 255, 255);
+        pro.setBackground(new Color(255, 255, 255,100));
         pro.setForeground(Color.WHITE);
+       
     }
+
+   
+
+   
+    
 public void setData(ModelCard data) {
         DecimalFormat df = new DecimalFormat("#,##0.##");
         lbl_Title.setText(data.getTitle());
