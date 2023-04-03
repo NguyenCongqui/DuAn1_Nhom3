@@ -43,14 +43,14 @@ public class BaoHanhImpl implements BaoHanhService{
         return repo.insertCTBH(e);
     }
 
-    @Override
-    public String update(String id, BaoHanhViewModel ncc) {
-          boolean update = repo.update(id, ncc);
-          if (update) {
-            return "Hoàn thành bảo hành id : " + id; 
-    }
-    return "Bảo hành thất bại";
-}
+//    @Override
+//    public String update(String id, BaoHanhViewModel ncc) {
+//          boolean update = repo.update(id, ncc);
+//          if (update) {
+//            return "Hoàn thành bảo hành id : " + id; 
+//    }
+//    return "Bảo hành thất bại";
+//}
 
     @Override
     public String updateToDB(int id,BaoHanhViewModel ban) {

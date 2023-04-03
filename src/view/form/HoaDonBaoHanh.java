@@ -4,19 +4,74 @@
  */
 package view.form;
 
+import Service.Impl.HDBaoHanhImpl;
+import Services.HDBaoHanhService;
+import ViewModel.HDBaoHanhViewModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author vanhv
  */
 public class HoaDonBaoHanh extends javax.swing.JPanel {
-
+   private DefaultTableModel tableModel = new DefaultTableModel();
+   private HDBaoHanhService service = new HDBaoHanhImpl();
+   private List<HDBaoHanhViewModel> list = new ArrayList<>();
     /**
      * Creates new form HoaDonBaoHanh
      */
     public HoaDonBaoHanh() {
         initComponents();
+        setOpaque(false);
+        fillData();
     }
-
+ public void fillData() {
+        tableModel = (DefaultTableModel) table1.getModel();
+        tableModel.setRowCount(0);
+        list = service.getAllTra();
+        for (HDBaoHanhViewModel i : list) {
+            tableModel.addRow(new Object[]{
+                i.getIdBaoHanh(),
+                i.getIdHDBan(),
+                i.getNgayBatDau(),
+                i.getNgayKetThuc(),
+                i.getTenUser(),
+                i.getTenKH(),
+                i.getSdt(),
+                i.getGhiChu()
+                        });
+        }
+    }
+ public void search() {
+        if (txt_timtheoma.getText().isEmpty()) {
+            return;
+        }
+        lbl_Search.setVisible(true);
+        DefaultTableModel tableModel = (DefaultTableModel) table1.getModel();
+        tableModel.setRowCount(0);
+        int id = Integer.valueOf(txt_timtheoma.getText());
+        HDBaoHanhViewModel i = service.FindIDHdBH(id);
+        if (i == null) {
+            //lbl_Search.setVisible(true);
+            lbl_Search.setText("Không có đơn : " + id);
+            return;
+        }
+        
+         tableModel.addRow(new Object[]{
+                i.getIdBaoHanh(),
+                i.getIdHDBan(),
+                i.getNgayBatDau(),
+                i.getNgayKetThuc(),
+                i.getTenUser(),
+                i.getTenKH(),
+                i.getSdt(),
+                i.getGhiChu()
+                        });
+        
+        lbl_Search.setText("");
+    }   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +81,177 @@ public class HoaDonBaoHanh extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txt_timtheoma = new chucNang.TextField();
+        btn_Tim = new chucNang.MyButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table1 = new view.duan.swing.Table();
+        lbl_Search = new javax.swing.JLabel();
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Hóa Đơn Bảo Hành");
+
+        txt_timtheoma.setLabelText("Tìm Kiếm");
+        txt_timtheoma.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txt_timtheomaCaretUpdate(evt);
+            }
+        });
+        txt_timtheoma.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_timtheomaFocusGained(evt);
+            }
+        });
+
+        btn_Tim.setText("Reset");
+        btn_Tim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_TimActionPerformed(evt);
+            }
+        });
+
+        table1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Bảo Hành", "IDHD Bán", "Ngày bắt đầu", "Ngày kết thúc", "Nhân Viên", "Khách Hàng", "SDT", "Ghi Chú"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        table1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table1);
+        if (table1.getColumnModel().getColumnCount() > 0) {
+            table1.getColumnModel().getColumn(0).setResizable(false);
+            table1.getColumnModel().getColumn(1).setResizable(false);
+            table1.getColumnModel().getColumn(2).setResizable(false);
+            table1.getColumnModel().getColumn(3).setResizable(false);
+            table1.getColumnModel().getColumn(4).setResizable(false);
+            table1.getColumnModel().getColumn(5).setResizable(false);
+            table1.getColumnModel().getColumn(6).setResizable(false);
+            table1.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_timtheoma, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)
+                        .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_timtheoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 542, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+  public void reset() {
+        txt_timtheoma.setText("");
+        lbl_Search.setText("");
+        fillData();
+    }
+    private void btn_TimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_TimActionPerformed
+        // TODO add your handling code here:
+//        try {
+//            search();
+//            if (txt_timtheoma.getText().isEmpty()) {
+//                lbl_Search.setVisible(false);
+//                fillData();
+//            }
+//        } catch (NumberFormatException e) {
+//            lbl_Search.setText("Mã phải là số ");
+//        }
+reset();
+    }//GEN-LAST:event_btn_TimActionPerformed
+
+    private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
+        // TODO add your handling code here:
+          if (evt.getClickCount() == 2) {
+            int row = table1.getSelectedRow();
+            int id = (int) table1.getValueAt(row, 0);
+           new HDBaoHanhCT(id, (DefaultTableModel) table1.getModel(), table1.getSelectedRow()).setVisible(true);
+        }
+    }//GEN-LAST:event_table1MouseClicked
+
+    private void txt_timtheomaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_timtheomaCaretUpdate
+        // TODO add your handling code here:
+         try {
+            search();
+            if(txt_timtheoma.getText().isEmpty()){
+                lbl_Search.setVisible(false);
+                fillData();
+            }
+        } catch (NumberFormatException e) {
+            lbl_Search.setText("Mã phải là số ");
+        }
+    }//GEN-LAST:event_txt_timtheomaCaretUpdate
+
+    private void txt_timtheomaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_timtheomaFocusGained
+        // TODO add your handling code here:
+         search();
+        if(txt_timtheoma.getText().isEmpty()){
+            lbl_Search.setVisible(false);
+            fillData();
+        }
+    }//GEN-LAST:event_txt_timtheomaFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chucNang.MyButton btn_Tim;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_Search;
+    private view.duan.swing.Table table1;
+    private chucNang.TextField txt_timtheoma;
     // End of variables declaration//GEN-END:variables
 }

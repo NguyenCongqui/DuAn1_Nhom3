@@ -163,25 +163,7 @@ public class BaoHanhRepository {
         return "Them CTHDTra khong thanh cong";
     }
 
-    public boolean update(String id, BaoHanhViewModel ncc) {
-        int check = 0;
-        try {
-            String sql = "UPDATE [dbo].[BAOHANH]\n"
-                    + "   SET [NGAYSUA] = GETDATE()\n"
-                    + "      ,[TRANGTHAI] = 1\n"
-                    + "      ,[GHICHU] = ?\n"
-                    + " WHERE IDBAOHANH = ?";
-
-            pst = db.getConnection().prepareStatement(sql);
-            pst.setObject(1, ncc.getGhiChu());
-            pst.setObject(2, id);
-            check = pst.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(BaoHanhRepository.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return check > 0;
-    }
-
+ 
     public String updateToDB(int id, BaoHanhViewModel ban) {
         try {
             String sql = "UPDATE [dbo].[BAOHANH]\n"

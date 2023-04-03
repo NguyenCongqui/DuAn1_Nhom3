@@ -24,7 +24,7 @@ public interface BaoHanhService {
     
     String insertCTBH(ChiTietBaoHanhViewModel e);
     
-    String update(String id, BaoHanhViewModel ncc);
+//    String update(String id, BaoHanhViewModel ncc);
     
    String updateToDB(int id,BaoHanhViewModel ban);
 }
