@@ -43,6 +43,7 @@ public class khuyenmai extends javax.swing.JPanel {
         txt_ID.setEnabled(false);
         btn_sua.setEnabled(false);
         btn_xoa.setEnabled(false);
+        lbl_tim.setVisible(false);
     }
 
     public void filldata() {
@@ -178,6 +179,7 @@ public class khuyenmai extends javax.swing.JPanel {
         tbl_model = (DefaultTableModel) tbl_khuyenMai.getModel();
         tbl_model.setRowCount(0); 
         if (listSearch.isEmpty()) {
+            lbl_tim.setVisible(true);
             lbl_tim.setText("Không tìm thay san pham : " + temp);
             return;
         }
@@ -194,6 +196,7 @@ public class khuyenmai extends javax.swing.JPanel {
                 p.getTenNguoiTao(),
                 p.isTrangThai() == true ? "Hoạt Động" : "Ngừng Hoạt Động",});
         }
+        lbl_tim.setText("");
     }
   
     /**
@@ -393,6 +396,7 @@ public class khuyenmai extends javax.swing.JPanel {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
+        lbl_tim.setForeground(new java.awt.Color(204, 0, 0));
         lbl_tim.setText("tim kiem theo ma");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -458,6 +462,7 @@ public class khuyenmai extends javax.swing.JPanel {
             showdeil();
             btn_sua.setEnabled(true);
             btn_xoa.setEnabled(true);
+            btn_them.setEnabled(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, " loi click");
         }
