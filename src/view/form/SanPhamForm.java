@@ -12,6 +12,7 @@ import Services.IDanhMucService;
 import Services.SanPhamService;
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.Label;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
@@ -30,9 +31,11 @@ import javax.swing.table.TableCellRenderer;
  * @author trung
  */
 public class SanPhamForm extends javax.swing.JPanel {
+
     private SanPhamService service;
-    private IDanhMucService dmservice ;
+    private IDanhMucService dmservice;
     private AnhService anhService;
+
     /**
      * Creates new form SanPham
      */
@@ -46,23 +49,24 @@ public class SanPhamForm extends javax.swing.JPanel {
                 txtDanhMuc.addItem(danhMuc.getTenDanhMuc());
             }
         }
-        
+
         try {
             HienThi();
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void HienThi() throws SQLException{
+
+    public void HienThi() throws SQLException {
         TbSanPham.getColumn("Ảnh").setCellRenderer(new myTableCellRender());
         DefaultTableModel model = (DefaultTableModel) TbSanPham.getModel();
         model.setRowCount(0);
         List<SanPham> list = service.getAll();
-         List<DomainModel.DanhMuc> danhMucs = dmservice.getAll();
-         String tenDM = "";
+        List<DomainModel.DanhMuc> danhMucs = dmservice.getAll();
+        String tenDM = "";
         for (SanPham sanPham : list) {
-            if(sanPham.isTrangThai() == false){
-                 JLabel label = new JLabel();
+            if (sanPham.isTrangThai() == false) {
+                JLabel label = new JLabel();
                 ImageIcon icon = new ImageIcon(sanPham.getAnh());
                 Image img = icon.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
                 label.setIcon(new ImageIcon(img));
@@ -71,7 +75,7 @@ public class SanPhamForm extends javax.swing.JPanel {
                         tenDM = danhMuc.getTenDanhMuc();
                     }
                 }
-                  Object[] data = new Object[]{
+                Object[] data = new Object[]{
                     sanPham.getId(),
                     sanPham.getTen(),
                     label,
@@ -81,7 +85,8 @@ public class SanPhamForm extends javax.swing.JPanel {
             }
         }
     }
-    public SanPham layTT(){
+
+    public SanPham layTT() {
         String ten = txtTenSp.getText();
         String danhMuc1 = (String) txtDanhMuc.getSelectedItem();
         Integer dm = 0;
@@ -93,11 +98,13 @@ public class SanPhamForm extends javax.swing.JPanel {
                 }
             }
         }
-        
+
         AnhService anhservice = new AnhService();
-         String anh = anhservice.getAnh();
+        String anh = anhservice.getAnh();
         return new SanPham(0, ten, dm, anh, true);
-    };
+    }
+
+    ;
     
       class myTableCellRender implements TableCellRenderer {
 
@@ -108,7 +115,8 @@ public class SanPhamForm extends javax.swing.JPanel {
             return (Component) value;
         }
     }
-    public void fill(){
+
+    public void fill() {
         try {
             int index = TbSanPham.getSelectedRow();
             String id = TbSanPham.getValueAt(index, 0).toString();
@@ -131,7 +139,12 @@ public class SanPhamForm extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
+    }
+    public void clear(){
+        txtTenSp.setText("");
+        lbAnh.setIcon(null);
+        txtDanhMuc.setSelectedIndex(0);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -211,6 +224,11 @@ public class SanPhamForm extends javax.swing.JPanel {
         btnNew.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnNewMousePressed(evt);
+            }
+        });
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
             }
         });
 
@@ -364,12 +382,12 @@ public class SanPhamForm extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void lbAnhMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAnhMousePressed
         // TODO add your handling code here:
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser("D:\\PRO1041");
         int check = chooser.showOpenDialog(null);
         if (check == JFileChooser.CANCEL_OPTION) {
@@ -393,14 +411,29 @@ public class SanPhamForm extends javax.swing.JPanel {
 
     private void btnThemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMousePressed
         // TODO add your handling code here:
-        
-        SanPham sp = layTT() ;
+        if (txtTenSp.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống tên sản phẩm");
+            return;
+        }
+        if (txtTenSp.getText().length() > 15) {
+            JOptionPane.showMessageDialog(this, "Tên sản phẩm không được quá 15 kí tự");
+            return;
+        }
+        if (lbAnh.getIcon() == null) {
+            JOptionPane.showMessageDialog(this, "Không được để trống ảnh");
+            return;
+        }
+        if (txtDanhMuc.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Không có danh mục nào");
+            return;
+        }
+        SanPham sp = layTT();
         try {
             if (service.them(sp) == true) {
                 JOptionPane.showMessageDialog(this, "Them thanh cong");
                 HienThi();
-            }
-            else{
+                clear();
+            } else {
                 JOptionPane.showMessageDialog(this, "Them that bai");
             }
         } catch (SQLException ex) {
@@ -410,6 +443,10 @@ public class SanPhamForm extends javax.swing.JPanel {
 
     private void btnXoaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMousePressed
         try {
+            int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
+            if(xacnhan != JOptionPane.YES_OPTION){
+                return;
+            }
             // TODO add your handling code here:
             int index = TbSanPham.getSelectedRow();
             if (index == -1) {
@@ -420,8 +457,7 @@ public class SanPhamForm extends javax.swing.JPanel {
             if (service.xoa(id) == true) {
                 JOptionPane.showMessageDialog(this, "Xoa thanh cong");
                 HienThi();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Xoa that bai");
             }
         } catch (SQLException ex) {
@@ -431,19 +467,39 @@ public class SanPhamForm extends javax.swing.JPanel {
 
     private void btnSuaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMousePressed
         try {
+            int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không");
+            if(xacnhan != JOptionPane.YES_OPTION){
+                return;
+            }
+            if (txtTenSp.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Không được để trống tên sản phẩm");
+                return;
+            }
+            if (txtTenSp.getText().length() > 15) {
+                JOptionPane.showMessageDialog(this, "Tên sản phẩm không được quá 15 kí tự");
+                return;
+            }
+            if (lbAnh.getIcon() == null) {
+                JOptionPane.showMessageDialog(this, "Không được để trống ảnh");
+                return;
+            }
+            if (txtDanhMuc.getItemCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Không có danh mục nào");
+                return;
+            }
             // TODO add your handling code here:
             int index = TbSanPham.getSelectedRow();
             if (index == -1) {
                 JOptionPane.showMessageDialog(this, "Vui long chon ban ghi can sua");
                 return;
             }
-            SanPham sp = layTT() ;
+            SanPham sp = layTT();
             Integer id = Integer.parseInt(TbSanPham.getValueAt(index, 0).toString());
-            if (service.sua(sp,id) == true) {
+            if (service.sua(sp, id) == true) {
                 JOptionPane.showMessageDialog(this, "Sua thanh cong");
                 HienThi();
-            }
-            else{
+                clear();
+            } else {
                 JOptionPane.showMessageDialog(this, "sua that bai");
             }
         } catch (SQLException ex) {
@@ -467,6 +523,11 @@ public class SanPhamForm extends javax.swing.JPanel {
     private void btnDungLuongPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDungLuongPinActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDungLuongPinActionPerformed
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_btnNewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -131,7 +131,7 @@ public class DanhMuc extends javax.swing.JFrame {
             }
         });
 
-        btnNew.setText("Load");
+        btnNew.setText("Clear");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewActionPerformed(evt);
@@ -193,9 +193,7 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-        txtId.setText("");
-        txtTen.setText("");
-
+        load();
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -205,14 +203,17 @@ public class DanhMuc extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không được để trống tên!");
             return;
         }
+        if (txtTen.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return;
+        }
         dm.setTenDanhMuc(txtTen.getText());
         dm.setTrangThai(true);
         if (danhMucIplm.add(dm)) {
             try {
                 JOptionPane.showMessageDialog(this, "Thêm thành công!");
                 HienThi();
-                txtId.setText("");
-                txtTen.setText("");
+                load();
             } catch (SQLException ex) {
                 Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -228,7 +229,10 @@ public class DanhMuc extends javax.swing.JFrame {
     }//GEN-LAST:event_tbDanhMucMouseClicked
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
+        if(xacNhan != JOptionPane.YES_OPTION){
+            return;
+        }
         int index = tbDanhMuc.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Chưa chọn!");
@@ -254,7 +258,10 @@ public class DanhMuc extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
+        int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không");
+        if(xacNhan != JOptionPane.YES_OPTION){
+            return;
+        }
         int index = tbDanhMuc.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Chọn để sửa!");
@@ -268,8 +275,7 @@ public class DanhMuc extends javax.swing.JFrame {
             danhMucIplm.update(dm, id);
             JOptionPane.showMessageDialog(this, "Update thành công!");
             HienThi();
-            txtId.setText("");
-            txtTen.setText("");
+            load();
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -305,7 +311,10 @@ public class DanhMuc extends javax.swing.JFrame {
             }
         }
     }
-
+    public void load(){
+         txtId.setText("");
+        txtTen.setText("");
+    }
     /**
      * @param args the command line arguments
      */
