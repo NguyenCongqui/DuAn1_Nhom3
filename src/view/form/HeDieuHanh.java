@@ -55,6 +55,11 @@ public class HeDieuHanh extends javax.swing.JFrame {
         }
     }
 
+    public void load() {
+        txtId.setText("");
+        txtTen.setText("");
+    }
+
     public DomainModel.HeDieuHanh LayTT() {
         String ten = txtTen.getText();
         return new DomainModel.HeDieuHanh(0, ten, true);
@@ -144,7 +149,7 @@ public class HeDieuHanh extends javax.swing.JFrame {
             }
         });
 
-        btnNew.setText("Load");
+        btnNew.setText("Clear");
         btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewActionPerformed(evt);
@@ -211,6 +216,7 @@ public class HeDieuHanh extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txtTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
+            return;
         }
         if (txtTen.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
@@ -221,8 +227,7 @@ public class HeDieuHanh extends javax.swing.JFrame {
             if (service.them(c)) {
                 JOptionPane.showMessageDialog(this, "Them thanh cong");
                 HienThi();
-                txtId.setText("");
-                txtTen.setText("");
+                load();
             } else {
                 JOptionPane.showMessageDialog(this, "Them that bai");
             }
@@ -233,7 +238,10 @@ public class HeDieuHanh extends javax.swing.JFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
+        int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không");
+        if (xacnhan != JOptionPane.YES_OPTION) {
+            return;
+        }
         if (txtTen.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
         }
@@ -247,8 +255,7 @@ public class HeDieuHanh extends javax.swing.JFrame {
             if (service.sua(c, id)) {
                 JOptionPane.showMessageDialog(this, "Sua thanh cong");
                 HienThi();
-                txtId.setText("");
-                txtTen.setText("");
+                load();
             } else {
                 JOptionPane.showMessageDialog(this, "Sua that bai");
             }
@@ -260,13 +267,16 @@ public class HeDieuHanh extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
+        if (xacnhan != JOptionPane.YES_OPTION) {
+            return;
+        }
         Integer id = Integer.parseInt(txtId.getText());
         try {
             if (service.xoa(id)) {
                 JOptionPane.showMessageDialog(this, "Xoa thanh cong");
                 HienThi();
-                txtId.setText("");
-                txtTen.setText("");
+                load();
             } else {
                 JOptionPane.showMessageDialog(this, "Xoa that bai");
             }
@@ -288,8 +298,7 @@ public class HeDieuHanh extends javax.swing.JFrame {
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         // TODO add your handling code here:
-        txtId.setText("");
-        txtTen.setText("");
+        load();
     }//GEN-LAST:event_btnNewActionPerformed
 
     /**

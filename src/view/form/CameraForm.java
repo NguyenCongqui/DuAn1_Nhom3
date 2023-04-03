@@ -56,6 +56,11 @@ public class CameraForm extends javax.swing.JFrame {
         }
     }
 
+    public void clear() {
+        txtId.setText("");
+        txtCamera.setText("");
+    }
+
     public Camera LayTT() {
         String ten = txtCamera.getText();
         return new Camera(0, ten, true);
@@ -230,8 +235,7 @@ public class CameraForm extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
-        txtId.setText("");
-        txtCamera.setText("");
+
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void tbCameraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCameraMousePressed
@@ -243,6 +247,7 @@ public class CameraForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txtCamera.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
+            return;
         }
         if (txtCamera.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
@@ -265,8 +270,13 @@ public class CameraForm extends javax.swing.JFrame {
 
     private void btnSuaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMousePressed
         // TODO add your handling code here:
+        int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có Chắc muốn Sửa không");
+        if (xacNhan != JOptionPane.YES_OPTION) {
+            return;
+        }
         if (txtCamera.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không được để trống");
+            return;
         }
         if (txtCamera.getText().length() > 30) {
             JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
@@ -278,8 +288,7 @@ public class CameraForm extends javax.swing.JFrame {
             if (service.sua(c, id)) {
                 JOptionPane.showMessageDialog(this, "Sua thanh cong");
                 HienThi();
-                txtId.setText("");
-                txtCamera.setText("");
+                clear();
             } else {
                 JOptionPane.showMessageDialog(this, "Sua that bai");
             }
@@ -290,13 +299,15 @@ public class CameraForm extends javax.swing.JFrame {
 
     private void btnXoaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMousePressed
         // TODO add your handling code here:
+        int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có Chắc muốn xóa không");
+        if (xacNhan != JOptionPane.YES_OPTION) {
+            return;
+        }
         Integer id = Integer.parseInt(txtId.getText());
         try {
             if (service.xoa(id)) {
                 JOptionPane.showMessageDialog(this, "Xoa thanh cong");
                 HienThi();
-                txtId.setText("");
-                txtCamera.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Xoa that bai");
             }
