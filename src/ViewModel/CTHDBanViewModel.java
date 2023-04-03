@@ -12,7 +12,7 @@ public class CTHDBanViewModel {
     private int IdCTHoaDonBan, IdSP,IdHDBan,IdCTSanPham,SoLuong;
     private Float DonGia;
     private String DanhMuc, DungLuong,MauSac,TenSanPham,tenKhachHang,maGiamGia,soImei;
-
+    private Float TONGTIEN,TONGCONGTIENPHAITRA,TIENVOUCHER,TIENKHACHDUA,TIENTRALAI;
     public CTHDBanViewModel() {
     }
 
@@ -119,6 +119,46 @@ public class CTHDBanViewModel {
 
     public void setMaGiamGia(String maGiamGia) {
         this.maGiamGia = maGiamGia;
+    }
+
+    public Float getTONGTIEN() {
+        return TONGTIEN;
+    }
+
+    public void setTONGTIEN(Float TONGTIEN) {
+        this.TONGTIEN = TONGTIEN;
+    }
+
+    public Float getTONGCONGTIENPHAITRA() {
+        return TONGCONGTIENPHAITRA;
+    }
+
+    public void setTONGCONGTIENPHAITRA(Float TONGCONGTIENPHAITRA) {
+        this.TONGCONGTIENPHAITRA = TONGCONGTIENPHAITRA;
+    }
+
+    public Float getTIENVOUCHER() {
+        return TIENVOUCHER;
+    }
+
+    public void setTIENVOUCHER(Float TIENVOUCHER) {
+        this.TIENVOUCHER = TIENVOUCHER;
+    }
+
+    public Float getTIENKHACHDUA() {
+        return TIENKHACHDUA;
+    }
+
+    public void setTIENKHACHDUA(Float TIENKHACHDUA) {
+        this.TIENKHACHDUA = TIENKHACHDUA;
+    }
+
+    public Float getTIENTRALAI() {
+        return TIENTRALAI;
+    }
+
+    public void setTIENTRALAI(Float TIENTRALAI) {
+        this.TIENTRALAI = TIENTRALAI;
     }
     
     

@@ -41,16 +41,16 @@ public class HDBan extends javax.swing.JPanel {
         setOpaque(false);
     chitiethoadonservice = new HoaDonBanImpl();
         fillData();
-         btnFirst.setEnabled(false);
-        btnFirst.setVisible(false);
-        btnBack.setEnabled(false);
-        btnBack.setVisible(false);
-        cbbPagination.setEnabled(false);
-        cbbPagination.setVisible(false);
-        btnNext.setEnabled(false);
-        btnNext.setVisible(false);
-        btnLast.setEnabled(false);
-        btnLast.setVisible(false);
+//         btnFirst.setEnabled(false);
+//        btnFirst.setVisible(false);
+//        btnBack.setEnabled(false);
+//        btnBack.setVisible(false);
+//        cbbPagination.setEnabled(false);
+//        cbbPagination.setVisible(false);
+//        btnNext.setEnabled(false);
+//        btnNext.setVisible(false);
+//        btnLast.setEnabled(false);
+//        btnLast.setVisible(false);
     }
     int totalPage = 1;
     int page = 1;
@@ -280,8 +280,6 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
         txt_ThoiGian.setLabelText("Thời Gian");
 
-        jLabel2.setText("jLabel2");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -303,6 +301,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
                                 .addGap(345, 345, 345))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -312,8 +311,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2))
+                                .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -325,7 +323,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_loc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFirst)
                     .addComponent(btnBack)
@@ -333,8 +331,8 @@ table1.setValueAt("Đã bảo hành", i, 7);
                     .addComponent(btnNext)
                     .addComponent(btnLast))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(294, 294, 294))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(275, 275, 275))
         );
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -342,7 +340,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
             },
             new String [] {
-                "Ma HD Ban", "Ten KH", "SDT", "Ten Nv", "Tổng Tiền", "Ngày TT", "Ghi chú", "Trạng Thái"
+                "Ma HD Ban", "Ten KH", "SDT", "Ten Nv", "Tổng Tiền Trả", "Ngày TT", "Ghi chú", "Trạng Thái"
             }
         ) {
             Class[] types = new Class [] {
@@ -467,15 +465,21 @@ table1.setValueAt("Đã bảo hành", i, 7);
     private void btn_locActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_locActionPerformed
         // TODO add your handling code here:
         searchDateFillTable();
+        
         flag = true;
     }//GEN-LAST:event_btn_locActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        reset();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    public void reset() {
         // TODO add your handling code here:
         lbl_Search.setVisible(false);
         txt_timtheoma.setText("");
+        txt_ThoiGian.setText("");
         fillData();
-    }//GEN-LAST:event_btnResetActionPerformed
+    }
 
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
         // TODO add your handling code here:

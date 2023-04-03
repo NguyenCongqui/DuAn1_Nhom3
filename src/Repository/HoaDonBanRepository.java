@@ -33,16 +33,17 @@ public class HoaDonBanRepository {
     
     public List<CTHDBanViewModel> selectByIdBan(int id) {
         String sql = """
-                     	SELECT dbo.CHITIETHOADONBAN.IDCHITIETHOADONBAN, dbo.SANPHAM.TENSANPHAM, dbo.KHACHHANG.HOTEN, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.MAUSAC.TENMAUSAC, dbo.CHITIETHOADONBAN.SoLuong, 
-                        dbo.CHITIETHOADONBAN.DonGia, dbo.CHITIETHOADONBAN.SOIMEI
-                        FROM   dbo.BONHOTRONG INNER JOIN
-                                     dbo.CHITIETSANPHAM ON dbo.BONHOTRONG.IDBONHOTRONG = dbo.CHITIETSANPHAM.IDBONHOTRONG INNER JOIN
-                                     dbo.CHITIETHOADONBAN ON dbo.CHITIETSANPHAM.SOIMEI = dbo.CHITIETHOADONBAN.SOIMEI INNER JOIN
-                                     dbo.HOADONBAN ON dbo.CHITIETHOADONBAN.IDHOADONBAN = dbo.HOADONBAN.IDHOADONBAN INNER JOIN
-                                     dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN
-                                     dbo.MAUSAC ON dbo.CHITIETSANPHAM.IDMAUSAC = dbo.MAUSAC.IDMAUSAC INNER JOIN
-                                     dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN
-                                     dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC WHERE CHITIETHOADONBAN.IDHOADONBAN = ?
+                     	                     	SELECT dbo.CHITIETHOADONBAN.IDCHITIETHOADONBAN, dbo.SANPHAM.TENSANPHAM, dbo.KHACHHANG.HOTEN, dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.MAUSAC.TENMAUSAC, dbo.CHITIETHOADONBAN.SoLuong, 
+                                                                                                  dbo.CHITIETHOADONBAN.DonGia, dbo.CHITIETHOADONBAN.SOIMEI,  dbo.HOADONBAN.TONGTIEN, dbo.HOADONBAN.TONGCONGTIENPHAITRA, dbo.HOADONBAN.TIENVOUCHER, dbo.HOADONBAN.TIENKHACHDUA, 
+                                                                                                  dbo.HOADONBAN.TIENTRALAI
+                                                                                     FROM   dbo.BONHOTRONG INNER JOIN
+                                                                                                  dbo.CHITIETSANPHAM ON dbo.BONHOTRONG.IDBONHOTRONG = dbo.CHITIETSANPHAM.IDBONHOTRONG INNER JOIN
+                                                                                                  dbo.CHITIETHOADONBAN ON dbo.CHITIETSANPHAM.SOIMEI = dbo.CHITIETHOADONBAN.SOIMEI INNER JOIN
+                                                                                                  dbo.HOADONBAN ON dbo.CHITIETHOADONBAN.IDHOADONBAN = dbo.HOADONBAN.IDHOADONBAN INNER JOIN
+                                                                                                  dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN
+                                                                                                  dbo.MAUSAC ON dbo.CHITIETSANPHAM.IDMAUSAC = dbo.MAUSAC.IDMAUSAC INNER JOIN
+                                                                                                  dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN
+                                                                                                  dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC WHERE CHITIETHOADONBAN.IDHOADONBAN = ?
                      """;
                  
         try {
@@ -62,6 +63,12 @@ public class HoaDonBanRepository {
                 de.setTenSanPham(rs.getString("TENSANPHAM"));
                 de.setTenKhachHang(rs.getString("HOTEN"));
                 de.setSoImei(rs.getString("SOIMEI"));
+//                de.setMaGiamGia(rs.getString("MAGIAMGIA"));
+                de.setTONGTIEN(rs.getFloat("TONGTIEN"));
+                de.setTONGCONGTIENPHAITRA(rs.getFloat("TONGCONGTIENPHAITRA"));
+                de.setTIENVOUCHER(rs.getFloat("TIENVOUCHER"));
+                de.setTIENKHACHDUA(rs.getFloat("TIENKHACHDUA"));
+                de.setTIENTRALAI(rs.getFloat("TIENTRALAI"));
                 listCTBvmd.add(de);
             }
             rs.close();
@@ -97,7 +104,7 @@ public class HoaDonBanRepository {
 //                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
                     i.setTenKhachHang(rs.getString(16));
                     i.setTenUser(rs.getString(26));
-                    i.setTongTien(rs.getFloat("TONGTIEN"));
+                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
                     i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
                     i.setTienTraLai(rs.getFloat("TIENTRALAI"));
                     listViewMD.add(i);
@@ -128,7 +135,7 @@ public class HoaDonBanRepository {
 //                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
                     i.setTenKhachHang(rs.getString(16));
                     i.setTenUser(rs.getString(26));
-                    i.setTongTien(rs.getFloat("TONGTIEN"));
+                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
                     i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
                     i.setTienTraLai(rs.getFloat("TIENTRALAI"));
                     listViewMD.add(i);
@@ -175,7 +182,7 @@ public class HoaDonBanRepository {
          
          
           public HoaDonViewModel FindHDB(int k) {
-        String sql = "SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.HOADONBAN.IDKHACHHANG, dbo.HOADONBAN.IDVOUCHER, dbo.HOADONBAN.NGAYTHANHTOAN, dbo.HOADONBAN.GHICHU, dbo.HOADONBAN.statusPay, dbo.HOADONBAN.statusInvoice, dbo.HOADONBAN.TONGTIEN, \n" +
+        String sql = "SELECT dbo.HOADONBAN.IDHOADONBAN, dbo.HOADONBAN.IDKHACHHANG, dbo.HOADONBAN.IDVOUCHER, dbo.HOADONBAN.NGAYTHANHTOAN, dbo.HOADONBAN.GHICHU, dbo.HOADONBAN.statusPay, dbo.HOADONBAN.statusInvoice, dbo.HOADONBAN.TONGCONGTIENPHAITRA, \n" +
 "             dbo.HOADONBAN.TIENKHACHDUA, dbo.HOADONBAN.TIENTRALAI, dbo.HOADONBAN.TENKhachHang, dbo.USERS.IDUSERS, dbo.USERS.HOTEN\n" +
 "FROM   dbo.HOADONBAN INNER JOIN\n" +
 "             dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
@@ -197,7 +204,7 @@ public class HoaDonBanRepository {
 //                i.setStatusInvoice(rs.getBoolean("statusInvoice"));
                 i.setTenKhachHang(rs.getString("TENKhachHang"));
                 i.setTenUser(rs.getString("HOTEN"));
-                i.setTongTien(rs.getFloat("TONGTIEN"));
+                i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
                 i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
                 i.setTienTraLai(rs.getFloat("TIENTRALAI"));
                 return i;
