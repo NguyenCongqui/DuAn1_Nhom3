@@ -11,12 +11,14 @@ import Services.NhanVienServices;
 import Services.UsersService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.duan.swing.Excel;
 import view.logiin.Auth;
 
 /**
@@ -117,7 +119,7 @@ public class NhanVien extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         textField1 = new chucNang.TextField();
-        myButton1 = new chucNang.MyButton();
+        btn_xuat = new chucNang.MyButton();
         cbo_tinhTrang = new chucNang.Combobox();
         myButton2 = new chucNang.MyButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -131,7 +133,12 @@ public class NhanVien extends javax.swing.JPanel {
 
         textField1.setLabelText("Tìm Theo Tên");
 
-        myButton1.setText("Tìm");
+        btn_xuat.setText("Xuất");
+        btn_xuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xuatActionPerformed(evt);
+            }
+        });
 
         cbo_tinhTrang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đang Làm Việc", "Nghỉ Làm" }));
         cbo_tinhTrang.setLabeText("");
@@ -204,15 +211,15 @@ public class NhanVien extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
+                .addGap(69, 69, 69)
                 .addComponent(cbo_tinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
@@ -225,7 +232,7 @@ public class NhanVien extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(myButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbo_tinhTrang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(myButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(myButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -293,13 +300,24 @@ public class NhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
          nhanVien.setVisible(true);
     }//GEN-LAST:event_myButton2ActionPerformed
+    public void excelNhanVien() throws IOException {
+        Excel.outExcel((DefaultTableModel) tbl_NhanVien.getModel());
+        JOptionPane.showMessageDialog(this,"Xuất File thành công");
+    }
+    private void btn_xuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatActionPerformed
+        // TODO add your handling code here:
+        try {
+            excelNhanVien();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_xuatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private chucNang.MyButton btn_xuat;
     private chucNang.Combobox cbo_tinhTrang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private chucNang.MyButton myButton1;
     private chucNang.MyButton myButton2;
     private chucNang.MyButton myButton3;
     private chucNang.Table01 tbl_NhanVien;

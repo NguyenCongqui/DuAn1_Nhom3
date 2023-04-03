@@ -59,6 +59,8 @@
                           <Component id="lbl_tim" max="32767" attributes="0"/>
                           <Component id="txt_timkiem" pref="431" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="btn_xuat" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -76,7 +78,10 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="txt_timkiem" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txt_timkiem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_xuat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -388,6 +393,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="tim kiem theo ma"/>
       </Properties>
+    </Component>
+    <Component class="chucNang.MyButton" name="btn_xuat">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="xu&#x1ea5;t "/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xuatActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

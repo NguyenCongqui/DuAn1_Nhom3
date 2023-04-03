@@ -8,11 +8,13 @@ import DomainModel.Voucher;
 import Service.Impl.VoucherImpl;
 import Services.VoucherService;
 import ViewModel.VouchersViewModel;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.duan.swing.Excel;
 import view.logiin.Auth;
 import view.logiin.XDate;
 
@@ -230,6 +232,7 @@ public class khuyenmai extends javax.swing.JPanel {
         btn_xoa = new chucNang.MyButton();
         btn_lammoi = new chucNang.MyButton();
         lbl_tim = new javax.swing.JLabel();
+        btn_xuat = new chucNang.MyButton();
 
         Date.setDateFormat("yyyy-MM-dd");
         Date.setTextRefernce(txt_NgayBatDau);
@@ -399,6 +402,13 @@ public class khuyenmai extends javax.swing.JPanel {
         lbl_tim.setForeground(new java.awt.Color(204, 0, 0));
         lbl_tim.setText("tim kiem theo ma");
 
+        btn_xuat.setText("xuất ");
+        btn_xuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xuatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -417,6 +427,8 @@ public class khuyenmai extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbl_tim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txt_timkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                        .addGap(58, 58, 58)
+                        .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -429,7 +441,9 @@ public class khuyenmai extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(txt_timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_timkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_tim)
                 .addGap(28, 28, 28)
@@ -500,6 +514,17 @@ public class khuyenmai extends javax.swing.JPanel {
         // TODO add your handling code here:
         reset();
     }//GEN-LAST:event_btn_lammoiActionPerformed
+public void excelVoucher() throws IOException {
+        Excel.outExcel((DefaultTableModel) tbl_khuyenMai.getModel());
+        JOptionPane.showMessageDialog(this,"Xuất File thành công");
+    }
+    private void btn_xuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatActionPerformed
+        // TODO add your handling code here:
+        try {
+            excelVoucher();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_xuatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -509,6 +534,7 @@ public class khuyenmai extends javax.swing.JPanel {
     private chucNang.MyButton btn_sua;
     private chucNang.MyButton btn_them;
     private chucNang.MyButton btn_xoa;
+    private chucNang.MyButton btn_xuat;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel jLabel1;

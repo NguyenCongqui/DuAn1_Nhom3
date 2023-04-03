@@ -26,15 +26,15 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="textField1" min="-2" pref="283" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="myButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Component id="cbo_tinhTrang" min="-2" pref="194" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="myButton2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="myButton3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <Component id="btn_xuat" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
@@ -50,7 +50,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="myButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btn_xuat" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbo_tinhTrang" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="myButton3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -76,10 +76,13 @@
         <Property name="labelText" type="java.lang.String" value="T&#xec;m Theo T&#xea;n"/>
       </Properties>
     </Component>
-    <Component class="chucNang.MyButton" name="myButton1">
+    <Component class="chucNang.MyButton" name="btn_xuat">
       <Properties>
-        <Property name="text" type="java.lang.String" value="T&#xec;m"/>
+        <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xuatActionPerformed"/>
+      </Events>
     </Component>
     <Component class="chucNang.Combobox" name="cbo_tinhTrang">
       <Properties>
