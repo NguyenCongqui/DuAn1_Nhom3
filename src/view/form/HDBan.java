@@ -78,112 +78,103 @@ public class HDBan extends javax.swing.JPanel {
         }
     }
   public void fillData() {
-        try {
-            tableModel = (DefaultTableModel) table1.getModel();
-           tableModel.setRowCount(0);
-            listCTB = chitiethoadonservice.getAll("");
-            IKhachHangService khachHangService = new KhachHangImpl();
-            listKHg = khachHangService.getAll();
-            String phone = "";
-            String status = "";
-        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
-       List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
-for (HoaDonViewModel i : listCTB) {
-    for (int j = 0; j < listKHg.size(); j++) {
-        if (i.getIdKhachHang() == listKHg.get(j).getId()) {
-            
-            phone = listKHg.get(j).getSoDienThoai();
-        }
-    }
-    tableModel.addRow(new Object[]{
-        i.getIdHDB(),
-        i.getTenKhachHang(),
-        phone,
-        i.getTenUser(),
-        i.getTongTien() + " đ",
-        i.getNgayThanhToan(),
-        i.getGhiChu()
-    });
-}
-for (int i = 0; i < listCTB.size(); i++) {
-    for (int j = 0; j < listDangBH.size(); j++) {
-        if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
+      tableModel = (DefaultTableModel) table1.getModel();
+      tableModel.setRowCount(0);
+      listCTB = chitiethoadonservice.getAll("");
+      IKhachHangService khachHangService = new KhachHangImpl();
+      listKHg = khachHangService.getListKhachHang();
+      String phone = "";
+      String status = "";
+      List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+      List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
+      for (HoaDonViewModel i : listCTB) {
+         for (int j = 0; j < listKHg.size(); j++) {
+                if (i.getIdKhachHang() == listKHg.get(j).getId()) {
+                    phone = listKHg.get(j).getSoDienThoai();
+                }
+            }
+          
+          tableModel.addRow(new Object[]{
+              i.getIdHDB(),
+              i.getTenKhachHang(),
+              phone,
+              i.getTenUser(),
+              i.getTongTien() + " đ",
+              i.getNgayThanhToan(),
+              i.getGhiChu()
+          });
+      }
+      for (int i = 0; i < listCTB.size(); i++) {
+          for (int j = 0; j < listDangBH.size(); j++) {
+              if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
 //                    status = "Đã trả hàng";
 table1.setValueAt("Đang bảo hành", i, 7);
-        }
-    }
-}
-for (int i = 0; i < listCTB.size(); i++) {
-    for (int z = 0; z < listDaBH.size(); z++) {
-        if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
+              }
+          }
+      }
+      for (int i = 0; i < listCTB.size(); i++) {
+          for (int z = 0; z < listDaBH.size(); z++) {
+              if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
 //                    status = "Đã đổi hàng";
 table1.setValueAt("Đã bảo hành", i, 7);
-        }
-    }
-}
-        } catch (SQLException ex) {
-            Logger.getLogger(HDBan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+              }
+          }
+      }
+ //            System.out.println(table1.getValueAt(row, 5).toString());
     }
   public void searchDateFillTable() {
-        try {
-            totalData = chitiethoadonservice.ThoiGian("");
-            rowCountPerPage = Integer.valueOf(cbbPagination.getSelectedItem().toString());
-            Double totalPageD = Math.ceil(totalData.doubleValue() / rowCountPerPage);
-            totalPage = totalPageD.intValue();
-            //edit();
-            if (totalData == 0) {
-                JOptionPane.showMessageDialog(this, "Ngày bạn chọn không có hóa đơn nào");
-                return;
-            }
-            edit();
-            tableModel = (DefaultTableModel) table1.getModel();
-            tableModel.setRowCount(0);
-            
-            listCTB = chitiethoadonservice.getAll(txt_ThoiGian.getText());
-            IKhachHangService khachHangService = new KhachHangImpl();
-            listKHg = khachHangService.getAll();
-            String phone = "";
-            String status = "";
-            List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
-            List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
-            for (HoaDonViewModel i : listCTB) {
-                for (int j = 0; j < listKHg.size(); j++) {
-                    if (i.getIdKhachHang() == listKHg.get(j).getId()) {
-                        phone = listKHg.get(j).getSoDienThoai();
-                    }
+      totalData = chitiethoadonservice.ThoiGian("");
+      rowCountPerPage = Integer.valueOf(cbbPagination.getSelectedItem().toString());
+      Double totalPageD = Math.ceil(totalData.doubleValue() / rowCountPerPage);
+      totalPage = totalPageD.intValue();
+      //edit();
+      if (totalData == 0) {
+          JOptionPane.showMessageDialog(this, "Ngày bạn chọn không có hóa đơn nào");
+          return;
+      }
+      edit();
+      tableModel = (DefaultTableModel) table1.getModel();
+      tableModel.setRowCount(0);
+      listCTB = chitiethoadonservice.getAll(txt_ThoiGian.getText());
+      IKhachHangService khachHangService = new KhachHangImpl();
+      listKHg = khachHangService.getListKhachHang();
+      String phone = "";
+      String status = "";
+      List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+      List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
+      for (HoaDonViewModel i : listCTB) {
+           for (int j = 0; j < listKHg.size(); j++) {
+                if (i.getIdKhachHang() == listKHg.get(j).getId()) {
+                    phone = listKHg.get(j).getSoDienThoai();
                 }
-                tableModel.addRow(new Object[]{
-                    i.getIdHDB(),
-                    i.getTenKhachHang(),
-                    phone,
-                    i.getTenUser(),
-                    i.getTongTien() + " đ",
-                    i.getNgayThanhToan(),
-                    i.getGhiChu()
-                });
-            }
-            for (int i = 0; i < listCTB.size(); i++) {
-                for (int j = 0; j < listDangBH.size(); j++) {
-                    if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
+          }
+          tableModel.addRow(new Object[]{
+              i.getIdHDB(),
+              i.getTenKhachHang(),
+              phone,
+              i.getTenUser(),
+              i.getTongTien() + " đ",
+              i.getNgayThanhToan(),
+              i.getGhiChu()
+          });
+      }
+      for (int i = 0; i < listCTB.size(); i++) {
+          for (int j = 0; j < listDangBH.size(); j++) {
+              if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
 //                    status = "Đã trả hàng";
 table1.setValueAt("Đang bảo hành", i, 7);
-                    }
-                }
-            }
-            for (int i = 0; i < listCTB.size(); i++) {
-                for (int z = 0; z < listDaBH.size(); z++) {
-                    if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
+              }
+          }
+      }
+      for (int i = 0; i < listCTB.size(); i++) {
+          for (int z = 0; z < listDaBH.size(); z++) {
+              if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
 //                    status = "Đã đổi hàng";
 table1.setValueAt("Đã bảo hành", i, 7);
-                    }
-                }
-            }
+              }
+          }
+      }
 //            lbl_Count.setText("Page " + page + " for " + totalPage);
-        } catch (SQLException ex) {
-            Logger.getLogger(HDBan.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     /**
@@ -531,7 +522,6 @@ table1.setValueAt("Đã bảo hành", i, 7);
     }//GEN-LAST:event_btnLastActionPerformed
 
      public void search() {
-     try {
          if (txt_timtheoma.getText().trim().equals("")) {
              return;
          }
@@ -540,53 +530,42 @@ table1.setValueAt("Đã bảo hành", i, 7);
          tableModel.setRowCount(0);
          int id = Integer.valueOf(txt_timtheoma.getText());
          HoaDonViewModel i = chitiethoadonservice.FindHDB(id);
-         
-         
          IKhachHangService khachHangService = new KhachHangImpl();
-         listKHg = khachHangService.getAll();
-         
+         listKHg = khachHangService.getListKhachHang();
          if (i == null) {
              lbl_Search.setVisible(true);
              lbl_Search.setText("Không có mặt hàng : " + id);
              return;
          }
          String phone = "";
-            String status = "";
-          List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
-            List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
-            
+         String status = "";
+         List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+         List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
          for (int j = 0; j < listKHg.size(); j++) {
-             if (i.getIdKhachHang() == listKHg.get(j).getId()) {
-                 phone = listKHg.get(j).getSoDienThoai();
+            if (i.getIdKhachHang() == listKHg.get(j).getId()) {
+                phone = listKHg.get(j).getSoDienThoai();
+            }
+        }
+         tableModel.addRow(new Object[]{
+             i.getIdHDB(),
+             i.getTenKhachHang(),
+             phone,
+             i.getTenUser(),
+             i.getTongTien() + " đ",
+             i.getNgayThanhToan(),
+             i.getGhiChu()
+         });
+         lbl_Search.setText("");
+         for (int j = 0; j < listDangBH.size(); j++) {
+             if (id == listDangBH.get(j).getIdHDBan()) {
+                 table1.setValueAt("Đang bảo hành", j, 7);
              }
          }
-        tableModel.addRow(new Object[]{
-                    i.getIdHDB(),
-                    i.getTenKhachHang(),
-                    phone,
-                    i.getTenUser(),
-                    i.getTongTien() + " đ",
-                    i.getNgayThanhToan(),
-                    i.getGhiChu()
-                });
-         
-         lbl_Search.setText("");
-          for (int j = 0; j < listDangBH.size(); j++) {
-            if (id == listDangBH.get(j).getIdHDBan()) {
-                table1.setValueAt("Đang bảo hành", j, 7);
-            }
-        }
-
-        for (int z = 0; z < listDaBH.size(); z++) {
-            if (id == listDaBH.get(z).getIdHDBan()) {
-                table1.setValueAt("Đã bảo hành", z, 7);
-            }
-        }
-
-      
-     } catch (SQLException ex) {
-         Logger.getLogger(HDBan.class.getName()).log(Level.SEVERE, null, ex);
-     }
+         for (int z = 0; z < listDaBH.size(); z++) {
+             if (id == listDaBH.get(z).getIdHDBan()) {
+                 table1.setValueAt("Đã bảo hành", z, 7);
+             }
+         }
         
 
     }

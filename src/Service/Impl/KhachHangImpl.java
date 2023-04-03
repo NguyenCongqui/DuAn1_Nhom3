@@ -44,5 +44,10 @@ public class KhachHangImpl implements IKhachHangService {
     public boolean xoa(Integer id) throws SQLException {
         return khachHangRepo.xoa(id);
     }
+
+    @Override
+    public List<KhachHang> getListKhachHang() {
+        return khachHangRepo.getListKhachHang();
+    }
     
 }

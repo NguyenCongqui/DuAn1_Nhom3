@@ -18,4 +18,6 @@ public interface IKhachHangService {
      public boolean them(KhachHang khachHang)throws SQLException;
      public boolean sua(KhachHang khachHang, Integer id)throws SQLException;
      public boolean xoa(Integer id)throws SQLException;
+     
+     List<KhachHang> getListKhachHang() ;
 }

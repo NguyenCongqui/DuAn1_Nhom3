@@ -11,8 +11,11 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author hodangquan
@@ -115,4 +118,35 @@ public class KhachHangRepository {
             return true;
         }
     }
+    
+       DBConnection db;
+    ResultSet rs = null;
+    Statement st = null;
+    Connection con = null;
+    PreparedStatement pst = null;
+     public List<KhachHang> getListKhachHang() {
+        String select = "Select * from KHACHHANG ORDER BY IdKhachHang DESC";
+        List<KhachHang> ListKhachHang = new ArrayList();
+        try {
+            st = db.getConnection().createStatement();
+            rs = st.executeQuery(select);
+             while (rs.next()) {            
+            Integer id = rs.getInt("IDKHACHHANG");
+            String hoTen = rs.getString("HOTEN");
+            String ngaySinh = rs.getString("NGAYSINH");
+            boolean gioiTinh = rs.getBoolean("GIOITINH");
+            String soDienThoai = rs.getString("SODIENTHOAI");
+            String diaChi = rs.getString("DIACHI");
+            boolean trangThai = rs.getBoolean("TRANGTHAI");
+            
+            KhachHang khachHang = new KhachHang(id, hoTen, ngaySinh, gioiTinh, soDienThoai, diaChi,trangThai);
+            ListKhachHang.add(khachHang);
+        }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ListKhachHang;
+    }
+
 }
