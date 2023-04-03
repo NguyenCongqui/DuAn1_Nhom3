@@ -1191,13 +1191,38 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
 
     private void cbo_DanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_DanhMucActionPerformed
         // TODO add your handling code here:
-//        sanPhams = banHangService.searchDanhMuc(cbo_DanhMuc.getSelectedItem().toString());
+//       sanPhams = banHangService.searchDanhMuc(cbo_DanhMuc.getSelectedItem().toString());
 //        hienThiSanPham();
-
+//
 //        hienThiSanPham();
 //        String rdo = cbo_DanhMuc.getSelectedItem().toString();
 //        if (cbo_DanhMuc.getSelectedItem().toString().equalsIgnoreCase(rdo));
 //        tkgt(rdo);
+    
+
+DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        String keyString = (String) cbo_DanhMuc.getSelectedItem();
+        List<SanPhamViewModel> list = banHangService.searchDanhMuc(keyString);
+        if (list.isEmpty()) {
+           // lbl_tim.setText("Không có khách hàng " + keyString);
+            return;
+        }
+  for (SanPhamViewModel sanPham : list) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1,
+                sanPham.getSoImei(),
+                sanPham.getTenSp(),
+                sanPham.getSoLuong(),
+                sanPham.getTenDanhMuc(),
+                sanPham.getTenDungLuong(),
+                sanPham.getMauSac(),
+               nf.format(sanPham.getGiaBan()) +" đ",
+                sanPham.getAnh()
+            });
+        }
+        //lbl_tim.setText("");
+    
 
     }//GEN-LAST:event_cbo_DanhMucActionPerformed
 
@@ -1260,12 +1285,58 @@ String soimei = (String) tblGioHang.getValueAt(row, 1);
 
     private void cbo_MauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_MauSacActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        String keyString = (String) cbo_MauSac.getSelectedItem();
+        List<SanPhamViewModel> list = banHangService.searchMauSac(keyString);
+        if (list.isEmpty()) {
+           // lbl_tim.setText("Không có khách hàng " + keyString);
+            return;
+        }
+  for (SanPhamViewModel sanPham : list) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1,
+                sanPham.getSoImei(),
+                sanPham.getTenSp(),
+                sanPham.getSoLuong(),
+                sanPham.getTenDanhMuc(),
+                sanPham.getTenDungLuong(),
+                sanPham.getMauSac(),
+               nf.format(sanPham.getGiaBan()) +" đ",
+                sanPham.getAnh()
+            });
+        }
+        //lbl_tim.setText("");
+        
     }//GEN-LAST:event_cbo_MauSacActionPerformed
 
     private void cbo_DungLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_DungLuongActionPerformed
         // TODO add your handling code here:
 //        sanPhams = banHangService.searchBNTrong(cbo_DungLuong.getSelectedItem().toString());
 //        hienThiSanPham();
+
+DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        String keyString = (String) cbo_DungLuong.getSelectedItem();
+        List<SanPhamViewModel> list = banHangService.searchDanhMuc(keyString);
+        if (list.isEmpty()) {
+           // lbl_tim.setText("Không có khách hàng " + keyString);
+            return;
+        }
+  for (SanPhamViewModel sanPham : list) {
+            model.addRow(new Object[]{
+                model.getRowCount() + 1,
+                sanPham.getSoImei(),
+                sanPham.getTenSp(),
+                sanPham.getSoLuong(),
+                sanPham.getTenDanhMuc(),
+                sanPham.getTenDungLuong(),
+                sanPham.getMauSac(),
+               nf.format(sanPham.getGiaBan()) +" đ",
+                sanPham.getAnh()
+            });
+        }
+        //lbl_tim.setText("");
     }//GEN-LAST:event_cbo_DungLuongActionPerformed
 //public void FindDM(){
 //    List<SanPhamViewModel> sanPhams = banHangService.searchDanhMuc(cbo_DanhMuc.getSelectedItem().toString());

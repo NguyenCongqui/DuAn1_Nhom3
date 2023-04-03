@@ -78,6 +78,21 @@ public class BanHangImpl implements BanHangService{
        return repo.search(temp);
     }
 
+    @Override
+    public List<SanPhamViewModel> searchDungLuong(String temp) {
+      return repo.searchDungLuong(temp);
+    }
+
+    @Override
+    public List<SanPhamViewModel> searchDanhMuc(String temp) {
+        return repo.searchDanhMuc(temp);
+    }
+
+    @Override
+    public List<SanPhamViewModel> searchMauSac(String temp) {
+       return repo.searchMauSac(temp);
+    }
+
    
 
    

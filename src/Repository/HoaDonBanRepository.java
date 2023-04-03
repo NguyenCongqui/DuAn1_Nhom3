@@ -81,9 +81,9 @@ public class HoaDonBanRepository {
     
        public List<HoaDonViewModel> getAll(String Stringdate) {
         if (!Stringdate.isEmpty()) {
-              java.util.Date date = java.util.Calendar.getInstance().getTime();
+             // java.util.Date date = java.util.Calendar.getInstance().getTime();
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-//            java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
+            java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
             String sql = " SELECT  * FROM dbo.HOADONBAN INNER JOIN\n" +
 "dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
 "dbo.USERS ON dbo.HOADONBAN.IDUSERS = dbo.USERS.IDUSERS WHERE HoaDonBan.TrangThai = 0 AND HoaDonBan.NGAYTHANHTOAN  BETWEEN '" + new java.sql.Date(date.getTime()) + " 00:00:00.000'" + "AND '" + new java.sql.Date(date.getTime()) + " 23:59:59.000' \n"
@@ -152,8 +152,8 @@ public class HoaDonBanRepository {
          public int ThoiGian(String Stringdate) {
         ResultSet rs;
         if (!Stringdate.isEmpty()) {
-               java.util.Date date = java.util.Calendar.getInstance().getTime();
-//            java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
+               //java.util.Date date = java.util.Calendar.getInstance().getTime();
+            java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
             String sql = " SELECT COUNT(*) as soLuong FROM dbo.HOADONBAN WHERE NGAYTHANHTOAN BETWEEN '" + new java.sql.Date(date.getTime()) + " '" + "AND '" + new java.sql.Date(date.getTime()) + " ' ";
             try {
                 pst = db.getConnection().prepareStatement(sql);

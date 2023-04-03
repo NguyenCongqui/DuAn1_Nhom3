@@ -39,4 +39,7 @@ public interface BanHangService {
 
     public int getTongTien(float id);
      public List<SanPhamViewModel> search(String temp);
+     public List<SanPhamViewModel> searchDungLuong(String temp);
+             public List<SanPhamViewModel> searchDanhMuc(String temp);
+                     public List<SanPhamViewModel> searchMauSac(String temp);
 }

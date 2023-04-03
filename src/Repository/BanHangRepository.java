@@ -237,6 +237,33 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         }
         return listTemp;
     }
+       public List<SanPhamViewModel> searchDanhMuc(String temp) {
+         List<SanPhamViewModel> listTemp = new ArrayList<>();
+        for (SanPhamViewModel x : sanPhamBanHangs) {
+            if (x.getTenDanhMuc().contains(temp)) {
+                listTemp.add(x);
+            }
+        }
+        return listTemp;
+    }
+       public List<SanPhamViewModel> searchMauSac(String temp) {
+         List<SanPhamViewModel> listTemp = new ArrayList<>();
+        for (SanPhamViewModel x : sanPhamBanHangs) {
+            if (x.getMauSac().contains(temp)) {
+                listTemp.add(x);
+            }
+        }
+        return listTemp;
+    }
+       public List<SanPhamViewModel> searchDungLuong(String temp) {
+         List<SanPhamViewModel> listTemp = new ArrayList<>();
+        for (SanPhamViewModel x : sanPhamBanHangs) {
+            if (x.getTenDungLuong().contains(temp)) {
+                listTemp.add(x);
+            }
+        }
+        return listTemp;
+    }
 
 //    List<SanPhamViewModel> list;
 //
