@@ -24,7 +24,7 @@ public class KhachHangRepository {
     public List<KhachHang> getAll() throws SQLException{
         List<KhachHang> khachHangs = new ArrayList();
         Connection conn = (Connection) DBConnection.getConnection();
-        String sql = "select IDKHACHHANG,HOTEN,NGAYSINH,GIOITINH,SODIENTHOAI,DIACHI,TRANGTHAI from KHACHHANG";
+        String sql = "select IDKHACHHANG,HOTEN,NGAYSINH,GIOITINH,SODIENTHOAI,DIACHI,TRANGTHAI from KHACHHANG ORDER BY KhachHang.IdKhachHang DESC";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {            

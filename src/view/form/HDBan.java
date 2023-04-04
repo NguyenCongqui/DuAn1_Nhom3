@@ -15,7 +15,9 @@ import ViewModel.BaoHanhViewModel;
 import ViewModel.HoaDonViewModel;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -54,6 +56,8 @@ public class HDBan extends javax.swing.JPanel {
 //        btnLast.setEnabled(false);
 //        btnLast.setVisible(false);
     }
+    Locale lc = new Locale("nv", "VN");
+    NumberFormat nf = NumberFormat.getInstance(lc);
     int totalPage = 1;
     int page = 1;
     Integer totalData = 0;
@@ -101,7 +105,7 @@ public class HDBan extends javax.swing.JPanel {
               i.getTenKhachHang(),
               phone,
               i.getTenUser(),
-              i.getTongTien() + " đ",
+             nf.format( i.getTongTien() )+ " đ",
               i.getNgayThanhToan(),
               i.getGhiChu()
           });
@@ -155,7 +159,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
               i.getTenKhachHang(),
               phone,
               i.getTenUser(),
-              i.getTongTien() + " đ",
+             nf.format( i.getTongTien()) + " đ",
               i.getNgayThanhToan(),
               i.getGhiChu()
           });
@@ -176,7 +180,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
               }
           }
       }
-//            lbl_Count.setText("Page " + page + " for " + totalPage);
+           lbl_Count.setText("Page " + page + " for " + totalPage);
     }
     
     /**
@@ -202,6 +206,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
         btn_loc = new chucNang.MyButton();
         txt_ThoiGian = new chucNang.TextField();
         jLabel2 = new javax.swing.JLabel();
+        lbl_Count = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new chucNang.Table01();
         txt_timtheoma = new chucNang.TextField();
@@ -274,6 +279,8 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
         txt_ThoiGian.setLabelText("Thời Gian");
 
+        lbl_Count.setText("jLabel3");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -307,6 +314,10 @@ table1.setValueAt("Đã bảo hành", i, 7);
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(lbl_Count)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +337,9 @@ table1.setValueAt("Đã bảo hành", i, 7);
                     .addComponent(btnLast))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(275, 275, 275))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_Count)
+                .addGap(256, 256, 256))
         );
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -475,6 +488,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         reset();
+        flag = false;
     }//GEN-LAST:event_btnResetActionPerformed
 
     public void reset() {
@@ -612,6 +626,7 @@ public void excelHoaDonBan() throws IOException {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbl_Count;
     private javax.swing.JLabel lbl_Search;
     private chucNang.Table01 table1;
     private chucNang.TextField txt_ThoiGian;

@@ -95,7 +95,10 @@ public class NhanVien extends javax.swing.JPanel {
     }
 
     public void delete() {
-        int index = tbl_NhanVien.getSelectedRow();
+        if (true) {
+            
+        }else{
+             int index = tbl_NhanVien.getSelectedRow();
         int idUsers = (int) tbl_NhanVien.getValueAt(index, 0);
         if (idUsers == Auth.user.getIdUser()) {
             JOptionPane.showMessageDialog(this, "Bạn Không Thể Xóa Bạn Được ???");
@@ -106,6 +109,8 @@ public class NhanVien extends javax.swing.JPanel {
             listUsers = nhanVienService.getListNhanVienDangLam();
             showDataDangLam();
         }
+        }
+       
     }
 
     /**
