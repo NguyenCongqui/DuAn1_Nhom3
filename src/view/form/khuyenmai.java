@@ -196,7 +196,7 @@ public class khuyenmai extends javax.swing.JPanel {
                 p.getNgaytao(),
                 p.getNgaysua(),
                 p.getTenNguoiTao(),
-                p.isTrangThai() == true ? "Hoạt Động" : "Ngừng Hoạt Động",});
+                p.isTrangThai() == true ? " Đang Hoạt Động" : "Ngừng Hoạt Động",});
         }
         lbl_tim.setText("");
     }
