@@ -332,10 +332,11 @@ public class KhachHangForm1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTenKhachHangActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        try {
+        try { 
+            
             String checkChu = "^[a-zA-Z\\s]*$";
             String khoangTrang = "^[\\s]*$";
-            String so = "^[-?0-9]*$";
+            String so = "^[-?0-9]*$"; 
             String checkPrice = "^[-?0-9\\.]*$";
             String checkSo = "^[\\s]*$";
             String checkKiTu = "^[a-zA-Z0-9\\s+]*$";

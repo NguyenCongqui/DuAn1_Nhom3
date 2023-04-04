@@ -361,10 +361,11 @@ public class KhachHangForm extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Số điện thoại viết liền và không chứa khoảng trắng! ", "thông báo", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+            
             if (!txtSodienthoai.getText().matches(so)) {
                     JOptionPane.showMessageDialog(this, "Số điện thoại phải là số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
                     return;
-                }
+                } 
             if (txtSodienthoai.getText().length() > 10) {
                     JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
                     return;
