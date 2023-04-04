@@ -376,10 +376,10 @@ public class KhachHangForm extends javax.swing.JPanel {
                 }
             KhachHang kh = LayTT();
             if (service.them(kh) == true) {
-                JOptionPane.showMessageDialog(this, "Thêm thành công");
+                JOptionPane.showMessageDialog(this, "Thêm thành công","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 HienThi();
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                JOptionPane.showMessageDialog(this, "Thêm thất bại","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (ParseException ex) {
             Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -390,19 +390,54 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
+            String checkChu = "^[a-zA-Z\\s]*$";
+            String khoangTrang = "^[\\s]*$";
+            String so = "^[-?0-9]*$"; 
+            String checkPrice = "^[-?0-9\\.]*$";
+            String checkSo = "^[\\s]*$";
+            String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+            // TODO add your handling code here:
+            if (txtTenKhachHang.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, " Vui lòng nhập tên khách hàng trước khi sửa ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtDiaChi.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, " Vui lòng nhập địa chỉ khách hàng trước khi sửa ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, " Vui lòng nhập số điện thoại khách hàng trước khi sửa ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().replaceAll("[^ ]", "").length() > 0) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại viết liền và không chứa khoảng trắng! ", "thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!txtSodienthoai.getText().matches(so)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại phải là số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().length() > 10) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().length() < 10) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int index = tbKhachHang.getSelectedRow();
             if (index == -1) {
-                JOptionPane.showMessageDialog(this, "Vui long chon ban ghi can sua");
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi sửa","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             // TODO add your handling code here:
             KhachHang kh = LayTT();
             Integer id = Integer.parseInt(tbKhachHang.getValueAt(index, 0).toString());
             if (service.sua(kh, id) == true) {
-                JOptionPane.showMessageDialog(this, "Sua thanh cong");
+                JOptionPane.showMessageDialog(this, "Sửa thành công","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 HienThi();
             } else {
-                JOptionPane.showMessageDialog(this, "sua that bai");
+                JOptionPane.showMessageDialog(this, "Sửa thất bại","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -414,17 +449,48 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        Integer id = Integer.parseInt(txtIdKhachHang.getText());
-        try {
-            if (service.xoa(id)) {
-                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
-                HienThi();
-
-            } else {
-                JOptionPane.showMessageDialog(this, "Xoa that bai");
+//        Integer id = Integer.parseInt(txtIdKhachHang.getText());
+//        try {
+//            
+//            
+//            
+//            if (service.xoa(id)) {
+//                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+//                HienThi();
+//
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Xoa that bai");
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+try {
+            // TODO add your handling code here:
+            int index = tbKhachHang.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi xóa :)) ","Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+//            int index1 = tbCpu.getRowCount();
+//            if (index1 == 0) {
+//                JOptionPane.showMessageDialog(this, "Không có dữ kiệu có dữ liệu để xóa :))");
+//                return;
+//            }
+            int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không ? ","Thông Báo", JOptionPane.ERROR_MESSAGE);
+            if (check != JOptionPane.YES_OPTION) {
+                return;
+            } else {
+                String idString = tbKhachHang.getValueAt(index, 0).toString();
+                Integer id = Integer.parseInt(idString);
+                if (service.xoa(id) == true) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công  ","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại ","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+                HienThi();
+            }
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
