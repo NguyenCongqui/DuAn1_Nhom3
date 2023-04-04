@@ -89,6 +89,7 @@ public class TrangChuRepository {
                         			 INNER JOIN dbo.MAUSAC ON MAUSAC.IDMAUSAC = CHITIETSANPHAM.IDMAUSAC 
                         			 INNER JOIN dbo.BONHOTRONG ON BONHOTRONG.IDBONHOTRONG = CHITIETSANPHAM.IDBONHOTRONG
                         			 INNER JOIN dbo.SANPHAM ON SANPHAM.IDSANPHAM = CHITIETSANPHAM.IDSANPHAM
+                        			 WHERE HOADONBAN.TRANGTHAI = 0 ORDER BY HOADONBAN.IDHOADONBAN DESC
                         """;
         try {
             st = db.getConnection().createStatement();
