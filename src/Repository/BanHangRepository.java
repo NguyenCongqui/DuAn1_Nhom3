@@ -127,17 +127,18 @@ public class BanHangRepository {
 
     public List<SanPhamViewModel> getListSP() {
         try {
-         sanPhamBanHangs   = new ArrayList<>();
+            sanPhamBanHangs = new ArrayList<>();
             sanPhamBanHangs = new ArrayList<>();
             Connection conn = dBConnection.getConnection();
             String sql = """
                 
-SELECT dbo.CHITIETSANPHAM.SOIMEI, dbo.SANPHAM.TENSANPHAM,SOLUONGTON ,dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.LOAIPIN.TELOAIPIN, dbo.SANPHAM.ANH, dbo.CHITIETSANPHAM.GIABAN
+SELECT dbo.CHITIETSANPHAM.SOIMEI, dbo.SANPHAM.TENSANPHAM,SOLUONGTON ,dbo.DANHMUC.TENDANHMUC, dbo.BONHOTRONG.TENBONHOTRONG, TENMAUSAC ,dbo.CHITIETSANPHAM.GIABAN
 FROM   dbo.CHITIETSANPHAM INNER JOIN
              dbo.SANPHAM ON dbo.CHITIETSANPHAM.IDSANPHAM = dbo.SANPHAM.IDSANPHAM INNER JOIN
              dbo.BONHOTRONG ON dbo.CHITIETSANPHAM.IDBONHOTRONG = dbo.BONHOTRONG.IDBONHOTRONG INNER JOIN
              dbo.DANHMUC ON dbo.SANPHAM.IDDANHMUC = dbo.DANHMUC.IDDANHMUC INNER JOIN
-             dbo.LOAIPIN ON dbo.CHITIETSANPHAM.IDLOAIPIN = dbo.LOAIPIN.IDLOAIPIN WHERE
+             dbo.MAUSAC ON MAUSAC.IDMAUSAC = CHITIETSANPHAM.IDMAUSAC
+			 WHERE
 			 CHITIETSANPHAM.TRANGTHAI = 0 and CHITIETSANPHAM.SOLUONGTON =1 ORDER BY CHITIETSANPHAM.NGAYTAO DESC
                          """;
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -147,10 +148,9 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
                         rs.getString("SOIMEI"),
                         rs.getString("TENSANPHAM"),
                         rs.getString("TENDANHMUC"),
+                        rs.getString("TENMAUSAC"),
                         rs.getString("TENBONHOTRONG"),
-                        rs.getString("TELOAIPIN"),
                         rs.getFloat("GIABAN"),
-                        rs.getString("ANH"),
                         rs.getInt("SOLUONGTON")));
 
             }
@@ -227,9 +227,9 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         }
         return null;
     }
-    
-       public List<SanPhamViewModel> search(String temp) {
-         List<SanPhamViewModel> listTemp = new ArrayList<>();
+
+    public List<SanPhamViewModel> search(String temp) {
+        List<SanPhamViewModel> listTemp = new ArrayList<>();
         for (SanPhamViewModel x : sanPhamBanHangs) {
             if (x.getSoImei().contains(temp)) {
                 listTemp.add(x);
@@ -237,8 +237,9 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         }
         return listTemp;
     }
-       public List<SanPhamViewModel> searchDanhMuc(String temp) {
-         List<SanPhamViewModel> listTemp = new ArrayList<>();
+
+    public List<SanPhamViewModel> searchDanhMuc(String temp) {
+        List<SanPhamViewModel> listTemp = new ArrayList<>();
         for (SanPhamViewModel x : sanPhamBanHangs) {
             if (x.getTenDanhMuc().contains(temp)) {
                 listTemp.add(x);
@@ -246,8 +247,9 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         }
         return listTemp;
     }
-       public List<SanPhamViewModel> searchMauSac(String temp) {
-         List<SanPhamViewModel> listTemp = new ArrayList<>();
+
+    public List<SanPhamViewModel> searchMauSac(String temp) {
+        List<SanPhamViewModel> listTemp = new ArrayList<>();
         for (SanPhamViewModel x : sanPhamBanHangs) {
             if (x.getMauSac().contains(temp)) {
                 listTemp.add(x);
@@ -255,8 +257,9 @@ FROM   dbo.CHITIETSANPHAM INNER JOIN
         }
         return listTemp;
     }
-       public List<SanPhamViewModel> searchDungLuong(String temp) {
-         List<SanPhamViewModel> listTemp = new ArrayList<>();
+
+    public List<SanPhamViewModel> searchDungLuong(String temp) {
+        List<SanPhamViewModel> listTemp = new ArrayList<>();
         for (SanPhamViewModel x : sanPhamBanHangs) {
             if (x.getTenDungLuong().contains(temp)) {
                 listTemp.add(x);

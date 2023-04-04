@@ -274,7 +274,7 @@ public class banhang extends javax.swing.JPanel implements Runnable,ThreadFactor
                 sanPham.getTenDungLuong(),
                 sanPham.getMauSac(),
                nf.format(sanPham.getGiaBan()) +" đ",
-                sanPham.getAnh()});
+               });
         }
     }
 
@@ -540,7 +540,7 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
                 sanPham.getTenDungLuong(),
                 sanPham.getMauSac(),
                nf.format(sanPham.getGiaBan()) +" đ",
-                sanPham.getAnh()
+              
             });
         }
         //lbl_tim.setText("");
@@ -1228,7 +1228,7 @@ DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
                 sanPham.getTenDungLuong(),
                 sanPham.getMauSac(),
                nf.format(sanPham.getGiaBan()) +" đ",
-                sanPham.getAnh()
+              
             });
         }
         //lbl_tim.setText("");

@@ -16,33 +16,26 @@ public class SanPhamViewModel {
     private String mauSac;
     private String tenDungLuong;
     private float giaBan;
-    private String anh;
     private int soLuong;
     
     public SanPhamViewModel() {
     }
 
-    public SanPhamViewModel(String soImei, String tenSp, String tenDanhMuc, String mauSac, String tenDungLuong, float giaBan, String anh, int soLuong) {
+    public SanPhamViewModel(String soImei, String tenSp, String tenDanhMuc, String mauSac, String tenDungLuong, float giaBan, int soLuong) {
         this.soImei = soImei;
         this.tenSp = tenSp;
         this.tenDanhMuc = tenDanhMuc;
         this.mauSac = mauSac;
         this.tenDungLuong = tenDungLuong;
         this.giaBan = giaBan;
-        this.anh = anh;
         this.soLuong = soLuong;
     }
 
    
+    
+   
 
-    public SanPhamViewModel(String soImei, String tenSp, int soLuong,float giaBan, String anh) {
-        this.soImei = soImei;
-        this.tenSp = tenSp;
-        this.giaBan = giaBan;
-        this.anh = anh;
-        this.soLuong = soLuong;
-    }
-
+   
   
 
     public String getTenSp() {
@@ -94,13 +87,6 @@ public class SanPhamViewModel {
         this.giaBan = giaBan;
     }
 
-    public String getAnh() {
-        return anh;
-    }
-
-    public void setAnh(String anh) {
-        this.anh = anh;
-    }
 
     public int getSoLuong() {
         return soLuong;
