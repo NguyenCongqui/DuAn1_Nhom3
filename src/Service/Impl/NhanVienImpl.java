@@ -72,6 +72,11 @@ public class NhanVienImpl implements NhanVienServices{
         return rep.updateNgaySua(id);
     }
 
+    @Override
+    public List<Users> searchTen(String temp) {
+       return rep.searchTen(temp);
+    }
+
     
    
 

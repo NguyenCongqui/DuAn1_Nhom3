@@ -12,12 +12,12 @@ public class KhachHangTrangChuViewModel {
     private String hoTen,tenSanPham,mauSac,boNhoTrong;
     private boolean gioiTinh;
     private int soLuong;
-    private String diaChi,soDienThoai;
+    private String diaChi,soDienThoai,ngayMua;
 
     public KhachHangTrangChuViewModel() {
     }
 
-    public KhachHangTrangChuViewModel(String hoTen, String tenSanPham, String mauSac, String boNhoTrong, boolean gioiTinh, int soLuong, String diaChi, String soDienThoai) {
+    public KhachHangTrangChuViewModel(String hoTen, String tenSanPham, String mauSac, String boNhoTrong, boolean gioiTinh, int soLuong, String diaChi, String soDienThoai, String ngayMua) {
         this.hoTen = hoTen;
         this.tenSanPham = tenSanPham;
         this.mauSac = mauSac;
@@ -26,7 +26,17 @@ public class KhachHangTrangChuViewModel {
         this.soLuong = soLuong;
         this.diaChi = diaChi;
         this.soDienThoai = soDienThoai;
+        this.ngayMua = ngayMua;
     }
+
+    public String getNgayMua() {
+        return ngayMua;
+    }
+
+    public void setNgayMua(String ngayMua) {
+        this.ngayMua = ngayMua;
+    }
+
 
     public String getHoTen() {
         return hoTen;

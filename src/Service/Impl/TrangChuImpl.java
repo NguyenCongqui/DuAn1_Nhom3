@@ -6,11 +6,15 @@ package Service.Impl;
 
 import Repository.TrangChuRepository;
 import Services.TrangChuService;
+import ViewModel.KhachHangTrangChuViewModel;
+import java.util.List;
 
 /**
  *
  * @author ADMIN
  */
+
+
 public class TrangChuImpl implements TrangChuService{
     TrangChuRepository rep = new TrangChuRepository();
     
@@ -31,7 +35,12 @@ public class TrangChuImpl implements TrangChuService{
 
     @Override
     public int getTongTonKho() {
-        return rep.getTongTonKho();
+        return rep.getTongTonKho();    }
+
+    @Override
+    public List<KhachHangTrangChuViewModel> getlistkhachHang() {
+       return rep.getlistkhachHang();
+
     }
     
 }

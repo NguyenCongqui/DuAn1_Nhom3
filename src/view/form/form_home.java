@@ -6,9 +6,12 @@ package view.form;
 
 import Service.Impl.TrangChuImpl;
 import Services.TrangChuService;
+import ViewModel.KhachHangTrangChuViewModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -26,6 +29,8 @@ public class form_home extends javax.swing.JPanel {
 
     DefaultTableModel tbl_model = new DefaultTableModel();
     TrangChuService trangChuService = new TrangChuImpl();
+    List<KhachHangTrangChuViewModel> listKhachHangTrangChu = new ArrayList<>();
+    
     
     public form_home() {
         initComponents();
@@ -34,8 +39,19 @@ public class form_home extends javax.swing.JPanel {
         initNoticeBoard();
         tbl_danhSachKhachHang.fixTable(jScrollPane1);
         tbl_model = (DefaultTableModel) tbl_danhSachKhachHang.getModel();
+        listKhachHangTrangChu = trangChuService.getlistkhachHang();
+        filldata();
         
         
+        
+    }
+    public  void filldata(){
+        tbl_model.setRowCount(0);
+        for (KhachHangTrangChuViewModel kh : listKhachHangTrangChu) {
+            tbl_model.addRow(new Object[]{
+               kh.getHoTen(), kh.getTenSanPham(),kh.getMauSac(),kh.getBoNhoTrong(),kh.isGioiTinh() == true?"Nam":"Nữ",kh.getSoLuong(),kh.getDiaChi(),kh.getSoDienThoai(),kh.getNgayMua()
+            });
+        }
     }
      private void initCardData() {
         Icon icon1 = IconFontSwing.buildIcon(GoogleMaterialDesignIcons.PEOPLE, 60, new Color(255, 255, 255, 100), new Color(255, 255, 255, 15));
@@ -96,13 +112,10 @@ private void initNoticeBoard() {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(noticeBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(noticeBoard, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -125,7 +138,7 @@ private void initNoticeBoard() {
 
             },
             new String [] {
-                "Tên Khách Hàng", "Tên Sản Phẩm", "Màu Sắc", "Bộ Nhớ Trong", "Giới Tính", "Số Lượng Mua", "Địa Chỉ", "Số Điện Thoại"
+                "Tên Khách Hàng", "Tên Sản Phẩm", "Màu Sắc", "Bộ Nhớ Trong", "Giới Tính", "Số Lượng Mua", "Địa Chỉ", "Số Điện Thoại", "Ngày Mua"
             }
         ));
         jScrollPane1.setViewportView(tbl_danhSachKhachHang);
@@ -174,6 +187,7 @@ private void initNoticeBoard() {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, 0)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(card1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)

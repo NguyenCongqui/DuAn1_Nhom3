@@ -22,5 +22,6 @@ public interface NhanVienServices {
         String xoaNhanVien(int id);
         List<NhanVienViewModel> getAll();
         String updateNgaySua(int id);
+        public List<Users> searchTen(String temp);
 
 }

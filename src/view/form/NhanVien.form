@@ -21,11 +21,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="textField1" min="-2" pref="283" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txt_tim" min="-2" pref="283" max="-2" attributes="0"/>
+                  <Component id="lbl_tim" min="-2" pref="226" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               <Component id="cbo_tinhTrang" min="-2" pref="194" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -36,26 +44,31 @@
               <Component id="btn_xuat" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btn_xuat" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbo_tinhTrang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="myButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_xuat" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbo_tinhTrang" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="myButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="myButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txt_tim" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbl_tim" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="524" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -71,10 +84,13 @@
         <Property name="text" type="java.lang.String" value="Nh&#xe2;n Vi&#xea;n"/>
       </Properties>
     </Component>
-    <Component class="chucNang.TextField" name="textField1">
+    <Component class="chucNang.TextField" name="txt_tim">
       <Properties>
         <Property name="labelText" type="java.lang.String" value="T&#xec;m Theo T&#xea;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txt_timCaretUpdate"/>
+      </Events>
     </Component>
     <Component class="chucNang.MyButton" name="btn_xuat">
       <Properties>
@@ -213,6 +229,14 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myButton3ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_tim">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="thong bao"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -205,4 +205,16 @@ public class NhanVienRepostory {
            }
            return -3;
        }
+       
+       public List<Users> searchTen(String temp) {
+        List<Users> listTemp = new ArrayList<>();
+        for (Users x : listUsers) {
+            if (x.getHoTen().contains(temp)) {
+                listTemp.add(x);
+            }
+        }
+        return listTemp;
+        
+       }
+    
 }

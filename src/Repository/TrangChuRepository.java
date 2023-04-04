@@ -82,12 +82,19 @@ public class TrangChuRepository {
     }
       public List<KhachHangTrangChuViewModel> getlistkhachHang(){
         ListkhachHang = new ArrayList<>();
-        String select = "";
+        String select = """
+                        SELECT TENKhachHang,TENSANPHAM,TENMAUSAC,TENBONHOTRONG,GIOITINH,SoLuong,DIACHI,SODIENTHOAI,NGAYTHANHTOAN FROM dbo.KHACHHANG INNER JOIN dbo.HOADONBAN ON HOADONBAN.IDKHACHHANG = KHACHHANG.IDKHACHHANG 
+                        			 INNER JOIN dbo.CHITIETHOADONBAN ON CHITIETHOADONBAN.IDHOADONBAN = HOADONBAN.IDHOADONBAN 
+                        			 INNER JOIN dbo.CHITIETSANPHAM ON CHITIETSANPHAM.SOIMEI = CHITIETHOADONBAN.SOIMEI
+                        			 INNER JOIN dbo.MAUSAC ON MAUSAC.IDMAUSAC = CHITIETSANPHAM.IDMAUSAC 
+                        			 INNER JOIN dbo.BONHOTRONG ON BONHOTRONG.IDBONHOTRONG = CHITIETSANPHAM.IDBONHOTRONG
+                        			 INNER JOIN dbo.SANPHAM ON SANPHAM.IDSANPHAM = CHITIETSANPHAM.IDSANPHAM
+                        """;
         try {
             st = db.getConnection().createStatement();
             rs = st.executeQuery(select);
             while (rs.next()) {                
-                ListkhachHang.add(new KhachHangTrangChuViewModel(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getBoolean(5),rs.getInt(6),rs.getString(7),rs.getString(8)));
+                ListkhachHang.add(new KhachHangTrangChuViewModel(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4), rs.getBoolean(5),rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9)));
             }
         } catch (Exception e) {
         }
