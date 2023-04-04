@@ -427,7 +427,7 @@ public class KhachHangForm extends javax.swing.JPanel {
             }
             int index = tbKhachHang.getSelectedRow();
             if (index == -1) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi sửa","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi sửa", "Thông Báo", JOptionPane.ERROR_MESSAGE);
                 return;
             }
             // TODO add your handling code here:

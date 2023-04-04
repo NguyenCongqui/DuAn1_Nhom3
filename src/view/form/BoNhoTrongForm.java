@@ -196,20 +196,47 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add y  Integer id = Integer.parseInt(txtId.getText());
-        Integer id = Integer.parseInt(txtId.getText());
+//        Integer id = Integer.parseInt(txtId.getText());
+//        try {
+//            if (boNhoTrongService.xoa(id)) {
+//                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
+//                HienThi();
+//                txtBoNhoTrong.setText("");
+//                txtId.setText("");
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Xoa that bai");
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try {
-            if (boNhoTrongService.xoa(id)) {
-                JOptionPane.showMessageDialog(this, "Xoa thanh cong");
-                HienThi();
-                txtBoNhoTrong.setText("");
-                txtId.setText("");
-            } else {
-                JOptionPane.showMessageDialog(this, "Xoa that bai");
+            // TODO add your handling code here:
+            int index = tbBoNhoTrong.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi xóa :)) ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//            int index1 = tbCpu.getRowCount();
+//            if (index1 == 0) {
+//                JOptionPane.showMessageDialog(this, "Không có dữ kiệu có dữ liệu để xóa :))");
+//                return;
+//            }
+            int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không ? ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            if (check != JOptionPane.YES_OPTION) {
+                return;
+            } else {
+                String idString = tbBoNhoTrong.getValueAt(index, 0).toString();
+                Integer id = Integer.parseInt(idString);
+                if (boNhoTrongService.xoa(id) == true) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công   ", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại ", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+                HienThi();
+            }
+        } catch (Exception e) {
+        }
 
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -221,22 +248,37 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        if (txtBoNhoTrong.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống");
+        String checkChu = "^[a-zA-Z\\s]*$";
+        String khoangTrang = "^[\\s]*$";
+        String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+        if (txtBoNhoTrong.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên bộ nhớ trong trước khi thêm !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        if (!txtBoNhoTrong.getText().matches(checkKiTu)) {
+            JOptionPane.showMessageDialog(this, "Tên bộ nhớ trong không được chưa kí tự đặc biệt !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtBoNhoTrong.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên bộ nhớ trong không được nhập toàn khoản trắng !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+//        if(txtCpu.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
         if (txtBoNhoTrong.getText().length() > 30) {
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         BoNhoTrong boNhoTrong = LayTT();
         try {
             if (boNhoTrongService.them(boNhoTrong)) {
-                JOptionPane.showMessageDialog(this, "Thêm thành công !");
+                JOptionPane.showMessageDialog(this, "Thêm thành công !", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 HienThi();
                 txtBoNhoTrong.setText("");
                 txtId.setText("");
             } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                JOptionPane.showMessageDialog(this, "Thêm thất bại", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,23 +287,38 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if (txtBoNhoTrong.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống");
+        String checkChu = "^[a-zA-Z\\s]*$";
+        String khoangTrang = "^[\\s]*$";
+        String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+        if (txtBoNhoTrong.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập chọn 1 bản ghi trước khi sửa !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        if (!txtBoNhoTrong.getText().matches(checkKiTu)) {
+            JOptionPane.showMessageDialog(this, "Tên Bộ nhớ trong không được chưa kí tự đặc biệt !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (txtBoNhoTrong.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên Bộ nhớ trong không được nhập toàn khoản trắng !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+//        if(txtCpu.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
         if (txtBoNhoTrong.getText().length() > 30) {
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         BoNhoTrong c = LayTT();
         Integer id = Integer.parseInt(txtId.getText());
         try {
             if (boNhoTrongService.sua(c, id)) {
-                JOptionPane.showMessageDialog(this, "Sua thanh cong");
+                JOptionPane.showMessageDialog(this, "Sửa thành công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 HienThi();
                 txtId.setText("");
                 txtBoNhoTrong.setText("");
             } else {
-                JOptionPane.showMessageDialog(this, "Sua that bai");
+                JOptionPane.showMessageDialog(this, "Sửa thất bại", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);

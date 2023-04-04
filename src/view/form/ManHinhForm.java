@@ -53,6 +53,8 @@ public class ManHinhForm extends javax.swing.JFrame {
                 };
                model.addRow(data);
             }
+            txtId.setText("");
+        txtManHinh.setText("");
         }
     }
     public ManHinh LayTT(){
@@ -212,17 +214,45 @@ public class ManHinhForm extends javax.swing.JFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        Integer id = Integer.parseInt(txtId.getText());
+//        Integer id = Integer.parseInt(txtId.getText());
+//        try {
+//            if(service.xoa(id)){
+//               JOptionPane.showMessageDialog(this, "Xóa thành công");
+//               HienThi();
+//            }
+//            else{
+//                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try {
-            if(service.xoa(id)){
-               JOptionPane.showMessageDialog(this, "Xóa thành công");
-               HienThi();
+            // TODO add your handling code here:
+            int index = tbManHinh.getSelectedRow();
+            if (index == -1) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi xóa :)) ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-            else{
-                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+//            int index1 = tbCpu.getRowCount();
+//            if (index1 == 0) {
+//                JOptionPane.showMessageDialog(this, "Không có dữ kiệu có dữ liệu để xóa :))");
+//                return;
+//            }
+            int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa không ? ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            if (check != JOptionPane.YES_OPTION) {
+                return;
+            } else {
+                String idString = tbManHinh.getValueAt(index, 0).toString();
+                Integer id = Integer.parseInt(idString);
+                if (service.xoa(id) == true) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công   ", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại ", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+                HienThi();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -234,21 +264,43 @@ public class ManHinhForm extends javax.swing.JFrame {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        if(txtManHinh.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        if(txtManHinh.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
+//        if(txtManHinh.getText().length() > 30){
+//            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+//            return;
+//        }
+        String checkChu = "^[a-zA-Z\\s]*$";
+        String khoangTrang = "^[\\s]*$";
+        String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+        if (txtManHinh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập kích thước màn hình trước khi thêm !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if(txtManHinh.getText().length() > 30){
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+//        if (!txtManHinh.getText().matches(checkKiTu)) {
+//            JOptionPane.showMessageDialog(this, "kích thước màn hình không được chưa kí tự đặc biệt !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+        if (txtManHinh.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "kích thước màn hình không được nhập toàn khoản trắng !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+//        if(txtCpu.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
+        if (txtManHinh.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "kích thước màn hình không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         ManHinh manHinh = LayTT();
         try {
             if(service.them(manHinh)){
-               JOptionPane.showMessageDialog(this, "Thêm thành công !");
+               JOptionPane.showMessageDialog(this, "Thêm thành công !", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                HienThi();
             }
             else{
-                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                JOptionPane.showMessageDialog(this, "Thêm thất bại", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -258,22 +310,44 @@ public class ManHinhForm extends javax.swing.JFrame {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        if(txtManHinh.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        if(txtManHinh.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
+//        if(txtManHinh.getText().length() > 30){
+//            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+        String checkChu = "^[a-zA-Z\\s]*$";
+        String khoangTrang = "^[\\s]*$";
+        String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+        if (txtManHinh.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi sửa !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        if(txtManHinh.getText().length() > 30){
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+//        if (!txtManHinh.getText().matches(checkKiTu)) {
+//            JOptionPane.showMessageDialog(this, "Kích thước màn hình không được chưa kí tự đặc biệt !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+//            return;
+//        }
+        if (txtManHinh.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Kích thước màn hình không được nhập toàn khoản trắng !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+//        if(txtCpu.getText().trim().isEmpty()){
+//            JOptionPane.showMessageDialog(this, "Không được để trống");
+//        }
+        if (txtManHinh.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Kích thước màn hình không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         ManHinh manHinh = LayTT();
         Integer id = Integer.parseInt(txtId.getText());
         try {
             if(service.sua(manHinh,id)){
-               JOptionPane.showMessageDialog(this, "Sửa thành công");
+               JOptionPane.showMessageDialog(this, "Sửa thành công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                HienThi();
             }
             else{
-                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+                JOptionPane.showMessageDialog(this, "Sửa thất bại", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);

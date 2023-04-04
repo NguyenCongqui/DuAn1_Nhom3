@@ -53,6 +53,8 @@ public class CpuForm extends javax.swing.JFrame {
                model.addRow(data);
             }
         }
+        txtCpu.setText("");
+        txtId.setText("");
     }
     
     public Cpu LayTT(){
@@ -226,10 +228,10 @@ try {
                 String idString = tbCpu.getValueAt(index, 0).toString();
                 Integer id = Integer.parseInt(idString);
                 if (iCpuservice.xoa(id) == true) {
-                    JOptionPane.showMessageDialog(this, "Xóa thành công  :)) ","Thông Báo", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Xóa thành công  :)) ","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Xóa thất bại :))","Thông Báo", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Xóa thất bại :))","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 }
                 HienThi();
             }
@@ -271,17 +273,18 @@ try {
 //            JOptionPane.showMessageDialog(this, "Không được để trống");
 //        }
         if(txtCpu.getText().length() > 30){
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cpu c = LayTT();
         try {
             if(iCpuservice.them(c)){
-               JOptionPane.showMessageDialog(this, "Thêm thành Công");
+               JOptionPane.showMessageDialog(this, "Thêm thành Công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                HienThi();
+               
             }
             else{
-                JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                JOptionPane.showMessageDialog(this, "Thêm thất bại", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -294,7 +297,7 @@ try {
         String khoangTrang = "^[\\s]*$";
         String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
         if (txtCpu.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập chọn 1 bản ghi trước khi sửa !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 bản ghi trước khi sửa !", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!txtCpu.getText().matches(checkKiTu)) {
@@ -309,18 +312,18 @@ try {
 //            JOptionPane.showMessageDialog(this, "Không được để trống");
 //        }
         if(txtCpu.getText().length() > 30){
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự", "Thông Báo", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cpu c = LayTT();
         Integer id = Integer.parseInt(txtId.getText());
         try {
             if(iCpuservice.sua(c,id)){
-               JOptionPane.showMessageDialog(this, "Sửa thành công");
+               JOptionPane.showMessageDialog(this, "Sửa thành công", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                HienThi();
             }
             else{
-                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+                JOptionPane.showMessageDialog(this, "Sửa thất bại", "Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(CameraForm.class.getName()).log(Level.SEVERE, null, ex);
