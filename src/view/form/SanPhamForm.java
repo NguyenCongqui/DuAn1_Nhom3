@@ -141,11 +141,13 @@ public class SanPhamForm extends javax.swing.JPanel {
         }
 
     }
-    public void clear(){
+
+    public void clear() {
         txtTenSp.setText("");
         lbAnh.setIcon(null);
         txtDanhMuc.setSelectedIndex(0);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -444,7 +446,7 @@ public class SanPhamForm extends javax.swing.JPanel {
     private void btnXoaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMousePressed
         try {
             int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
-            if(xacnhan != JOptionPane.YES_OPTION){
+            if (xacnhan != JOptionPane.YES_OPTION) {
                 return;
             }
             // TODO add your handling code here:
@@ -468,7 +470,7 @@ public class SanPhamForm extends javax.swing.JPanel {
     private void btnSuaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMousePressed
         try {
             int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không");
-            if(xacnhan != JOptionPane.YES_OPTION){
+            if (xacnhan != JOptionPane.YES_OPTION) {
                 return;
             }
             if (txtTenSp.getText().trim().isEmpty()) {

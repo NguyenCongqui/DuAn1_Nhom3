@@ -182,8 +182,13 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         model.setRowCount(0);
         List<ViewSanPham> list = service.getAllSP();
         for (ViewSanPham viewSanPham : list) {
+            Long giaNhap = null;
+            Long giaBan =null;
             if (viewSanPham.isTrangThai() == false) {
-
+                String giaNhapStr  = String.valueOf(viewSanPham.getGiaNhap());
+                String giaBanstr = String.valueOf(viewSanPham.getGiaBan());
+                giaNhap = (long) Double.parseDouble(giaNhapStr);
+                giaBan = (long) Double.parseDouble(giaBanstr);
                 String tenHDH = "";
                 List<DomainModel.HeDieuHanh> listHDH = HdhService.getAll();
                 for (DomainModel.HeDieuHanh heDieuHanh : listHDH) {
@@ -261,8 +266,8 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                     viewSanPham.getMoTa(),
                     service.count(viewSanPham.getIdSanPham()),
                     viewSanPham.getThoigianBaoHanh(),
-                    viewSanPham.getGiaNhap(),
-                    viewSanPham.getGiaBan(),
+                    giaNhap,
+                    giaBan,
                     tenHDH,
                     tenCamera,
                     tenRam,
@@ -276,11 +281,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 model.addRow(data);
             }
         }
-//          CbbSanPham.removeAllItems();
-//          List<DomainModel.SanPham> sanPhams = Spservice.getAll();
-//          for (SanPham sanPham : sanPhams) {
-//            CbbSanPham.addItem(sanPham.getTen());
-//        }
         ImeiServices imeiServices = new ImeiServices();
         imeiServices.setListThem(null);
     }
@@ -305,7 +305,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             String soLuongTon = tbChiTiet.getValueAt(index, 3).toString();
             String thoiGianBaoHanh = tbChiTiet.getValueAt(index, 4).toString();
             String giaNhap = tbChiTiet.getValueAt(index, 5).toString();
-
             String giaBan = tbChiTiet.getValueAt(index, 6).toString();
             String hdh = tbChiTiet.getValueAt(index, 7).toString();
             String cam = tbChiTiet.getValueAt(index, 8).toString();
@@ -367,7 +366,8 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             Logger.getLogger(ChiTietSanPham.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void clear(){
+
+    public void clear() {
         txtGiaNhap.setText("");
         txtGiaBan.setText("");
         txtThoiGianBh.setDate(null);
@@ -385,6 +385,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         CbbKichThuocMan.setSelectedIndex(0);
         CbbMauSac.setSelectedIndex(0);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -833,7 +834,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
             int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
-            if(xacnhan != JOptionPane.YES_OPTION){
+            if (xacnhan != JOptionPane.YES_OPTION) {
                 return;
             }
             // TODO add your handling code here:
@@ -890,7 +891,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 return;
             }
             Double giaNhap1 = Double.parseDouble(txtGiaNhap.getText());
+           
             Double giaBan1 = Double.parseDouble(txtGiaBan.getText());
+            
             if (giaNhap1 > giaBan1) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập giá nhập nhỏ hơn hoặc bằng giá bán !");
                 return;
@@ -903,7 +906,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập ghi chú nhỏ hơn 255 kí tự !");
                 return;
             }
-            if(txtThoiGianBh.getDate() == null){
+            if (txtThoiGianBh.getDate() == null) {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn thời gian bảo hành");
                 return;
             }
@@ -1178,7 +1181,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
             int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không");
-            if(xacnhan != JOptionPane.YES_OPTION){
+            if (xacnhan != JOptionPane.YES_OPTION) {
                 return;
             }
             String checkSo = "^[0-9]*$";
@@ -1219,7 +1222,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập ghi chú nhỏ hơn 255 kí tự !");
                 return;
             }
-            if(txtThoiGianBh.getDate() == null){
+            if (txtThoiGianBh.getDate() == null) {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn thời gian bảo hành");
                 return;
             }
@@ -1271,7 +1274,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Không có màu sắc nào");
                 return;
             }
-            
+
             ImeiServices imeiServices = new ImeiServices();
 
             DomainModel.ChiTietSanPham c = layTTSuaSanPham();
