@@ -7,9 +7,12 @@ package view.form;
 import Service.Impl.HDBaoHanhImpl;
 import Services.HDBaoHanhService;
 import ViewModel.HDBaoHanhViewModel;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import view.duan.swing.Excel;
 
 /**
  *
@@ -88,6 +91,7 @@ public class HoaDonBaoHanh extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new view.duan.swing.Table();
         lbl_Search = new javax.swing.JLabel();
+        btn_xuat = new chucNang.MyButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -146,6 +150,13 @@ public class HoaDonBaoHanh extends javax.swing.JPanel {
             table1.getColumnModel().getColumn(7).setResizable(false);
         }
 
+        btn_xuat.setText("Xuất");
+        btn_xuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_xuatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,6 +173,8 @@ public class HoaDonBaoHanh extends javax.swing.JPanel {
                             .addComponent(txt_timtheoma, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE))
                         .addGap(60, 60, 60)
                         .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -172,7 +185,8 @@ public class HoaDonBaoHanh extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_timtheoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btn_Tim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_xuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbl_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,10 +257,22 @@ reset();
             fillData();
         }
     }//GEN-LAST:event_txt_timtheomaFocusGained
+public void excelHoaDonBaoHanh() throws IOException {
+        Excel.outExcel((DefaultTableModel) table1.getModel());
+        JOptionPane.showMessageDialog(this,"Xuất File thành công");
+    }
+    private void btn_xuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatActionPerformed
+        // TODO add your handling code here:
+        try {
+            excelHoaDonBaoHanh();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_xuatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private chucNang.MyButton btn_Tim;
+    private chucNang.MyButton btn_xuat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

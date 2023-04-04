@@ -52,6 +52,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="btn_Tim" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                          <Component id="btn_xuat" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -67,6 +69,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txt_timtheoma" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_Tim" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_xuat" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel1" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
@@ -181,6 +184,14 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="lbl_Search">
+        </Component>
+        <Component class="chucNang.MyButton" name="btn_xuat">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_xuatActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
