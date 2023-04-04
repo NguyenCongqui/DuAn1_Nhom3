@@ -8,7 +8,9 @@ import Repository.HoaDonBanRepository;
 import Service.Impl.HoaDonBanImpl;
 import Services.HoaDonBanService;
 import ViewModel.CTHDBanViewModel;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,7 +24,8 @@ public class CTHoaDonBan extends javax.swing.JFrame {
     List<CTHDBanViewModel> list;
     HoaDonBanService banService;
     int id;
-
+Locale lc = new Locale("nv", "VN");
+    NumberFormat nf = NumberFormat.getInstance(lc);
     /**
      * Creates new form Camera
      */
@@ -52,11 +55,11 @@ public class CTHoaDonBan extends javax.swing.JFrame {
                 d.getMauSac(),
                 d.getTenKhachHang(),
 //                d.getMaGiamGia(),
-                d.getTONGTIEN() + " đ",
-                d.getTONGCONGTIENPHAITRA() + " đ",
-                d.getTIENVOUCHER() + " đ",
-                d.getTIENKHACHDUA() + " đ",
-                d.getTIENTRALAI() + " đ"});
+                nf.format( d.getTONGTIEN() )+ " đ",
+                nf.format(d.getTONGCONGTIENPHAITRA()) + " đ",
+                nf.format(d.getTIENVOUCHER()) + " đ",
+                nf.format(d.getTIENKHACHDUA()) + " đ",
+                nf.format(d.getTIENTRALAI()) + " đ"});
         }
     }
 
