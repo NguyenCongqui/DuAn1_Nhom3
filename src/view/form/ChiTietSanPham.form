@@ -109,15 +109,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel18" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="18" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtGhiChu" min="-2" pref="255" max="-2" attributes="0"/>
-                                  <Component id="txtThoiGianBh" min="-2" pref="255" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="jLabel18" min="-2" pref="81" max="-2" attributes="0"/>
+                              <EmptySpace pref="43" max="32767" attributes="0"/>
+                              <Component id="txtGhiChu" min="-2" pref="255" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="376" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -171,15 +165,11 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtThoiGianBh" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtSoLuongTon" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSoLuongTon" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -309,11 +299,6 @@
         <Property name="text" type="java.lang.String" value="Ghi Ch&#xfa;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel19">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Th&#x1edd;i Gian B&#x1ea3;o H&#xe0;nh"/>
-      </Properties>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -324,12 +309,11 @@
         <Component class="chucNang.Table01" name="tbChiTiet">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="17" rowCount="4">
+              <Table columnCount="16" rowCount="4">
                 <Column editable="false" title="IDSP" type="java.lang.Object"/>
                 <Column editable="false" title="T&#xea;n SP" type="java.lang.Object"/>
                 <Column editable="false" title="M&#xf4; t&#x1ea3;" type="java.lang.Object"/>
                 <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng t&#x1ed3;n" type="java.lang.Object"/>
-                <Column editable="false" title="Th&#x1edd;i gian b&#x1ea3;o h&#xe0;nh" type="java.lang.Object"/>
                 <Column editable="false" title="Gi&#xe1; nh&#x1ead;p" type="java.lang.Object"/>
                 <Column editable="false" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
                 <Column editable="false" title="H&#x1ec7; &#x110;i&#x1ec1;u h&#xe0;nh" type="java.lang.Object"/>
@@ -346,11 +330,6 @@
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -482,11 +461,6 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
       </AuxValues>
-    </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="txtThoiGianBh">
-      <Properties>
-        <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
-      </Properties>
     </Component>
     <Component class="chucNang.Combobox" name="CbbCamera">
       <Properties>

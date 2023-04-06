@@ -265,7 +265,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                     viewSanPham.getTenSanPham(),
                     viewSanPham.getMoTa(),
                     service.count(viewSanPham.getIdSanPham()),
-                    viewSanPham.getThoigianBaoHanh(),
                     giaNhap,
                     giaBan,
                     tenHDH,
@@ -303,19 +302,18 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             String tenSp = tbChiTiet.getValueAt(index, 1).toString();
             String moTa = tbChiTiet.getValueAt(index, 2).toString();
             String soLuongTon = tbChiTiet.getValueAt(index, 3).toString();
-            String thoiGianBaoHanh = tbChiTiet.getValueAt(index, 4).toString();
-            String giaNhap = tbChiTiet.getValueAt(index, 5).toString();
-            String giaBan = tbChiTiet.getValueAt(index, 6).toString();
-            String hdh = tbChiTiet.getValueAt(index, 7).toString();
-            String cam = tbChiTiet.getValueAt(index, 8).toString();
-            String ram = tbChiTiet.getValueAt(index, 9).toString();
-            String kichThuoc = tbChiTiet.getValueAt(index, 10).toString();
-            String cpu = tbChiTiet.getValueAt(index, 11).toString();
-            String boNho = tbChiTiet.getValueAt(index, 12).toString();
-            String loaiPin = tbChiTiet.getValueAt(index, 13).toString();
-            String tanso = tbChiTiet.getValueAt(index, 14).toString();
-            String dlPin = tbChiTiet.getValueAt(index, 15).toString();
-            String mauSac = tbChiTiet.getValueAt(index, 16).toString();
+            String giaNhap = tbChiTiet.getValueAt(index, 4).toString();
+            String giaBan = tbChiTiet.getValueAt(index, 5).toString();
+            String hdh = tbChiTiet.getValueAt(index, 6).toString();
+            String cam = tbChiTiet.getValueAt(index, 7).toString();
+            String ram = tbChiTiet.getValueAt(index, 8).toString();
+            String kichThuoc = tbChiTiet.getValueAt(index, 9).toString();
+            String cpu = tbChiTiet.getValueAt(index, 10).toString();
+            String boNho = tbChiTiet.getValueAt(index, 11).toString();
+            String loaiPin = tbChiTiet.getValueAt(index, 12).toString();
+            String tanso = tbChiTiet.getValueAt(index, 13).toString();
+            String dlPin = tbChiTiet.getValueAt(index, 14).toString();
+            String mauSac = tbChiTiet.getValueAt(index, 15).toString();
             CbbSoImei.removeAllItems();
             List<DomainModel.ChiTietSanPham> list = service.getAllImei(Integer.parseInt(idSP));
             System.out.println(list.size());
@@ -349,8 +347,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             txtSoLuongTon.setText(soLuongTon);
             txtGiaNhap.setText(giaNhap);
             txtGiaBan.setText(giaBan);
-            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(thoiGianBaoHanh);
-            txtThoiGianBh.setDate(date);
 //        CbbHeDieuHanh.setSelectedItem(idHeDieuHanh);
 //        CbbCamera.setSelectedItem(camera);
 //        CbbRam.setSelectedItem(ram);
@@ -362,15 +358,12 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 //        CbbDungLuongPin.setSelectedItem(dungLuongPin);
         } catch (SQLException ex) {
             Logger.getLogger(ChiTietSanPham.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ChiTietSanPham.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
     }
 
     public void clear() {
         txtGiaNhap.setText("");
         txtGiaBan.setText("");
-        txtThoiGianBh.setDate(null);
         txtGhiChu.setText("");
         txtSoLuongTon.setText("");
         CbbSanPham.setSelectedIndex(0);
@@ -402,7 +395,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         txtGhiChu = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbChiTiet = new chucNang.Table01();
         btnThem = new chucNang.MyButton();
@@ -410,7 +402,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         btnXoa = new chucNang.MyButton();
         btnLoad = new chucNang.MyButton();
         txtSoLuongTon = new javax.swing.JLabel();
-        txtThoiGianBh = new com.toedter.calendar.JDateChooser();
         CbbCamera = new chucNang.Combobox();
         CbbRam = new chucNang.Combobox();
         CbbHeDieuHanh = new chucNang.Combobox();
@@ -457,21 +448,19 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
         jLabel18.setText("Ghi Chú");
 
-        jLabel19.setText("Thời Gian Bảo Hành");
-
         tbChiTiet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "IDSP", "Tên SP", "Mô tả", "Số lượng tồn", "Thời gian bảo hành", "Giá nhập", "Giá bán", "Hệ Điều hành", "Camera", "Ram", "Kích thước màn", "Cpu", "Bộ nhớ trong", "Loại pin", "Tần số quét", "Dung lượng pin", "Màu Sắc"
+                "IDSP", "Tên SP", "Mô tả", "Số lượng tồn", "Giá nhập", "Giá bán", "Hệ Điều hành", "Camera", "Ram", "Kích thước màn", "Cpu", "Bộ nhớ trong", "Loại pin", "Tần số quét", "Dung lượng pin", "Màu Sắc"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -514,8 +503,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         });
 
         txtSoLuongTon.setText("0");
-
-        txtThoiGianBh.setDateFormatString("dd/MM/yyyy");
 
         CbbCamera.setLabeText("Camera");
 
@@ -710,13 +697,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel19)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtThoiGianBh, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                                .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(376, 376, 376))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(40, 40, 40)
@@ -758,13 +741,10 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                         .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(txtThoiGianBh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel17)
-                                .addComponent(txtSoLuongTon)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtSoLuongTon))
+                        .addGap(12, 12, 12)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -906,10 +886,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập ghi chú nhỏ hơn 255 kí tự !");
                 return;
             }
-            if (txtThoiGianBh.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn thời gian bảo hành");
-                return;
-            }
             if (CbbSoImei.getItemCount() == 0) {
                 JOptionPane.showMessageDialog(this, "Không có số imei nào");
                 return;
@@ -984,8 +960,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                     String pattern = "MM-dd-yyyy";
 
                     DateFormat df = new SimpleDateFormat(pattern);
-                    Date date = txtThoiGianBh.getDate();
-                    String thoiGianBH = df.format(date);
                     Integer idSP = null;
                     List<SanPham> sanPhams = Spservice.getAll();
                     for (SanPham sanPham : sanPhams) {
@@ -1063,7 +1037,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                             idMauSac = mau.getId();
                         }
                     }
-                    DomainModel.ChiTietSanPham ctsp = new DomainModel.ChiTietSanPham(imei, moTa, giaNhapDb, giabanDb, thoiGianBH, idSP, idHDH, idCam, idram, idLoaiPin, idCpu, idBoNhoTrong, idLoaiPin, idTanSoQuet, idLoaiPin, idMauSac, true);
+                    DomainModel.ChiTietSanPham ctsp = new DomainModel.ChiTietSanPham(imei, moTa, giaNhapDb, giabanDb, idSP, idHDH, idCam, idram, idLoaiPin, idCpu, idBoNhoTrong, idLoaiPin, idTanSoQuet, idLoaiPin, idMauSac, true);
                     service.them(ctsp);
                     HienThi();
                     clear();
@@ -1092,10 +1066,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         double giabanDb = Double.parseDouble(txtGiaBan.getText());
         BigDecimal giaBan = BigDecimal.valueOf(giabanDb);
         String pattern = "MM-dd-yyyy";
-
-        DateFormat df = new SimpleDateFormat(pattern);
-        Date date = txtThoiGianBh.getDate();
-        String thoiGianBH = df.format(date);
         Integer idSP = null;
         List<SanPham> sanPhams = Spservice.getAll();
         for (SanPham sanPham : sanPhams) {
@@ -1173,7 +1143,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 idMauSac = mau.getId();
             }
         }
-        DomainModel.ChiTietSanPham ctsp = new DomainModel.ChiTietSanPham(imei, moTa, giaNhapDb, giabanDb, thoiGianBH, idSP, idHDH, idCam, idram, idLoaiPin, idCpu, idBoNhoTrong, idLoaiPin, idTanSoQuet, idLoaiPin, idMauSac, false);
+        DomainModel.ChiTietSanPham ctsp = new DomainModel.ChiTietSanPham(imei, moTa, giaNhapDb, giabanDb, idSP, idHDH, idCam, idram, idLoaiPin, idCpu, idBoNhoTrong, idLoaiPin, idTanSoQuet, idLoaiPin, idMauSac, false);
         return ctsp;
 
     }
@@ -1220,10 +1190,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             }
             if (ghiChu.length() > 255) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập ghi chú nhỏ hơn 255 kí tự !");
-                return;
-            }
-            if (txtThoiGianBh.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Vui lòng chọn thời gian bảo hành");
                 return;
             }
             if (CbbSoImei.getItemCount() == 0) {
@@ -1436,7 +1402,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private chucNang.Table01 tbChiTiet;
@@ -1445,6 +1410,5 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private chucNang.TextField txtGiaBan;
     private chucNang.TextField txtGiaNhap;
     private static javax.swing.JLabel txtSoLuongTon;
-    private com.toedter.calendar.JDateChooser txtThoiGianBh;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,7 +15,6 @@ public class ChiTietSanPham {
     private String moTa;
     private Double giaNhap;
     private Double giaBan;
-    private String thoiGianBaoHanh;
     private Integer sanPham;
     private Integer heDieuHanh;
     private Integer camera;
@@ -31,12 +30,11 @@ public class ChiTietSanPham {
     public ChiTietSanPham() {
     }
 
-    public ChiTietSanPham(String SoImei, String moTa, Double giaNhap, Double giaBan, String thoiGianBaoHanh, Integer sanPham, Integer heDieuHanh, Integer camera, Integer ram, Integer KichThuocManHinh, Integer Cpu, Integer boNhoTrong, Integer loaiPin, Integer tanSoQuet, Integer dungLuongPin, Integer mauSac, boolean trangThai) {
+    public ChiTietSanPham(String SoImei, String moTa, Double giaNhap, Double giaBan, Integer sanPham, Integer heDieuHanh, Integer camera, Integer ram, Integer KichThuocManHinh, Integer Cpu, Integer boNhoTrong, Integer loaiPin, Integer tanSoQuet, Integer dungLuongPin, Integer mauSac, boolean trangThai) {
         this.SoImei = SoImei;
         this.moTa = moTa;
         this.giaNhap = giaNhap;
         this.giaBan = giaBan;
-        this.thoiGianBaoHanh = thoiGianBaoHanh;
         this.sanPham = sanPham;
         this.heDieuHanh = heDieuHanh;
         this.camera = camera;
@@ -50,8 +48,6 @@ public class ChiTietSanPham {
         this.mauSac = mauSac;
         this.trangThai = trangThai;
     }
-
-    
 
     public String getSoImei() {
         return SoImei;
@@ -83,14 +79,6 @@ public class ChiTietSanPham {
 
     public void setGiaBan(Double giaBan) {
         this.giaBan = giaBan;
-    }
-
-    public String getThoiGianBaoHanh() {
-        return thoiGianBaoHanh;
-    }
-
-    public void setThoiGianBaoHanh(String thoiGianBaoHanh) {
-        this.thoiGianBaoHanh = thoiGianBaoHanh;
     }
 
     public Integer getSanPham() {
