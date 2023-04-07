@@ -231,7 +231,7 @@ public class BaoHanh extends javax.swing.JPanel {
 
             },
             new String [] {
-                "", "Số Imei", "Tên SP", "Danh Mục", "Dung Lượng", "Màu Sắc", "Số Lượng", "Đơn Giá"
+                "IDHD", "Số Imei", "Tên SP", "Danh Mục", "Dung Lượng", "Màu Sắc", "Số Lượng", "Đơn Giá"
             }
         ) {
             boolean[] canEdit = new boolean [] {

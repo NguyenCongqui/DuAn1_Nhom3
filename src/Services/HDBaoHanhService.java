@@ -13,9 +13,11 @@ import java.util.List;
  * @author vanhv
  */
 public interface HDBaoHanhService {
-    List<HDBaoHanhViewModel> getAllTra() ;
+  List<HDBaoHanhViewModel> getAllTra(int page, int pageSize,String Stringdate);
     
     List<CTHDBaoHanhViewModel> selectByIdCT(int id);
     
     HDBaoHanhViewModel FindIDHdBH(Integer k);
+    
+    int ThoiGian(String Stringdate);
 }

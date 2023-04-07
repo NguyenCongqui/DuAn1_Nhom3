@@ -5,6 +5,7 @@
 package Repository;
 
 import Utilities.DBConnection;
+import Utilities.jdbcHelper;
 import ViewModel.CTHDBanViewModel;
 import ViewModel.HoaDonViewModel;
 import java.sql.Connection;
@@ -78,8 +79,33 @@ public class HoaDonBanRepository {
         return listCTBvmd;
     }
     
-    
-       public List<HoaDonViewModel> getAll(String Stringdate) {
+    protected   List<HoaDonViewModel>  selectBySql(String sql, Object... args) {
+        List<HoaDonViewModel> list = new ArrayList<>();
+        try {
+              ResultSet rs = jdbcHelper.query(sql, args);
+                 while (rs.next()) {
+                    HoaDonViewModel i = new HoaDonViewModel();
+                    i.setIdHDB(rs.getInt("IDHOADONBAN"));
+                    i.setIdKhachHang(rs.getInt("IDKHACHHANG"));
+                    i.setIdUser(rs.getInt("IDUSERS"));
+                    i.setIsVoucher(rs.getInt("IDVOUCHER"));
+                    i.setNgayThanhToan(rs.getString("NGAYTHANHTOAN"));
+                    i.setGhiChu(rs.getString("GhiChu"));
+//                    i.setStatusPay(rs.getBoolean("statusPay"));
+//                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
+                    i.setTenKhachHang(rs.getString(18));
+                    i.setTenUser(rs.getString(28));
+                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
+                    i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
+                    i.setTienTraLai(rs.getFloat("TIENTRALAI"));
+                    list.add(i);
+                }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+          return list;
+    }
+       public List<HoaDonViewModel> getAll(int page, int pageSize,String Stringdate) {
         if (!Stringdate.isEmpty()) {
              // java.util.Date date = java.util.Calendar.getInstance().getTime();
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
@@ -87,66 +113,65 @@ public class HoaDonBanRepository {
             String sql = " SELECT  * FROM dbo.HOADONBAN INNER JOIN\n" +
 "dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
 "dbo.USERS ON dbo.HOADONBAN.IDUSERS = dbo.USERS.IDUSERS WHERE HoaDonBan.TrangThai = 0 AND HoaDonBan.NGAYTHANHTOAN  BETWEEN '" + new java.sql.Date(date.getTime()) + " 00:00:00.000'" + "AND '" + new java.sql.Date(date.getTime()) + " 23:59:59.000' \n"
-                    + "ORDER BY  HoaDonBan.NGAYTHANHTOAN DESC";
-            try {
-                st = db.getConnection().createStatement();
-                rs = st.executeQuery(sql);
-                listViewMD = new ArrayList<>();
-                while (rs.next()) {
-                    HoaDonViewModel i = new HoaDonViewModel();
-                    i.setIdHDB(rs.getInt("IDHOADONBAN"));
-                    i.setIdKhachHang(rs.getInt("IDKHACHHANG"));
-                    i.setIdUser(rs.getInt("IDUSERS"));
-                    i.setIsVoucher(rs.getInt("IDVOUCHER"));
-                    i.setNgayThanhToan(rs.getString("NGAYTHANHTOAN"));
-                    i.setGhiChu(rs.getString("GhiChu"));
-//                    i.setStatusPay(rs.getBoolean("statusPay"));
-//                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
-                    i.setTenKhachHang(rs.getString(18));
-                    i.setTenUser(rs.getString(28));
-                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
-                    i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
-                    i.setTienTraLai(rs.getFloat("TIENTRALAI"));
-                    listViewMD.add(i);
-                }
-                rs.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(HoaDonBanRepository.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return listViewMD;
+                    + "ORDER BY  HoaDonBan.NGAYTHANHTOAN DESC  OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
+//            try {
+//                st = db.getConnection().createStatement();
+//                rs = st.executeQuery(sql);
+//                listViewMD = new ArrayList<>();
+//                while (rs.next()) {
+//                    HoaDonViewModel i = new HoaDonViewModel();
+//                    i.setIdHDB(rs.getInt("IDHOADONBAN"));
+//                    i.setIdKhachHang(rs.getInt("IDKHACHHANG"));
+//                    i.setIdUser(rs.getInt("IDUSERS"));
+//                    i.setIsVoucher(rs.getInt("IDVOUCHER"));
+//                    i.setNgayThanhToan(rs.getString("NGAYTHANHTOAN"));
+//                    i.setGhiChu(rs.getString("GhiChu"));
+////                    i.setStatusPay(rs.getBoolean("statusPay"));
+////                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
+//                    i.setTenKhachHang(rs.getString(18));
+//                    i.setTenUser(rs.getString(28));
+//                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
+//                    i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
+//                    i.setTienTraLai(rs.getFloat("TIENTRALAI"));
+//                    listViewMD.add(i);
+//                }
+//                rs.close();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(HoaDonBanRepository.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+                return selectBySql(sql, (page - 1) * pageSize, pageSize);
         }
         String sql = " SELECT  * FROM dbo.HOADONBAN INNER JOIN\n" +
 "dbo.KHACHHANG ON dbo.HOADONBAN.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
 "dbo.USERS ON dbo.HOADONBAN.IDUSERS = dbo.USERS.IDUSERS WHERE HoaDonBan.TrangThai = 0 \n" +
-"ORDER BY  HoaDonBan.NGAYTHANHTOAN DESC";
-       try {
-                st = db.getConnection().createStatement();
-                rs = st.executeQuery(sql);
-                listViewMD = new ArrayList<>();
-                while (rs.next()) {
-                    HoaDonViewModel i = new HoaDonViewModel();
-                    i.setIdHDB(rs.getInt("IDHOADONBAN"));
-                    i.setIdKhachHang(rs.getInt("IDKHACHHANG"));
-                    i.setIdUser(rs.getInt("IDUSERS"));
-                    i.setIsVoucher(rs.getInt("IDVOUCHER"));
-                    i.setNgayThanhToan(rs.getString("NGAYTHANHTOAN"));
-                    i.setGhiChu(rs.getString("GhiChu"));
-//                    i.setStatusPay(rs.getBoolean("statusPay"));
-//                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
-                    i.setTenKhachHang(rs.getString(18));
-                    i.setTenUser(rs.getString(28));
-                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
-                    i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
-                    i.setTienTraLai(rs.getFloat("TIENTRALAI"));
-                    listViewMD.add(i);
-                }
-                rs.close();
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(HoaDonBanRepository.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return listViewMD;
-    }
+"ORDER BY  HoaDonBan.NGAYTHANHTOAN DESC  OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
+//       try {
+//                st = db.getConnection().createStatement();
+//                rs = st.executeQuery(sql);
+//                listViewMD = new ArrayList<>();
+//                while (rs.next()) {
+//                    HoaDonViewModel i = new HoaDonViewModel();
+//                    i.setIdHDB(rs.getInt("IDHOADONBAN"));
+//                    i.setIdKhachHang(rs.getInt("IDKHACHHANG"));
+//                    i.setIdUser(rs.getInt("IDUSERS"));
+//                    i.setIsVoucher(rs.getInt("IDVOUCHER"));
+//                    i.setNgayThanhToan(rs.getString("NGAYTHANHTOAN"));
+//                    i.setGhiChu(rs.getString("GhiChu"));
+////                    i.setStatusPay(rs.getBoolean("statusPay"));
+////                    i.setStatusInvoice(rs.getBoolean("statusInvoice"));
+//                    i.setTenKhachHang(rs.getString(18));
+//                    i.setTenUser(rs.getString(28));
+//                    i.setTongTien(rs.getFloat("TONGCONGTIENPHAITRA"));
+//                    i.setTienKhachDua(rs.getFloat("TIENKHACHDUA"));
+//                    i.setTienTraLai(rs.getFloat("TIENTRALAI"));
+//                    listViewMD.add(i);
+//                }
+//                rs.close();
+////            rs.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(HoaDonBanRepository.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+  return selectBySql(sql, (page - 1) * pageSize, pageSize);    }
        
        
          public int ThoiGian(String Stringdate) {
@@ -154,23 +179,41 @@ public class HoaDonBanRepository {
         if (!Stringdate.isEmpty()) {
                //java.util.Date date = java.util.Calendar.getInstance().getTime();
             java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
-            String sql = " SELECT COUNT(*) as soLuong FROM dbo.HOADONBAN WHERE NGAYTHANHTOAN BETWEEN '" + new java.sql.Date(date.getTime()) + " '" + "AND '" + new java.sql.Date(date.getTime()) + " ' ";
-            try {
-                pst = db.getConnection().prepareStatement(sql);
-            pst.setObject(1, Stringdate);
-            rs = pst.executeQuery();
+            String sql = " SELECT COUNT(*) as soLuong FROM dbo.HOADONBAN WHERE NGAYTHANHTOAN BETWEEN '" + new java.sql.Date(date.getTime()) + "  00:00:00.000 '" + "AND '" + new java.sql.Date(date.getTime()) + " 23:59:59.000 ' ";
+//            try {
+//                pst = db.getConnection().prepareStatement(sql);
+//            pst.setObject(0, Stringdate);
+//            rs = pst.executeQuery();
+//                while (rs.next()) {
+//                    return rs.getInt("soLuong");
+//                }
+//                rs.close();
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+  try {
+                rs = jdbcHelper.query(sql);
                 while (rs.next()) {
                     return rs.getInt("soLuong");
                 }
-                rs.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
         String sql = "SELECT COUNT(*) as soLuong FROM dbo.HOADONBAN ";
-        try {
-             pst = db.getConnection().prepareStatement(sql);
-             rs = pst.executeQuery();
+//        try {
+//             pst = db.getConnection().prepareStatement(sql);
+//             rs = pst.executeQuery();
+//            while (rs.next()) {
+//                return rs.getInt("soLuong");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+
+ try {
+            rs = jdbcHelper.query(sql);
             while (rs.next()) {
                 return rs.getInt("soLuong");
             }

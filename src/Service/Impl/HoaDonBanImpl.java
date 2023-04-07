@@ -22,8 +22,8 @@ public class HoaDonBanImpl implements HoaDonBanService{
     }
 
     @Override
-    public List<HoaDonViewModel> getAll(String Stringdate) {
-        return repo.getAll(Stringdate );
+    public List<HoaDonViewModel> getAll(int page, int pageSize,String Stringdate){
+        return repo.getAll(page, pageSize, Stringdate);
     }
 
     @Override

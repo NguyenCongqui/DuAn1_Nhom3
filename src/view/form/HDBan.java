@@ -14,12 +14,9 @@ import Services.IKhachHangService;
 import ViewModel.BaoHanhViewModel;
 import ViewModel.HoaDonViewModel;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.duan.swing.Excel;
@@ -29,39 +26,31 @@ import view.duan.swing.Excel;
  * @author vanhv
  */
 public class HDBan extends javax.swing.JPanel {
- DefaultTableModel tableModel = new DefaultTableModel();
+
+    DefaultTableModel tableModel = new DefaultTableModel();
     List<HoaDonViewModel> listCTB;
     HoaDonBanService chitiethoadonservice = new HoaDonBanImpl();
     List<KhachHang> listKHg;
     BaoHanhService baoHanhService = new BaoHanhImpl();
- 
-    
-      boolean flag = false;
+
+    int page = 1;
+    int rowCountPerPage = 5;
+    int totalPage = 1;
+    Integer totalData = 0;
+    boolean flag = false;
+
     /**
      * Creates new form HDBan
      */
     public HDBan() {
         initComponents();
         setOpaque(false);
-    chitiethoadonservice = new HoaDonBanImpl();
+        chitiethoadonservice = new HoaDonBanImpl();
         fillData();
-//         btnFirst.setEnabled(false);
-//        btnFirst.setVisible(false);
-//        btnBack.setEnabled(false);
-//        btnBack.setVisible(false);
-//        cbbPagination.setEnabled(false);
-//        cbbPagination.setVisible(false);
-//        btnNext.setEnabled(false);
-//        btnNext.setVisible(false);
-//        btnLast.setEnabled(false);
-//        btnLast.setVisible(false);
     }
     Locale lc = new Locale("nv", "VN");
     NumberFormat nf = NumberFormat.getInstance(lc);
-    int totalPage = 1;
-    int page = 1;
-    Integer totalData = 0;
-    int rowCountPerPage = 5;
+
     public void edit() {
         if (page == 1) {
             btnFirst.setEnabled(false);
@@ -83,106 +72,117 @@ public class HDBan extends javax.swing.JPanel {
             page = 1;
         }
     }
-  public void fillData() {
-      tableModel = (DefaultTableModel) table1.getModel();
-      tableModel.setRowCount(0);
-      listCTB = chitiethoadonservice.getAll("");
-      IKhachHangService khachHangService = new KhachHangImpl();
-      listKHg = khachHangService.getListKhachHang();
-      String phone = "";
-      String status = "";
-      List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
-      List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
-      for (HoaDonViewModel i : listCTB) {
-         for (int j = 0; j < listKHg.size(); j++) {
+
+    public void fillData() {
+        totalData = chitiethoadonservice.ThoiGian("");
+        rowCountPerPage = Integer.valueOf(cbbPagination.getSelectedItem().toString());
+        Double totalPageD = Math.ceil(totalData.doubleValue() / rowCountPerPage);
+        totalPage = totalPageD.intValue();
+        edit();
+
+        tableModel = (DefaultTableModel) table1.getModel();
+        tableModel.setRowCount(0);
+        listCTB = chitiethoadonservice.getAll(page, rowCountPerPage, "");
+
+        IKhachHangService khachHangService = new KhachHangImpl();
+        listKHg = khachHangService.getListKhachHang();
+        String phone = "";
+        String status = "";
+        lblCount.setText("Page " + page + " for " + totalPage);
+
+        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+        List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
+        for (HoaDonViewModel i : listCTB) {
+            for (int j = 0; j < listKHg.size(); j++) {
                 if (i.getIdKhachHang() == listKHg.get(j).getId()) {
                     phone = listKHg.get(j).getSoDienThoai();
                 }
             }
-          
-          tableModel.addRow(new Object[]{
-              i.getIdHDB(),
-              i.getTenKhachHang(),
-              phone,
-              i.getTenUser(),
-             nf.format( i.getTongTien() )+ " đ",
-              i.getNgayThanhToan(),
-              i.getGhiChu()
-          });
-      }
-      for (int i = 0; i < listCTB.size(); i++) {
-          for (int j = 0; j < listDangBH.size(); j++) {
-              if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
+
+            tableModel.addRow(new Object[]{
+                i.getIdHDB(),
+                i.getTenKhachHang(),
+                phone,
+                i.getTenUser(),
+                nf.format(i.getTongTien()) + " đ",
+                i.getNgayThanhToan(),
+                i.getGhiChu()
+            });
+        }
+        for (int i = 0; i < listCTB.size(); i++) {
+            for (int j = 0; j < listDangBH.size(); j++) {
+                if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB()) {
 //                    status = "Đã trả hàng";
-table1.setValueAt("Đang bảo hành", i, 7);
-              }
-          }
-      }
-      for (int i = 0; i < listCTB.size(); i++) {
-          for (int z = 0; z < listDaBH.size(); z++) {
-              if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
+                    table1.setValueAt("Đang bảo hành", i, 7);
+                }
+            }
+        }
+        for (int i = 0; i < listCTB.size(); i++) {
+            for (int z = 0; z < listDaBH.size(); z++) {
+                if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
 //                    status = "Đã đổi hàng";
-table1.setValueAt("Đã bảo hành", i, 7);
-              }
-          }
-      }
- //            System.out.println(table1.getValueAt(row, 5).toString());
+                    table1.setValueAt("Đã bảo hành", i, 7);
+                }
+            }
+        }
+        //            System.out.println(table1.getValueAt(row, 5).toString());
     }
-  public void searchDateFillTable() {
-      totalData = chitiethoadonservice.ThoiGian("");
-      rowCountPerPage = Integer.valueOf(cbbPagination.getSelectedItem().toString());
-      Double totalPageD = Math.ceil(totalData.doubleValue() / rowCountPerPage);
-      totalPage = totalPageD.intValue();
-      //edit();
-      if (totalData == 0) {
-          JOptionPane.showMessageDialog(this, "Ngày bạn chọn không có hóa đơn nào");
-          return;
-      }
-      edit();
-      tableModel = (DefaultTableModel) table1.getModel();
-      tableModel.setRowCount(0);
-      listCTB = chitiethoadonservice.getAll(txt_ThoiGian.getText());
-      IKhachHangService khachHangService = new KhachHangImpl();
-      listKHg = khachHangService.getListKhachHang();
-      String phone = "";
-      String status = "";
-      List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
-      List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
-      for (HoaDonViewModel i : listCTB) {
-           for (int j = 0; j < listKHg.size(); j++) {
+
+    public void searchDateFillTable() {
+        totalData = chitiethoadonservice.ThoiGian(txt_ThoiGian.getText());
+        rowCountPerPage = Integer.valueOf(cbbPagination.getSelectedItem().toString());
+        Double totalPageD = Math.ceil(totalData.doubleValue() / rowCountPerPage);
+        totalPage = totalPageD.intValue();
+        //edit();
+        if (totalData == 0) {
+            JOptionPane.showMessageDialog(this, "Ngày bạn chọn không có hóa đơn nào");
+            return;
+        }
+        edit();
+        tableModel = (DefaultTableModel) table1.getModel();
+        tableModel.setRowCount(0);
+        listCTB = chitiethoadonservice.getAll(page, rowCountPerPage, txt_ThoiGian.getText());
+        IKhachHangService khachHangService = new KhachHangImpl();
+        listKHg = khachHangService.getListKhachHang();
+        String phone = "";
+        String status = "";
+        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+        List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
+        for (HoaDonViewModel i : listCTB) {
+            for (int j = 0; j < listKHg.size(); j++) {
                 if (i.getIdKhachHang() == listKHg.get(j).getId()) {
                     phone = listKHg.get(j).getSoDienThoai();
                 }
-          }
-          tableModel.addRow(new Object[]{
-              i.getIdHDB(),
-              i.getTenKhachHang(),
-              phone,
-              i.getTenUser(),
-             nf.format( i.getTongTien()) + " đ",
-              i.getNgayThanhToan(),
-              i.getGhiChu()
-          });
-      }
-      for (int i = 0; i < listCTB.size(); i++) {
-          for (int j = 0; j < listDangBH.size(); j++) {
-              if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB() ) {
+            }
+            tableModel.addRow(new Object[]{
+                i.getIdHDB(),
+                i.getTenKhachHang(),
+                phone,
+                i.getTenUser(),
+                nf.format(i.getTongTien()) + " đ",
+                i.getNgayThanhToan(),
+                i.getGhiChu()
+            });
+        }
+        for (int i = 0; i < listCTB.size(); i++) {
+            for (int j = 0; j < listDangBH.size(); j++) {
+                if (listDangBH.get(j).getIdHDBan() == listCTB.get(i).getIdHDB()) {
 //                    status = "Đã trả hàng";
-table1.setValueAt("Đang bảo hành", i, 7);
-              }
-          }
-      }
-      for (int i = 0; i < listCTB.size(); i++) {
-          for (int z = 0; z < listDaBH.size(); z++) {
-              if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
+                    table1.setValueAt("Đang bảo hành", i, 7);
+                }
+            }
+        }
+        for (int i = 0; i < listCTB.size(); i++) {
+            for (int z = 0; z < listDaBH.size(); z++) {
+                if (listDaBH.get(z).getIdHDBan() == listCTB.get(i).getIdHDB()) {
 //                    status = "Đã đổi hàng";
-table1.setValueAt("Đã bảo hành", i, 7);
-              }
-          }
-      }
-           lbl_Count.setText("Page " + page + " for " + totalPage);
+                    table1.setValueAt("Đã bảo hành", i, 7);
+                }
+            }
+        }
+        lblCount.setText("Page " + page + " for " + totalPage);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -206,7 +206,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
         btn_loc = new chucNang.MyButton();
         txt_ThoiGian = new chucNang.TextField();
         jLabel2 = new javax.swing.JLabel();
-        lbl_Count = new javax.swing.JLabel();
+        lblCount = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new chucNang.Table01();
         txt_timtheoma = new chucNang.TextField();
@@ -279,8 +279,6 @@ table1.setValueAt("Đã bảo hành", i, 7);
 
         txt_ThoiGian.setLabelText("Thời Gian");
 
-        lbl_Count.setText("jLabel3");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -302,6 +300,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
                                 .addGap(345, 345, 345))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCount, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,10 +313,6 @@ table1.setValueAt("Đã bảo hành", i, 7);
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(lbl_Count)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +323,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_loc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFirst)
                     .addComponent(btnBack)
@@ -338,8 +333,8 @@ table1.setValueAt("Đã bảo hành", i, 7);
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbl_Count)
-                .addGap(256, 256, 256))
+                .addComponent(lblCount, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(245, 245, 245))
         );
 
         table1.setModel(new javax.swing.table.DefaultTableModel(
@@ -383,6 +378,11 @@ table1.setValueAt("Đã bảo hành", i, 7);
         }
 
         txt_timtheoma.setLabelText("Tìm Kiếm");
+        txt_timtheoma.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txt_timtheomaCaretUpdate(evt);
+            }
+        });
 
         btn_Tim.setText("tìm");
         btn_Tim.addActionListener(new java.awt.event.ActionListener() {
@@ -471,7 +471,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            int row =table1.getSelectedRow();
+            int row = table1.getSelectedRow();
             int id = (int) table1.getValueAt(row, 0);
             new CTHoaDonBan(id, (DefaultTableModel) table1.getModel(), table1.getSelectedRow()).setVisible(true);
             //            System.out.println(table1.getValueAt(row, 5).toString());
@@ -482,7 +482,7 @@ table1.setValueAt("Đã bảo hành", i, 7);
     private void btn_locActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_locActionPerformed
         // TODO add your handling code here:
         searchDateFillTable();
-        
+
         flag = true;
     }//GEN-LAST:event_btn_locActionPerformed
 
@@ -548,9 +548,9 @@ table1.setValueAt("Đã bảo hành", i, 7);
         fillData();
     }//GEN-LAST:event_btnLastActionPerformed
 
-public void excelHoaDonBan() throws IOException {
+    public void excelHoaDonBan() throws IOException {
         Excel.outExcel((DefaultTableModel) table1.getModel());
-        JOptionPane.showMessageDialog(this,"Xuất File thành công");
+        JOptionPane.showMessageDialog(this, "Xuất File thành công");
     }
     private void btn_xuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xuatActionPerformed
         // TODO add your handling code here:
@@ -560,55 +560,67 @@ public void excelHoaDonBan() throws IOException {
         }
     }//GEN-LAST:event_btn_xuatActionPerformed
 
-     public void search() {
-         if (txt_timtheoma.getText().trim().equals("")) {
-             return;
-         }
-         lbl_Search.setVisible(true);
-         tableModel = (DefaultTableModel) table1.getModel();
-         tableModel.setRowCount(0);
-         int id = Integer.valueOf(txt_timtheoma.getText());
-         HoaDonViewModel i = chitiethoadonservice.FindHDB(id);
-         IKhachHangService khachHangService = new KhachHangImpl();
-         listKHg = khachHangService.getListKhachHang();
-         if (i == null) {
-             lbl_Search.setVisible(true);
-             lbl_Search.setText("Không có mặt hàng : " + id);
-             return;
-         }
-         String phone = "";
-         String status = "";
-         List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
-         List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
-         for (int j = 0; j < listKHg.size(); j++) {
+    private void txt_timtheomaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txt_timtheomaCaretUpdate
+        // TODO add your handling code here:
+//          try {
+//            search();
+//            if (txt_timtheoma.getText().isEmpty()) {
+//                lbl_Search.setVisible(false);
+//                fillData();
+//            }
+//        } catch (NumberFormatException e) {
+//            lbl_Search.setText("Mã phải là số ");
+//        }
+    }//GEN-LAST:event_txt_timtheomaCaretUpdate
+
+    public void search() {
+        if (txt_timtheoma.getText().trim().equals("")) {
+            return;
+        }
+        lbl_Search.setVisible(true);
+        tableModel = (DefaultTableModel) table1.getModel();
+        tableModel.setRowCount(0);
+        int id = Integer.valueOf(txt_timtheoma.getText());
+        HoaDonViewModel i = chitiethoadonservice.FindHDB(id);
+        IKhachHangService khachHangService = new KhachHangImpl();
+        listKHg = khachHangService.getListKhachHang();
+        if (i == null) {
+            lbl_Search.setVisible(true);
+            lbl_Search.setText("Không có mặt hàng : " + id);
+            return;
+        }
+        String phone = "";
+        String status = "";
+        List<BaoHanhViewModel> listDangBH = baoHanhService.selectDangBH();
+        List<BaoHanhViewModel> listDaBH = baoHanhService.selectDaBH();
+        for (int j = 0; j < listKHg.size(); j++) {
             if (i.getIdKhachHang() == listKHg.get(j).getId()) {
                 phone = listKHg.get(j).getSoDienThoai();
             }
         }
-         tableModel.addRow(new Object[]{
-             i.getIdHDB(),
-             i.getTenKhachHang(),
-             phone,
-             i.getTenUser(),
-             i.getTongTien() + " đ",
-             i.getNgayThanhToan(),
-             i.getGhiChu()
-         });
-         lbl_Search.setText("");
-         for (int j = 0; j < listDangBH.size(); j++) {
-             if (id == listDangBH.get(j).getIdHDBan()) {
-                 table1.setValueAt("Đang bảo hành", j, 7);
-             }
-         }
-         for (int z = 0; z < listDaBH.size(); z++) {
-             if (id == listDaBH.get(z).getIdHDBan()) {
-                 table1.setValueAt("Đã bảo hành", z, 7);
-             }
-         }
-        
+        tableModel.addRow(new Object[]{
+            i.getIdHDB(),
+            i.getTenKhachHang(),
+            phone,
+            i.getTenUser(),
+            i.getTongTien() + " đ",
+            i.getNgayThanhToan(),
+            i.getGhiChu()
+        });
+        lbl_Search.setText("");
+        for (int j = 0; j < listDangBH.size(); j++) {
+            if (id == listDangBH.get(j).getIdHDBan()) {
+                table1.setValueAt("Đang bảo hành", j, 7);
+            }
+        }
+        for (int z = 0; z < listDaBH.size(); z++) {
+            if (id == listDaBH.get(z).getIdHDBan()) {
+                table1.setValueAt("Đã bảo hành", z, 7);
+            }
+        }
 
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -626,7 +638,7 @@ public void excelHoaDonBan() throws IOException {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_Count;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JLabel lbl_Search;
     private chucNang.Table01 table1;
     private chucNang.TextField txt_ThoiGian;

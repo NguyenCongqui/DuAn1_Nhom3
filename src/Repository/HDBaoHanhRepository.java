@@ -5,6 +5,7 @@
 package Repository;
 
 import Utilities.DBConnection;
+import Utilities.jdbcHelper;
 import ViewModel.CTHDBaoHanhViewModel;
 import ViewModel.HDBaoHanhViewModel;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.logiin.XDate;
 
 /**
  *
@@ -28,18 +30,11 @@ public class HDBaoHanhRepository {
     Statement st = null;
     PreparedStatement pst = null;
 
-    public List<HDBaoHanhViewModel> getAllTra() {
-        String sql = "	  SELECT dbo.BAOHANH.IDBAOHANH, dbo.BAOHANH.NGAYTAO, dbo.BAOHANH.NGAYSUA, dbo.BAOHANH.IDKHACHHANG, dbo.BAOHANH.IDHOADONBAN, dbo.BAOHANH.GHICHU, dbo.KHACHHANG.HOTEN, dbo.USERS.HOTEN AS TenUser, dbo.KHACHHANG.SODIENTHOAI\n"
-                + "FROM   dbo.BAOHANH INNER JOIN\n"
-                + "            dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n"
-                + "            dbo.USERS ON dbo.BAOHANH.IDUSERS = dbo.USERS.IDUSERS ORDER BY IDBAOHANH DESC";
-
-        List<HDBaoHanhViewModel> listTra = new ArrayList<>();
-        try {
-            st = db.getConnection().createStatement();
-            rs = st.executeQuery(sql);
-            listTra = new ArrayList<>();
-            while (rs.next()) {
+    protected List<HDBaoHanhViewModel> selectBySql(String sql, Object... args){
+         List<HDBaoHanhViewModel> list = new ArrayList<>();
+         try {
+              ResultSet rs = jdbcHelper.query(sql, args);
+                while (rs.next()) {
                 HDBaoHanhViewModel p = new HDBaoHanhViewModel();
                 p.setIdBaoHanh(rs.getInt("IDBAOHANH"));
                 p.setIdHDBan(rs.getInt("IDHOADONBAN"));
@@ -48,17 +43,127 @@ public class HDBaoHanhRepository {
                 p.setIdKh(rs.getInt("IDKHACHHANG"));
                 p.setTenKH(rs.getString("HOTEN"));
                 p.setSdt(rs.getInt("SODIENTHOAI"));
-                p.setTenUser(rs.getString("TenUser"));
+                p.setTenUser(rs.getString(21));
                 p.setGhiChu(rs.getString("GHICHU"));
-                listTra.add(p);
-            }
-            return listTra;
+                list.add(p);
+           }
         } catch (Exception e) {
-            e.printStackTrace(System.out);
+             e.printStackTrace();
         }
-        return null;
+          return list;
     }
+    public List<HDBaoHanhViewModel> getAllTra(int page, int pageSize,String Stringdate) {
+        if (!Stringdate.isEmpty()) {
+             // java.util.Date date = java.util.Calendar.getInstance().getTime();
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+            java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
+        String sql = "SELECT * FROM dbo.BAOHANH INNER JOIN\n" +
+"dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
+"dbo.USERS ON dbo.BAOHANH.IDUSERS = dbo.USERS.IDUSERS WHERE BAOHANH.NGAYTAO BETWEEN '" + new java.sql.Date(date.getTime()) + " 00:00:00.000'" + "AND '" + new java.sql.Date(date.getTime()) + " 23:59:59.000' \n" 
+                +"ORDER BY BAOHANH.NGAYTAO DESC OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
 
+//        List<HDBaoHanhViewModel> listTra = new ArrayList<>();
+//        try {
+//            st = db.getConnection().createStatement();
+//            rs = st.executeQuery(sql);
+//            listTra = new ArrayList<>();
+//            while (rs.next()) {
+//                HDBaoHanhViewModel p = new HDBaoHanhViewModel();
+//                p.setIdBaoHanh(rs.getInt("IDBAOHANH"));
+//                p.setIdHDBan(rs.getInt("IDHOADONBAN"));
+//                p.setNgayBatDau(rs.getDate("NGAYTAO"));
+//                p.setNgayKetThuc(rs.getDate("NGAYSUA"));
+//                p.setIdKh(rs.getInt("IDKHACHHANG"));
+//                p.setTenKH(rs.getString("HOTEN"));
+//                p.setSdt(rs.getInt("SODIENTHOAI"));
+//                p.setTenUser(rs.getString(21));
+//                p.setGhiChu(rs.getString("GHICHU"));
+//                listTra.add(p);
+//            }
+//             rs.close();
+//            
+//        } catch (Exception e) {
+//            e.printStackTrace(System.out);
+//        }
+           return selectBySql(sql, (page - 1) * pageSize, pageSize);
+        }
+        String sql = "SELECT * FROM dbo.BAOHANH INNER JOIN\n" +
+"dbo.KHACHHANG ON dbo.BAOHANH.IDKHACHHANG = dbo.KHACHHANG.IDKHACHHANG INNER JOIN\n" +
+"dbo.USERS ON dbo.BAOHANH.IDUSERS = dbo.USERS.IDUSERS ORDER BY BAOHANH.NGAYTAO DESC OFFSET ? ROWS FETCH FIRST ? ROWS ONLY";
+         List<HDBaoHanhViewModel> listTra = new ArrayList<>();
+//       try {
+//            st = db.getConnection().createStatement();
+//            rs = st.executeQuery(sql);
+//            listTra = new ArrayList<>();
+//            while (rs.next()) {
+//                HDBaoHanhViewModel p = new HDBaoHanhViewModel();
+//                p.setIdBaoHanh(rs.getInt("IDBAOHANH"));
+//                p.setIdHDBan(rs.getInt("IDHOADONBAN"));
+//                p.setNgayBatDau(rs.getDate("NGAYTAO"));
+//                p.setNgayKetThuc(rs.getDate("NGAYSUA"));
+//                p.setIdKh(rs.getInt("IDKHACHHANG"));
+//                p.setTenKH(rs.getString("HOTEN"));
+//                p.setSdt(rs.getInt("SODIENTHOAI"));
+//                p.setTenUser(rs.getString(21));
+//                p.setGhiChu(rs.getString("GHICHU"));
+//                listTra.add(p);
+//            }
+//             rs.close();
+//        } catch (Exception e) {
+//            e.printStackTrace(System.out);
+//        }
+//       return null;
+return selectBySql(sql, (page - 1) * pageSize, pageSize); 
+    }
+   public int ThoiGian(String Stringdate) {
+        ResultSet rs;
+        if (!Stringdate.isEmpty()) {
+               //java.util.Date date = java.util.Calendar.getInstance().getTime();
+            java.util.Date date = XDate.toDate(Stringdate, "yyyy-MM-dd");
+            String sql = " SELECT COUNT(*) as soLuong FROM dbo.BAOHANH WHERE NGAYTAO BETWEEN '"  + new java.sql.Date(date.getTime()) + " '" + "AND '" + new java.sql.Date(date.getTime()) + "  ' ";
+//            try {
+//                pst = db.getConnection().prepareStatement(sql);
+//            pst.setObject(1, Stringdate);
+//            rs = pst.executeQuery();
+//                while (rs.next()) {
+//                    return rs.getInt("soLuong");
+//                }
+//                rs.close();
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+try {
+                rs = jdbcHelper.query(sql);
+                while (rs.next()) {
+                    return rs.getInt("soLuong");
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        String sql = "SELECT COUNT(*) as soLuong FROM dbo.BAOHANH ";
+//        try {
+//             pst = db.getConnection().prepareStatement(sql);
+//             rs = pst.executeQuery();
+//            while (rs.next()) {
+//                return rs.getInt("soLuong");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+try {
+            rs = jdbcHelper.query(sql);
+            while (rs.next()) {
+                return rs.getInt("soLuong");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+
+    }
     public List<CTHDBaoHanhViewModel> selectByIdCT(int id) {
         String sql = " SELECT dbo.CHITIETBAOHANH.IDCHITIETBAOHANH, dbo.DANHMUC.TENDANHMUC, dbo.MAUSAC.TENMAUSAC, dbo.BONHOTRONG.TENBONHOTRONG, dbo.CHITIETBAOHANH.SOIMEI, dbo.SANPHAM.TENSANPHAM, dbo.BAOHANH.TRANGTHAI     \n"
                 + "FROM   dbo.BAOHANH INNER JOIN\n"

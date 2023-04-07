@@ -18,8 +18,8 @@ public class HDBaoHanhImpl implements HDBaoHanhService{
     HDBaoHanhRepository repo = new HDBaoHanhRepository();
     
     @Override
-    public List<HDBaoHanhViewModel> getAllTra() {
-        return repo.getAllTra();
+    public List<HDBaoHanhViewModel> getAllTra(int page, int pageSize,String Stringdate){
+        return repo.getAllTra(page, pageSize, Stringdate);
     }
 
     @Override
@@ -30,6 +30,11 @@ public class HDBaoHanhImpl implements HDBaoHanhService{
     @Override
     public HDBaoHanhViewModel FindIDHdBH(Integer k) {
         return repo.FindIDHdBH(k);
+    }
+
+    @Override
+    public int ThoiGian(String Stringdate) {
+        return repo.ThoiGian(Stringdate);
     }
     
 }

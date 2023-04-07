@@ -15,7 +15,7 @@ import java.util.List;
 public interface HoaDonBanService {
     List<CTHDBanViewModel> selectByIdBan(int id);
     
-    List<HoaDonViewModel> getAll(String Stringdate) ;
+   List<HoaDonViewModel> getAll(int page, int pageSize,String Stringdate);
     
      int ThoiGian(String Stringdate) ;
      
