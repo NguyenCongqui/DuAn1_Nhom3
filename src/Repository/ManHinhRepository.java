@@ -22,7 +22,7 @@ public class ManHinhRepository {
     public List<ManHinh> getAll() throws SQLException {
         List<ManHinh> manHinh = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDKICHTHUOCMANHINH ,TENKICHTHUOCMANHINH,TRANGTHAI from KICHTHUOCMANHINH";
+        String sql = "select IDKICHTHUOCMANHINH ,TENKICHTHUOCMANHINH,TRANGTHAI from KICHTHUOCMANHINH order by IDKICHTHUOCMANHINH desc";
         PreparedStatement ps = cnn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

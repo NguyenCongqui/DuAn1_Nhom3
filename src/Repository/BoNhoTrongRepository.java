@@ -18,7 +18,7 @@ public class BoNhoTrongRepository {
      public List<BoNhoTrong> getAll() throws SQLException{
         List<BoNhoTrong> bonNhoTrong = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDBONHOTRONG ,TENBONHOTRONG,TRANGTHAI from BONHOTRONG";
+        String sql = "select IDBONHOTRONG ,TENBONHOTRONG,TRANGTHAI from BONHOTRONG   order by IDBONHOTRONG desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        

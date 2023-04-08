@@ -18,7 +18,7 @@ public class CpuRepository {
     public List<Cpu> getAll() throws SQLException{
         List<Cpu> cpu = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDCPU ,TENCPU,TRANGTHAI from CPU";
+        String sql = "select IDCPU ,TENCPU,TRANGTHAI from CPU   order by IDCPU desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        

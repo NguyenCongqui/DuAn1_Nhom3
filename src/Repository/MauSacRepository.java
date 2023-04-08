@@ -24,7 +24,8 @@ public class MauSacRepository {
                 + "      ,[NGAYTAO]\n"
                 + "      ,[NGAYSUA]\n"
                 + "      ,[TRANGTHAI]\n"
-                + "  FROM [dbo].[MAUSAC]";
+                + "  FROM [dbo].[MAUSAC]"
+                + "order by IDMAUSAC desc";
         PreparedStatement ps = cnn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

@@ -22,7 +22,7 @@ public class LoaiPinRepository {
    public List<LoaiPin> getAll() throws SQLException{
         List<LoaiPin> cameras = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "SELECT [IDLOAIPIN] ,[TELOAIPIN],[TRANGTHAI] FROM [dbo].[LOAIPIN]";
+        String sql = "SELECT [IDLOAIPIN] ,[TELOAIPIN],[TRANGTHAI] FROM [dbo].[LOAIPIN] order by IDLOAIPIN desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        

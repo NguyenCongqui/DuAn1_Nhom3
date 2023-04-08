@@ -21,7 +21,7 @@ public class DanhMucRepository {
     public List<DanhMuc> getAll() {
         try {
             List<DanhMuc> danhMucs = new ArrayList<>();
-            String sql = "SELECT IDDANHMUC, TENDANHMUC, NGAYTAO, NGAYSUA, TRANGTHAI FROM DANHMUC";
+            String sql = "SELECT IDDANHMUC, TENDANHMUC, NGAYTAO, NGAYSUA, TRANGTHAI FROM DANHMUC order by IDDANHMUC desc";
             Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

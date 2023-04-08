@@ -18,7 +18,7 @@ public class TanSoQuetRepo {
     public List<TanSoQuet> getAll() throws SQLException{
         List<TanSoQuet> Quet = new ArrayList();
             Connection conn = DBConnection.getConnection();
-            String sql = "select IDTANSOQUET ,TENTANSOQUET,TRANGTHAI from TANSOQUET";
+            String sql = "select IDTANSOQUET ,TENTANSOQUET,TRANGTHAI from TANSOQUET order by IDTANSOQUET desc";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
            while (rs.next()) {            

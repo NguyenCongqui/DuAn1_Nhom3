@@ -18,42 +18,44 @@ import java.util.List;
  * @author vanhv
  */
 public class DungLuongPinRepository {
-    public List<DungLuongPin> getAll() throws SQLException{
+
+    public List<DungLuongPin> getAll() throws SQLException {
         List<DungLuongPin> cameras = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "SELECT [IDDUNGLUONGPIN]\n" +
-"      ,[TENDUNGLUONGPIN]\n" +
-"      ,[TRANGTHAI]\n" +
-"  FROM [dbo].[DUNGLUONGPIN]";
-            PreparedStatement ps = cnn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {        
-                Integer id = rs.getInt("IDDUNGLUONGPIN");
-                String tenSp = rs.getString("TENDUNGLUONGPIN");
-                boolean trangThai = rs.getBoolean("TRANGTHAI");
-                DungLuongPin c = new DungLuongPin(id, tenSp, trangThai);
-                cameras.add(c);
+        String sql = "SELECT [IDDUNGLUONGPIN]\n"
+                + "      ,[TENDUNGLUONGPIN]\n"
+                + "      ,[TRANGTHAI]\n"
+                + "  FROM [dbo].[DUNGLUONGPIN]"
+                + "order by IDDUNGLUONGPIN desc";
+        PreparedStatement ps = cnn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Integer id = rs.getInt("IDDUNGLUONGPIN");
+            String tenSp = rs.getString("TENDUNGLUONGPIN");
+            boolean trangThai = rs.getBoolean("TRANGTHAI");
+            DungLuongPin c = new DungLuongPin(id, tenSp, trangThai);
+            cameras.add(c);
         }
         rs.close();
         rs.close();
         cnn.close();
         return cameras;
     }
-    
-    public boolean them(DungLuongPin camera) throws SQLException{
+
+    public boolean them(DungLuongPin camera) throws SQLException {
         Connection conn = DBConnection.getConnection();
         String sql = "INSERT INTO [dbo].[DUNGLUONGPIN] ([TENDUNGLUONGPIN],[TRANGTHAI]) VALUES(?,0)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, camera.getName());
         int index = ps.executeUpdate();
-        if(index == 0 ){
+        if (index == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-    
-    public boolean sua(DungLuongPin camera , Integer id) throws SQLException{
+
+    public boolean sua(DungLuongPin camera, Integer id) throws SQLException {
         Connection conn = DBConnection.getConnection();
         String sql = "UPDATE [dbo].[DUNGLUONGPIN] SET [TENDUNGLUONGPIN] = ? WHERE IDDUNGLUONGPIN = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -62,14 +64,14 @@ public class DungLuongPinRepository {
         int index = ps.executeUpdate();
         ps.close();
         conn.close();
-        if(index == 0){
+        if (index == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
-    
-    public boolean  xoa(Integer id) throws SQLException{
+
+    public boolean xoa(Integer id) throws SQLException {
         Connection conn = DBConnection.getConnection();
         String sql = "UPDATE [dbo].[DUNGLUONGPIN] SET TRANGTHAI = 1 WHERE IDDUNGLUONGPIN = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -77,9 +79,9 @@ public class DungLuongPinRepository {
         int index = ps.executeUpdate();
         ps.close();
         conn.close();
-        if(index == 0){
+        if (index == 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }

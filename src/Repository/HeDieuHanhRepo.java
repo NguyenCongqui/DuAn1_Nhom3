@@ -17,7 +17,7 @@ public class HeDieuHanhRepo {
     public List<HeDieuHanh> getAll() throws SQLException{
         List<HeDieuHanh> HDH  = new ArrayList();
         Connection conn = DBConnection.getConnection();
-        String sql = "select IDHEDIEUHANH,TENHEDIEUHANH,TRANGTHAI from HEDIEUHANH";
+        String sql = "select IDHEDIEUHANH,TENHEDIEUHANH,TRANGTHAI from HEDIEUHANH order by IDHEDIEUHANH desc";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {            

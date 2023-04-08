@@ -19,7 +19,7 @@ public class CameraRepository {
     public List<Camera> getAll() throws SQLException{
         List<Camera> cameras = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDCAMERA ,TENCAMERA,TRANGTHAI from CAMERA";
+        String sql = "select IDCAMERA ,TENCAMERA,TRANGTHAI from CAMERA  order by IDCAMERA desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        
