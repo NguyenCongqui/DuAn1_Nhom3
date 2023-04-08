@@ -351,7 +351,6 @@
             </Component>
             <Component class="chucNang.TextField" name="txt_ThoiGian1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="2023-04-07"/>
                 <Property name="labelText" type="java.lang.String" value="Th&#x1edd;i Gian"/>
               </Properties>
             </Component>

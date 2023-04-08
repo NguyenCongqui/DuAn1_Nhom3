@@ -289,7 +289,6 @@ public class HoaDonBaoHanh extends javax.swing.JPanel {
             }
         });
 
-        txt_ThoiGian1.setText("2023-04-07");
         txt_ThoiGian1.setLabelText("Thời Gian");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
