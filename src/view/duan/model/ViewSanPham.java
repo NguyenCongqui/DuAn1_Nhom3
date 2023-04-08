@@ -16,7 +16,6 @@ public class ViewSanPham {
     private String tenSanPham;
     private String moTa ;
     private Integer soLuongTon ;
-    private Date thoigianBaoHanh;
     private BigDecimal giaNhap ;
     private BigDecimal giaBan ;
     private Integer idHeDieuHanh;
@@ -34,12 +33,11 @@ public class ViewSanPham {
     public ViewSanPham() {
     }
 
-    public ViewSanPham(Integer idSanPham, String tenSanPham, String moTa, Integer soLuongTon, Date thoigianBaoHanh, BigDecimal giaNhap, BigDecimal giaBan, Integer idHeDieuHanh, Integer idcamera, Integer idRam, Integer idKichThuocMan, Integer idCpu, Integer idboNhoTrong, Integer idloaiPin, Integer idTanSoQuet, Integer idungLuongPin, Integer idMauSac, boolean trangThai) {
+    public ViewSanPham(Integer idSanPham, String tenSanPham, String moTa, Integer soLuongTon, BigDecimal giaNhap, BigDecimal giaBan, Integer idHeDieuHanh, Integer idcamera, Integer idRam, Integer idKichThuocMan, Integer idCpu, Integer idboNhoTrong, Integer idloaiPin, Integer idTanSoQuet, Integer idungLuongPin, Integer idMauSac, boolean trangThai) {
         this.idSanPham = idSanPham;
         this.tenSanPham = tenSanPham;
         this.moTa = moTa;
         this.soLuongTon = soLuongTon;
-        this.thoigianBaoHanh = thoigianBaoHanh;
         this.giaNhap = giaNhap;
         this.giaBan = giaBan;
         this.idHeDieuHanh = idHeDieuHanh;
@@ -85,14 +83,6 @@ public class ViewSanPham {
 
     public void setSoLuongTon(Integer soLuongTon) {
         this.soLuongTon = soLuongTon;
-    }
-
-    public Date getThoigianBaoHanh() {
-        return thoigianBaoHanh;
-    }
-
-    public void setThoigianBaoHanh(Date thoigianBaoHanh) {
-        this.thoigianBaoHanh = thoigianBaoHanh;
     }
 
     public BigDecimal getGiaNhap() {
@@ -198,6 +188,7 @@ public class ViewSanPham {
     public void setTrangThai(boolean trangThai) {
         this.trangThai = trangThai;
     }
+
     
     }
 
