@@ -174,8 +174,8 @@ public class ThemNhanVien extends javax.swing.JFrame implements Runnable, Thread
                     } else if (checksodienthoai(txt_soDienThoai.getText()) == false) {
                         JOptionPane.showMessageDialog(this, "Bạn ơi, số điện thoại không hợp lệ ");
                     } else {
-                        JOptionPane.showMessageDialog(this, nhanVienService.themNhanVien(getGuiData()));
-                        JOptionPane.showMessageDialog(this, nhanVienService.themTaiKhoan(GetGuidataTaiKhoan()));
+                         nhanVienService.themNhanVien(getGuiData());
+                      nhanVienService.themTaiKhoan(GetGuidataTaiKhoan());
 
                         clearForm();
                         this.dispose();

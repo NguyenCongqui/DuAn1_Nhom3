@@ -536,6 +536,11 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                 btnRamMouseClicked(evt);
             }
         });
+        btnRam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRamActionPerformed(evt);
+            }
+        });
 
         btnHeDieuHanh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duan1/icon/icons8_Plus_32.png"))); // NOI18N
         btnHeDieuHanh.setBorderColor(new java.awt.Color(255, 255, 255));
@@ -1369,6 +1374,10 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private void btnImeiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImeiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnImeiActionPerformed
+
+    private void btnRamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

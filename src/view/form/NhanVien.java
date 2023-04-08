@@ -95,9 +95,7 @@ lbl_tim.setVisible(false);
     }
 
     public void delete() {
-        if (true) {
-            
-        }else{
+        
              int index = tbl_NhanVien.getSelectedRow();
         int idUsers = (int) tbl_NhanVien.getValueAt(index, 0);
         if (idUsers == Auth.user.getIdUser()) {
@@ -109,7 +107,7 @@ lbl_tim.setVisible(false);
             listUsers = nhanVienService.getListNhanVienDangLam();
             showDataDangLam();
         }
-        }
+        
        
     }
 public void fillTableTimTenNhanVien() {

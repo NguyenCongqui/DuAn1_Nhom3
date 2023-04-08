@@ -43,6 +43,8 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -82,7 +84,7 @@ public class banhang extends javax.swing.JPanel implements Runnable,ThreadFactor
     LoaiPinService loaiPinService = new LoaiPinImpl();
     ChiTietHoaBanService chiTietHoaDonService = new ChiTietHoaBanImpl();
     IChiTietSanPham chiTietSanPhamServoce = new ChiTietSanPhamImpl();
-    
+    KhachHangForm1 khachHang = new KhachHangForm1();
     private WebcamPanel panel = null;
     private static Webcam webcam = null;
     private Executor executor = Executors.newSingleThreadExecutor(this);
@@ -106,6 +108,17 @@ public class banhang extends javax.swing.JPanel implements Runnable,ThreadFactor
         hienThiSanPham();
      lbl_tim.setVisible(false);
         initwebcam();
+         khachHang.addEvenFillTable(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                khachHang.insnsert();
+                //listKhachHang = KhachHangService.getListKhachHang();
+           fillComboxKhachHang();
+                
+            }
+        });
+
+
     }
   
     public void run(){
@@ -667,6 +680,11 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
 
         myButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duan1/icon/icons8_Plus_32.png"))); // NOI18N
         myButton5.setBorderColor(new java.awt.Color(255, 255, 255));
+        myButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myButton5ActionPerformed(evt);
+            }
+        });
 
         btn_Clear.setText("Clear");
         btn_Clear.addActionListener(new java.awt.event.ActionListener() {
@@ -1398,6 +1416,12 @@ ChiTietHoaDonBan cthdb = new ChiTietHoaDonBan();
     private void tblSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_tblSanPhamMouseEntered
+
+    private void myButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myButton5ActionPerformed
+        // TODO add your handling code here:
+       khachHang.setVisible(true);
+        
+    }//GEN-LAST:event_myButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

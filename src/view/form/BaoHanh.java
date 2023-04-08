@@ -618,7 +618,7 @@ public class BaoHanh extends javax.swing.JPanel {
 
         if (tbl2.getSelectedRowCount() == 1) {
             for (int i = 0; i < tbl1.getRowCount(); i++) {
-                if (tbl1.getValueAt(i, 0).equals(tbl2.getValueAt(rowTemp, 0))) {
+                if (tbl1.getValueAt(i, 1).equals(tbl2.getValueAt(rowTemp, 1))) {
                     int ii = (int) tbl1.getValueAt(i, 6) + (int) tbl2.getValueAt(rowTemp, 6);
                     tbl1.setValueAt(ii, i, 6);
                 }

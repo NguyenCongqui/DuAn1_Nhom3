@@ -7,6 +7,7 @@ package view.form;
 import DomainModel.KhachHang;
 import Service.Impl.KhachHangImpl;
 import Services.IKhachHangService;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,8 +28,11 @@ public class KhachHangForm1 extends javax.swing.JFrame {
      * Creates new form KhachHangForm1
      */
     public KhachHangForm1() {
+        
         try {
             initComponents();
+            setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             service = new KhachHangImpl();
             HienThi();
         } catch (SQLException ex) {
@@ -115,6 +119,59 @@ public class KhachHangForm1 extends javax.swing.JFrame {
         }
 
     }
+    
+    public void insnsert(){
+        try { 
+            
+            String checkChu = "^[a-zA-Z\\s]*$";
+            String khoangTrang = "^[\\s]*$";
+            String so = "^[-?0-9]*$"; 
+            String checkPrice = "^[-?0-9\\.]*$";
+            String checkSo = "^[\\s]*$";
+            String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
+            // TODO add your handling code here:
+            if (txtTenKhachHang.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, " Vui lòng nhập tên khách hàng trước khi thêm ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtDiaChi.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, " Vui lòng nhập địa chỉ khách hàng trước khi thêm ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, " Vui lòng nhập số điện thoại khách hàng trước khi thêm ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().replaceAll("[^ ]", "").length() > 0) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại viết liền và không chứa khoảng trắng! ", "thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!txtSodienthoai.getText().matches(so)) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại phải là số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().length() > 10) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (txtSodienthoai.getText().length() < 10) {
+                JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            KhachHang kh = LayTT();
+            if (service.them(kh) == true) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+                HienThi();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm thất bại","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,6 +182,8 @@ public class KhachHangForm1 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        date = new com.raven.datechooser.DateChooser();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbKhachHang = new chucNang.Table01();
@@ -143,17 +202,19 @@ public class KhachHangForm1 extends javax.swing.JFrame {
         txtIdKhachHang = new javax.swing.JLabel();
         txtIdKhachHang1 = new javax.swing.JLabel();
 
+        date.setDateFormat("yyyy-MM-dd");
+        date.setTextRefernce(txtNgaySinh);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Khách Hàng");
 
         tbKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID Khách Hàng", "Tên Khách Hàng", "Ngày Sinh", "Giới Tính", "Số Điện Thoại", "Địa Chỉ"
@@ -228,6 +289,7 @@ public class KhachHangForm1 extends javax.swing.JFrame {
         });
 
         txtNgaySinh.setEditable(false);
+        txtNgaySinh.setBackground(new java.awt.Color(255, 255, 255));
         txtNgaySinh.setLabelText("Ngày Sinh");
 
         txtIdKhachHang1.setText("ID");
@@ -289,34 +351,46 @@ public class KhachHangForm1 extends javax.swing.JFrame {
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(421, 421, 421))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -332,55 +406,7 @@ public class KhachHangForm1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTenKhachHangActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        try { 
-            
-            String checkChu = "^[a-zA-Z\\s]*$";
-            String khoangTrang = "^[\\s]*$";
-            String so = "^[-?0-9]*$"; 
-            String checkPrice = "^[-?0-9\\.]*$";
-            String checkSo = "^[\\s]*$";
-            String checkKiTu = "^[a-zA-Z0-9\\s+]*$";
-            // TODO add your handling code here:
-            if (txtTenKhachHang.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, " Vui lòng nhập tên khách hàng trước khi thêm ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (txtDiaChi.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, " Vui lòng nhập địa chỉ khách hàng trước khi thêm ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (txtSodienthoai.getText().isBlank()) {
-                JOptionPane.showMessageDialog(this, " Vui lòng nhập số điện thoại khách hàng trước khi thêm ! ", "Thông báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (txtSodienthoai.getText().replaceAll("[^ ]", "").length() > 0) {
-                JOptionPane.showMessageDialog(this, "Số điện thoại viết liền và không chứa khoảng trắng! ", "thông báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (!txtSodienthoai.getText().matches(so)) {
-                JOptionPane.showMessageDialog(this, "Số điện thoại phải là số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (txtSodienthoai.getText().length() > 10) {
-                JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (txtSodienthoai.getText().length() < 10) {
-                JOptionPane.showMessageDialog(this, "Số điện thoại phải 10 số ! ", "Thông Báo", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            KhachHang kh = LayTT();
-            if (service.them(kh) == true) {
-                JOptionPane.showMessageDialog(this, "Thêm thành công","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
-                HienThi();
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm thất bại","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -594,8 +620,10 @@ public class KhachHangForm1 extends javax.swing.JFrame {
     private chucNang.MyButton btnSua;
     private chucNang.MyButton btnThem;
     private chucNang.MyButton btnXoa;
+    private com.raven.datechooser.DateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private chucNang.RadioButtonCustom rbNam;
     private chucNang.RadioButtonCustom rbNu;
@@ -608,4 +636,8 @@ public class KhachHangForm1 extends javax.swing.JFrame {
     private chucNang.TextField txtSodienthoai;
     private chucNang.TextField txtTenKhachHang;
     // End of variables declaration//GEN-END:variables
+
+    void addEvenFillTable(ActionListener evt) {
+       btnThem.addActionListener(evt);
+    }
 }
