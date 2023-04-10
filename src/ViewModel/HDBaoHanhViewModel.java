@@ -17,7 +17,7 @@ public class HDBaoHanhViewModel {
     private Date ngayKetThuc;
     private int IdKh;
     private String tenKH;
-    private int Sdt;
+    private String Sdt;
     private String ghiChu;
     private String tenUser;
     
@@ -72,14 +72,15 @@ public class HDBaoHanhViewModel {
         this.tenKH = tenKH;
     }
 
-    public int getSdt() {
+    public String getSdt() {
         return Sdt;
     }
 
-    public void setSdt(int Sdt) {
+    public void setSdt(String Sdt) {
         this.Sdt = Sdt;
     }
 
+   
     public String getGhiChu() {
         return ghiChu;
     }

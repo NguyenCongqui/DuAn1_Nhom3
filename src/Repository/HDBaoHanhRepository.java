@@ -42,7 +42,7 @@ public class HDBaoHanhRepository {
                 p.setNgayKetThuc(rs.getDate("NGAYSUA"));
                 p.setIdKh(rs.getInt("IDKHACHHANG"));
                 p.setTenKH(rs.getString("HOTEN"));
-                p.setSdt(rs.getInt("SODIENTHOAI"));
+                p.setSdt(rs.getString("SODIENTHOAI"));
                 p.setTenUser(rs.getString(21));
                 p.setGhiChu(rs.getString("GHICHU"));
                 list.add(p);
@@ -216,7 +216,7 @@ try {
                 p.setNgayKetThuc(rs.getDate("NGAYSUA"));
                 p.setIdKh(rs.getInt("IDKHACHHANG"));
                 p.setTenKH(rs.getString("HOTEN"));
-                p.setSdt(rs.getInt("SODIENTHOAI"));
+                p.setSdt(rs.getString("SODIENTHOAI"));
                 p.setTenUser(rs.getString("TenUser"));
                 p.setGhiChu(rs.getString("GHICHU"));
                 return p;
