@@ -49,6 +49,9 @@ public class LoaiPinForm extends javax.swing.JFrame {
                 Object[] data = new Object[]{
                     camera.getId(),
                     camera.getName(),
+                    camera.getNgayTao(),
+                    camera.getNgaySua()
+                      
                 };
                model.addRow(data);
             }
@@ -98,11 +101,11 @@ public class LoaiPinForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Loại Pin"
+                "ID", "Loại Pin", "Ngày sửa", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -118,6 +121,8 @@ public class LoaiPinForm extends javax.swing.JFrame {
         if (tblLoaiPin.getColumnModel().getColumnCount() > 0) {
             tblLoaiPin.getColumnModel().getColumn(0).setResizable(false);
             tblLoaiPin.getColumnModel().getColumn(1).setResizable(false);
+            tblLoaiPin.getColumnModel().getColumn(2).setResizable(false);
+            tblLoaiPin.getColumnModel().getColumn(3).setResizable(false);
         }
 
         btnThem.setText("Thêm");

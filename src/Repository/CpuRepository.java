@@ -18,14 +18,16 @@ public class CpuRepository {
     public List<Cpu> getAll() throws SQLException{
         List<Cpu> cpu = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDCPU ,TENCPU,TRANGTHAI from CPU   order by IDCPU desc";
+        String sql = "select IDCPU ,TENCPU,TRANGTHAI,NGAYTAO,NGAYSUA from CPU   order by IDCPU desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        
                 Integer id = rs.getInt("IDCPU");
                 String tenSp = rs.getString("TENCPU");
                 boolean trangThai = rs.getBoolean("TRANGTHAI");
-                Cpu c = new Cpu(id, tenSp, trangThai);
+                Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
+                Cpu c = new Cpu(id, tenSp,trangThai, ngayTao, ngaySua );
                 cpu.add(c);
         }
         rs.close();
@@ -36,7 +38,7 @@ public class CpuRepository {
     
     public boolean them(Cpu cpu) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into CPU(TENCPU,TRANGTHAI) values(?,0)";
+        String sql = "insert into CPU(TENCPU,TRANGTHAI,NGAYTAO) values(?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, cpu.getName());
         int index = ps.executeUpdate();
@@ -49,7 +51,7 @@ public class CpuRepository {
     
     public boolean sua(Cpu cpu , Integer id) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "Update CPU set TENCPU = ? where IDCPU = ?";
+        String sql = "Update CPU set TENCPU = ?,NGAYSUA = GETDATE()  where IDCPU = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, cpu.getName());

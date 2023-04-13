@@ -7,6 +7,7 @@ package Repository;
 import DomainModel.ManHinh;
 import Utilities.DBConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,14 +23,16 @@ public class ManHinhRepository {
     public List<ManHinh> getAll() throws SQLException {
         List<ManHinh> manHinh = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDKICHTHUOCMANHINH ,TENKICHTHUOCMANHINH,TRANGTHAI from KICHTHUOCMANHINH order by IDKICHTHUOCMANHINH desc";
+        String sql = "select IDKICHTHUOCMANHINH ,TENKICHTHUOCMANHINH,NGAYTAO,NGAYSUA,TRANGTHAI from KICHTHUOCMANHINH order by IDKICHTHUOCMANHINH desc";
         PreparedStatement ps = cnn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Integer id = rs.getInt("IDKICHTHUOCMANHINH");
             String tenSp = rs.getString("TENKICHTHUOCMANHINH");
+             Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
             boolean trangThai = rs.getBoolean("TRANGTHAI");
-            ManHinh mh = new ManHinh(id, tenSp, trangThai);
+            ManHinh mh = new ManHinh(id, tenSp, trangThai,ngayTao,ngaySua);
             manHinh.add(mh);
         }
         rs.close();
@@ -40,7 +43,7 @@ public class ManHinhRepository {
 
     public boolean them(ManHinh manHinh) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into KICHTHUOCMANHINH(TENKICHTHUOCMANHINH,TRANGTHAI) values(?,0)";
+        String sql = "insert into KICHTHUOCMANHINH(TENKICHTHUOCMANHINH,TRANGTHAI,NGAYTAO) values(?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, manHinh.getName());
         int index = ps.executeUpdate();
@@ -53,7 +56,7 @@ public class ManHinhRepository {
 
     public boolean sua(ManHinh manHinh, Integer id) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String sql = "Update KICHTHUOCMANHINH set TENKICHTHUOCMANHINH = ? where IDKICHTHUOCMANHINH = ?";
+        String sql = "Update KICHTHUOCMANHINH set TENKICHTHUOCMANHINH = ? ,NGAYSUA = GETDATE() where IDKICHTHUOCMANHINH = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, manHinh.getName());

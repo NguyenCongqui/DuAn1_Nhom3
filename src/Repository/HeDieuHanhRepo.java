@@ -17,14 +17,16 @@ public class HeDieuHanhRepo {
     public List<HeDieuHanh> getAll() throws SQLException{
         List<HeDieuHanh> HDH  = new ArrayList();
         Connection conn = DBConnection.getConnection();
-        String sql = "select IDHEDIEUHANH,TENHEDIEUHANH,TRANGTHAI from HEDIEUHANH order by IDHEDIEUHANH desc";
+        String sql = "select IDHEDIEUHANH,TENHEDIEUHANH,NGAYTAO,NGAYSUA,TRANGTHAI from HEDIEUHANH order by IDHEDIEUHANH desc";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {            
             Integer Id = rs.getInt("IDHEDIEUHANH");
             String Ten = rs.getString("TENHEDIEUHANH");
+             Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
             boolean trangThai = rs.getBoolean("TRANGTHAI");
-            HeDieuHanh heDieuHanh = new HeDieuHanh(Id, Ten, trangThai);
+            HeDieuHanh heDieuHanh = new HeDieuHanh(Id, Ten, trangThai,ngayTao,ngaySua);
             HDH.add(heDieuHanh);
         }
         rs.close();
@@ -35,7 +37,7 @@ public class HeDieuHanhRepo {
     
     public boolean them(HeDieuHanh hDH) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into HEDIEUHANH(TENHEDIEUHANH,TRANGTHAI) values(?,0)";
+        String sql = "insert into HEDIEUHANH(TENHEDIEUHANH,TRANGTHAI,NGAYTAO) values(?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, hDH.getTen());
         int index = ps.executeUpdate();
@@ -48,7 +50,7 @@ public class HeDieuHanhRepo {
     
     public boolean sua(HeDieuHanh heDieuHanh , Integer id) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "Update HEDIEUHANH set TENHEDIEUHANH = ? where IDHEDIEUHANH = ?";
+        String sql = "Update HEDIEUHANH set TENHEDIEUHANH = ?,NGAYSUA = GETDATE() where IDHEDIEUHANH = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, heDieuHanh.getTen());

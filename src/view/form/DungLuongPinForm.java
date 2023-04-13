@@ -49,6 +49,8 @@ public class DungLuongPinForm extends javax.swing.JFrame {
                 Object[] data = new Object[]{
                     camera.getId(),
                     camera.getName(),
+                    camera.getNgayTao(),
+                    camera.getNgaySua()
                 };
                model.addRow(data);
             }
@@ -98,11 +100,11 @@ public class DungLuongPinForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Dung Lượng Pin"
+                "ID", "Dung Lượng Pin", "Ngày Sửa", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

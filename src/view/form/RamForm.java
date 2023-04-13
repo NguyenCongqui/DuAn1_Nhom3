@@ -49,6 +49,8 @@ public class RamForm extends javax.swing.JFrame {
                 Object[] data = new Object[]{
                     ram.getId(),
                     ram.getName(),
+                    ram.getNgayTao(),
+                    ram.getNgaySua()
                 };
                model.addRow(data);
             }
@@ -95,17 +97,17 @@ public class RamForm extends javax.swing.JFrame {
 
         tblRam.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Tên Ram"
+                "ID", "Tên Ram", "Ngày sửa", "Ngày tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

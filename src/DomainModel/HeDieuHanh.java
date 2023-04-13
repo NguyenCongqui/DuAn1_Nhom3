@@ -4,6 +4,8 @@
  */
 package DomainModel;
 
+import java.util.Date;
+
 /**
  *
  * @author trung
@@ -12,14 +14,24 @@ public class HeDieuHanh {
     private Integer Id;
     private String Ten;
     private boolean TrangThai;
-
-    public HeDieuHanh() {
-    }
+    private Date ngaySua;
+    private Date ngayTao;
 
     public HeDieuHanh(Integer Id, String Ten, boolean TrangThai) {
         this.Id = Id;
         this.Ten = Ten;
         this.TrangThai = TrangThai;
+    }
+
+    public HeDieuHanh(Integer Id, String Ten, boolean TrangThai, Date ngaySua, Date ngayTao) {
+        this.Id = Id;
+        this.Ten = Ten;
+        this.TrangThai = TrangThai;
+        this.ngaySua = ngaySua;
+        this.ngayTao = ngayTao;
+    }
+
+    public HeDieuHanh() {
     }
 
     public Integer getId() {
@@ -45,6 +57,22 @@ public class HeDieuHanh {
     public void setTrangThai(boolean TrangThai) {
         this.TrangThai = TrangThai;
     }
-    
+
+    public Date getNgaySua() {
+        return ngaySua;
+    }
+
+    public void setNgaySua(Date ngaySua) {
+        this.ngaySua = ngaySua;
+    }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
     
 }

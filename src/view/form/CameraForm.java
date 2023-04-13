@@ -50,7 +50,10 @@ public class CameraForm extends javax.swing.JFrame {
             if (trangThai == 0) {
                 Object[] data = new Object[]{
                     camera.getId(),
-                    camera.getName(),};
+                    camera.getName(),
+                    camera.getNgaySua(),
+                    camera.getNgayTao() 
+                };
                 model.addRow(data);
             }
         }
@@ -103,17 +106,17 @@ public class CameraForm extends javax.swing.JFrame {
 
         tbCamera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Tên Camera"
+                "ID", "Tên Camera", "Ngày Sửa", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -49,6 +49,8 @@ public class CpuForm extends javax.swing.JFrame {
                 Object[] data = new Object[]{
                     cpu.getId(),
                     cpu.getName(),
+                    cpu.getNgayTao(),
+                    cpu.getNgaySua()
                 };
                model.addRow(data);
             }
@@ -93,13 +95,13 @@ public class CpuForm extends javax.swing.JFrame {
 
         tbCpu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Tên Cpu"
+                "ID", "Tên Cpu", "Ngày sửa", "Ngày tạo"
             }
         ));
         tbCpu.addMouseListener(new java.awt.event.MouseAdapter() {

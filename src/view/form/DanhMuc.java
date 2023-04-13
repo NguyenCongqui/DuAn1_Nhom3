@@ -86,17 +86,17 @@ public class DanhMuc extends javax.swing.JFrame {
 
         tbDanhMuc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Tên"
+                "Id", "Tên Danh Mục", "Ngày Sửa", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -184,7 +184,7 @@ public class DanhMuc extends javax.swing.JFrame {
                     .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -230,7 +230,7 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
-        if(xacNhan != JOptionPane.YES_OPTION){
+        if (xacNhan != JOptionPane.YES_OPTION) {
             return;
         }
         int index = tbDanhMuc.getSelectedRow();
@@ -259,7 +259,7 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int xacNhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn sửa không");
-        if(xacNhan != JOptionPane.YES_OPTION){
+        if (xacNhan != JOptionPane.YES_OPTION) {
             return;
         }
         int index = tbDanhMuc.getSelectedRow();
@@ -306,15 +306,19 @@ public class DanhMuc extends javax.swing.JFrame {
             if (trangThai == 0) {
                 Object[] data = new Object[]{
                     camera.getId(),
-                    camera.getTenDanhMuc(),};
+                    camera.getTenDanhMuc(),
+                    camera.getNgayTao(),
+                    camera.getNgaySua()};
                 model.addRow(data);
             }
         }
     }
-    public void load(){
-         txtId.setText("");
+
+    public void load() {
+        txtId.setText("");
         txtTen.setText("");
     }
+
     /**
      * @param args the command line arguments
      */

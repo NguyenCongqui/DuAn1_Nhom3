@@ -18,14 +18,16 @@ public class TanSoQuetRepo {
     public List<TanSoQuet> getAll() throws SQLException{
         List<TanSoQuet> Quet = new ArrayList();
             Connection conn = DBConnection.getConnection();
-            String sql = "select IDTANSOQUET ,TENTANSOQUET,TRANGTHAI from TANSOQUET order by IDTANSOQUET desc";
+            String sql = "select IDTANSOQUET ,TENTANSOQUET,NGAYTAO,NGAYSUA,TRANGTHAI from TANSOQUET order by IDTANSOQUET desc";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
            while (rs.next()) {            
                Integer Id = rs.getInt("IDTANSOQUET");
                String Ten = rs.getString("TENTANSOQUET");
+               Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
                boolean TrangThai = rs.getBoolean("TRANGTHAI");
-               TanSoQuet Q = new TanSoQuet(Id, Ten, TrangThai);
+               TanSoQuet Q = new TanSoQuet(Id, Ten, TrangThai,ngayTao,ngaySua);
                Quet.add(Q);
         }
            rs.close();
@@ -35,7 +37,7 @@ public class TanSoQuetRepo {
     }
     public boolean them(TanSoQuet Q) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into TANSOQUET(TENTANSOQUET,TRANGTHAI) values(?,0)";
+        String sql = "insert into TANSOQUET(TENTANSOQUET,TRANGTHAI,NGAYTAO) values(?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, Q.getTen());
         int index = ps.executeUpdate();
@@ -48,7 +50,7 @@ public class TanSoQuetRepo {
     
     public boolean sua(TanSoQuet Q , Integer id) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "Update TANSOQUET set TENTANSOQUET = ? where IDTANSOQUET = ?";
+        String sql = "Update TANSOQUET set TENTANSOQUET = ? ,NGAYSUA = GETDATE() where IDTANSOQUET = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, Q.getTen());

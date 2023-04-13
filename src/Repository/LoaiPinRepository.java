@@ -7,6 +7,7 @@ package Repository;
 import DomainModel.LoaiPin;
 import Utilities.DBConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,14 +23,16 @@ public class LoaiPinRepository {
    public List<LoaiPin> getAll() throws SQLException{
         List<LoaiPin> cameras = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "SELECT [IDLOAIPIN] ,[TELOAIPIN],[TRANGTHAI] FROM [dbo].[LOAIPIN] order by IDLOAIPIN desc";
+        String sql = "SELECT [IDLOAIPIN] ,[TELOAIPIN],NGAYTAO,NGAYSUA,[TRANGTHAI] FROM [dbo].[LOAIPIN] order by IDLOAIPIN desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        
                 Integer id = rs.getInt("IDLOAIPIN");
                 String tenSp = rs.getString("TELOAIPIN");
+                 Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
                 boolean trangThai = rs.getBoolean("TRANGTHAI");
-                LoaiPin c = new LoaiPin(id, tenSp, trangThai);
+                LoaiPin c = new LoaiPin(id, tenSp, trangThai,ngayTao,ngaySua);
                 cameras.add(c);
         }
         rs.close();
@@ -40,7 +43,7 @@ public class LoaiPinRepository {
     
     public boolean them(LoaiPin camera) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "INSERT INTO [dbo].[LOAIPIN] ([TELOAIPIN],[TRANGTHAI]) VALUES (?,0)";
+        String sql = "INSERT INTO [dbo].[LOAIPIN] ([TELOAIPIN],[TRANGTHAI],NGAYTAO) VALUES (?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, camera.getName());
         int index = ps.executeUpdate();
@@ -53,7 +56,7 @@ public class LoaiPinRepository {
     
     public boolean sua(LoaiPin camera , Integer id) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "UPDATE [dbo].[LOAIPIN] SET [TELOAIPIN] = ? WHERE IDLOAIPIN = ? ";
+        String sql = "UPDATE [dbo].[LOAIPIN] SET [TELOAIPIN] = ?,NGAYSUA = GETDATE() WHERE IDLOAIPIN = ? ";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, camera.getName());

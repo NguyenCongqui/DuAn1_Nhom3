@@ -51,7 +51,10 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
             if (trangThai == 0) {
                 Object[] data = new Object[]{
                     boNhoTrong.getId(),
-                    boNhoTrong.getName(),};
+                    boNhoTrong.getName(),
+                    boNhoTrong.getNgaySua(),
+                    boNhoTrong.getNgayTao()
+                };
                 model.addRow(data);
             }
         }
@@ -114,13 +117,13 @@ public class BoNhoTrongForm extends javax.swing.JFrame {
 
         tbBoNhoTrong.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Tên bộ nhớ trong"
+                "ID", "Tên Bộ nhớ trong", "Ngày sửa", "Ngày ngày tạo"
             }
         ));
         tbBoNhoTrong.addMouseListener(new java.awt.event.MouseAdapter() {

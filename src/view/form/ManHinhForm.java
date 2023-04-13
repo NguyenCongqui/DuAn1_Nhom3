@@ -50,6 +50,9 @@ public class ManHinhForm extends javax.swing.JFrame {
                 Object[] data = new Object[]{
                     manHinh.getId(),
                     manHinh.getName(),
+                    manHinh.getNgayTao(),
+                    manHinh.getNgaySua()
+                        
                 };
                model.addRow(data);
             }
@@ -102,13 +105,13 @@ public class ManHinhForm extends javax.swing.JFrame {
 
         tbManHinh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Tên màn hình"
+                "ID", "Tên màn hình", "Ngày Sửa", "Ngày Tạo"
             }
         ));
         tbManHinh.addMouseListener(new java.awt.event.MouseAdapter() {

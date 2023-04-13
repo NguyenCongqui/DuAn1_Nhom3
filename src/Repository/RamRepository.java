@@ -21,7 +21,7 @@ public class RamRepository {
         Connection cnn = (Connection) DBConnection.getConnection();
         String sql = "SELECT [IDRAM]\n"
                 + "      ,[TENRAM]\n"
-                + "      ,[TRANGTHAI]\n"
+                + "      ,NGAYTAO,NGAYSUA,[TRANGTHAI]\n"
                 + "  FROM [dbo].[RAM]"
                 + "order by IDRAM desc";
         PreparedStatement ps = cnn.prepareStatement(sql);
@@ -29,8 +29,10 @@ public class RamRepository {
         while (rs.next()) {
             Integer id = rs.getInt("IDRAM");
             String tenSp = rs.getString("TENRAM");
+              Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
             boolean trangThai = rs.getBoolean("TRANGTHAI");
-            Ram c = new Ram(id, tenSp, trangThai);
+            Ram c = new Ram(id, tenSp, trangThai,ngayTao,ngaySua);
             rams.add(c);
         }
         rs.close();
@@ -43,9 +45,9 @@ public class RamRepository {
         Connection conn = DBConnection.getConnection();
         String sql = "INSERT INTO [dbo].[RAM]\n"
                 + "           ([TENRAM]\n"
-                + "           ,[TRANGTHAI])\n"
+                + "           ,[TRANGTHAI],NGAYTAO)\n"
                 + "     VALUES\n"
-                + "           (?,0)";
+                + "           (?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, ram.getName());
         int index = ps.executeUpdate();
@@ -59,7 +61,7 @@ public class RamRepository {
     public boolean sua(Ram ram, Integer id) throws SQLException {
         Connection conn = DBConnection.getConnection();
         String sql = "UPDATE [dbo].[RAM]\n"
-                + "   SET [TENRAM] = ?\n"
+                + "   SET [TENRAM] = ? ,NGAYSUA = GETDATE() \n"
                 + " WHERE IDRAM = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);

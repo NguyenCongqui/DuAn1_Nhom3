@@ -7,6 +7,7 @@ package Repository;
 import DomainModel.DungLuongPin;
 import Utilities.DBConnection;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,7 @@ public class DungLuongPinRepository {
         Connection cnn = (Connection) DBConnection.getConnection();
         String sql = "SELECT [IDDUNGLUONGPIN]\n"
                 + "      ,[TENDUNGLUONGPIN]\n"
-                + "      ,[TRANGTHAI]\n"
+                + "      ,NGAYTAO,NGAYSUA,[TRANGTHAI]\n"
                 + "  FROM [dbo].[DUNGLUONGPIN]"
                 + "order by IDDUNGLUONGPIN desc";
         PreparedStatement ps = cnn.prepareStatement(sql);
@@ -32,8 +33,10 @@ public class DungLuongPinRepository {
         while (rs.next()) {
             Integer id = rs.getInt("IDDUNGLUONGPIN");
             String tenSp = rs.getString("TENDUNGLUONGPIN");
+            Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
             boolean trangThai = rs.getBoolean("TRANGTHAI");
-            DungLuongPin c = new DungLuongPin(id, tenSp, trangThai);
+            DungLuongPin c = new DungLuongPin(id, tenSp, trangThai,ngayTao,ngaySua);
             cameras.add(c);
         }
         rs.close();
@@ -44,7 +47,7 @@ public class DungLuongPinRepository {
 
     public boolean them(DungLuongPin camera) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String sql = "INSERT INTO [dbo].[DUNGLUONGPIN] ([TENDUNGLUONGPIN],[TRANGTHAI]) VALUES(?,0)";
+        String sql = "INSERT INTO [dbo].[DUNGLUONGPIN] ([TENDUNGLUONGPIN],[TRANGTHAI],NGAYTAO) VALUES(?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, camera.getName());
         int index = ps.executeUpdate();
@@ -57,7 +60,7 @@ public class DungLuongPinRepository {
 
     public boolean sua(DungLuongPin camera, Integer id) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String sql = "UPDATE [dbo].[DUNGLUONGPIN] SET [TENDUNGLUONGPIN] = ? WHERE IDDUNGLUONGPIN = ?";
+        String sql = "UPDATE [dbo].[DUNGLUONGPIN] SET [TENDUNGLUONGPIN] = ?,NGAYSUA = GETDATE() WHERE IDDUNGLUONGPIN = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, camera.getName());

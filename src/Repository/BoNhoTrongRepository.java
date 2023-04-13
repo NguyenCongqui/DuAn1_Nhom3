@@ -18,14 +18,16 @@ public class BoNhoTrongRepository {
      public List<BoNhoTrong> getAll() throws SQLException{
         List<BoNhoTrong> bonNhoTrong = new ArrayList();
         Connection cnn = (Connection) DBConnection.getConnection();
-        String sql = "select IDBONHOTRONG ,TENBONHOTRONG,TRANGTHAI from BONHOTRONG   order by IDBONHOTRONG desc";
+        String sql = "select IDBONHOTRONG ,TENBONHOTRONG,NGAYTAO,NGAYSUA,TRANGTHAI from BONHOTRONG   order by IDBONHOTRONG desc";
             PreparedStatement ps = cnn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {        
                 Integer id = rs.getInt("IDBONHOTRONG");
                 String tenSp = rs.getString("TENBONHOTRONG");
+                Date ngayTao = rs.getDate("NGAYTAO");
+                Date ngaySua = rs.getDate("NGAYSUA");
                 boolean trangThai = rs.getBoolean("TRANGTHAI");
-                BoNhoTrong bnt = new BoNhoTrong(id, tenSp, trangThai);
+                BoNhoTrong bnt = new BoNhoTrong(id, tenSp, trangThai,ngaySua,ngayTao);
                 bonNhoTrong.add(bnt);
         }
         rs.close();
@@ -36,7 +38,7 @@ public class BoNhoTrongRepository {
     
     public boolean them(BoNhoTrong bonNhoTrong) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into BONHOTRONG(TENBONHOTRONG,TRANGTHAI) values(?,0)";
+        String sql = "insert into BONHOTRONG(TENBONHOTRONG, TRANGTHAI,NGAYTAO) values(?,0,GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, bonNhoTrong.getName());
         int index = ps.executeUpdate();
@@ -49,7 +51,7 @@ public class BoNhoTrongRepository {
     
     public boolean sua(BoNhoTrong boNhoTrong, Integer id) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "Update BONHOTRONG set TENBONHOTRONG = ? where IDBONHOTRONG = ?";
+        String sql = "Update BONHOTRONG set TENBONHOTRONG = ? ,NGAYSUA = GETDATE() where IDBONHOTRONG = ?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(2, id);
         ps.setString(1, boNhoTrong.getName());

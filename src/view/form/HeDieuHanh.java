@@ -49,7 +49,9 @@ public class HeDieuHanh extends javax.swing.JFrame {
             if (trangThai == 0) {
                 Object[] data = new Object[]{
                     Hdh.getId(),
-                    Hdh.getTen(),};
+                    Hdh.getTen(),
+                Hdh.getNgayTao(),
+                Hdh.getNgaySua()};
                 model.addRow(data);
             }
         }
@@ -126,11 +128,11 @@ public class HeDieuHanh extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tên"
+                "ID", "Tên", "Ngày Sửa", "Ngày Tạo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
