@@ -67,6 +67,14 @@ public class KhachHangForm extends javax.swing.JPanel {
                     khachHang.getDiaChi(),};
                 model.addRow(data);
             }
+            txtIdKhachHang.setText("");
+        txtTenKhachHang.setText("");
+        txtNgaySinh.setText("");
+        txtGioiTinh.setText("");
+        rbNam.setSelected(false);
+        rbNu.setSelected(false);
+        txtSodienthoai.setText("");
+        txtDiaChi.setText("");
         }
     }
 
@@ -195,6 +203,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         });
 
         buttonGroup1.add(rbNam);
+        rbNam.setSelected(true);
         rbNam.setText("Nam");
 
         buttonGroup1.add(rbNu);
@@ -436,6 +445,7 @@ public class KhachHangForm extends javax.swing.JPanel {
             if (service.sua(kh, id) == true) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
                 HienThi();
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Sửa thất bại","Thông Báo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -495,13 +505,12 @@ try {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
-        txtIdKhachHang.setText("");
-        txtTenKhachHang.setText("");
-        txtNgaySinh.setToolTipText("");
-        txtGioiTinh.setText("");
-        txtSodienthoai.setText("");
-        txtDiaChi.setText("");
+        try {
+            // TODO add your handling code here:
+            HienThi();
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void txtSodienthoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSodienthoaiActionPerformed
