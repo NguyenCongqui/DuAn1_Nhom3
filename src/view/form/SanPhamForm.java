@@ -111,21 +111,32 @@ public class SanPhamForm extends javax.swing.JPanel {
     }
 
     public SanPham layTT() {
-        String ten = txtTenSp.getText();
-        String danhMuc1 = (String) txtDanhMuc.getSelectedItem();
-        Integer dm = 0;
-        List<DomainModel.DanhMuc> danhMucs = dmservice.getAll();
-        for (DomainModel.DanhMuc danhMuc : danhMucs) {
-            if (danhMuc.isTrangThai() == false) {
-                if (danhMuc1.equals(danhMuc.getTenDanhMuc())) {
-                    dm = Integer.parseInt(danhMuc.getId());
-                }
-            }
-        }
-
+//        String ten = txtTenSp.getText();
+//        String danhMuc1 = (String) txtDanhMuc.getSelectedItem();
+//        Integer dm = 0;
+//        List<DomainModel.DanhMuc> danhMucs = dmservice.getAll();
+//        for (DomainModel.DanhMuc danhMuc : danhMucs) {
+//            if (danhMuc.isTrangThai() == false) {
+//                if (danhMuc1.equals(danhMuc.getTenDanhMuc())) {
+//                    dm = Integer.parseInt(danhMuc.getId());
+//                }
+//            }
+//        }
+//        
+      
+//       // hoaDonBan.setIdKhachHang(kh.getId());
+//        //int idDanhMuc = 
         AnhService anhservice = new AnhService();
-        String anh = anhservice.getAnh();
-        return new SanPham(0, ten, dm, anh, true);
+    String anh = anhservice.getAnh();
+       // return new SanPham(0, ten, dm, anh, true);
+        
+        SanPham sp = new SanPham();
+        sp.setTen(txtTenSp.getText());
+        sp.setAnh(anh);
+        DomainModel.DanhMuc dm = (DomainModel.DanhMuc) txtDanhMuc.getSelectedItem();
+        sp.setDanhMuc(Integer.parseInt(dm.getId()));
+        sp.setTrangThai(true);
+        return sp;
     }
 
     ;
