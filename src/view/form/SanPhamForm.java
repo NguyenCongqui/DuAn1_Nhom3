@@ -13,11 +13,15 @@ import Services.SanPhamService;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -35,6 +39,8 @@ public class SanPhamForm extends javax.swing.JPanel {
     private SanPhamService service;
     private IDanhMucService dmservice;
     private AnhService anhService;
+    DanhMuc danhMuc = new DanhMuc();
+    List<DomainModel.DanhMuc> listDanhMuc = new ArrayList<>();
 
     /**
      * Creates new form SanPham
@@ -43,18 +49,36 @@ public class SanPhamForm extends javax.swing.JPanel {
         initComponents();
         service = new SanPhamServiceImpl();
         dmservice = new DanhMucIplm();
-        List<DomainModel.DanhMuc> danhMucs = dmservice.getAll();
-        for (DomainModel.DanhMuc danhMuc : danhMucs) {
-            if (danhMuc.isTrangThai() == false) {
-                txtDanhMuc.addItem(danhMuc.getTenDanhMuc());
-            }
-        }
+        fillcombox();
+        
 
         try {
             HienThi();
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        danhMuc.addEvenFillTable(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                danhMuc.insert();             
+                fillcombox();
+                
+            }
+        });
+        
+    }
+    
+    public void fillcombox(){
+        try {
+              DefaultComboBoxModel model = (DefaultComboBoxModel) txtDanhMuc.getModel();
+        txtDanhMuc.removeAllItems();
+        listDanhMuc = dmservice.getAll();
+        for (DomainModel.DanhMuc kh : listDanhMuc) {
+            model.addElement(kh);
+        }
+        } catch (Exception e) {
+        }
+      
     }
 
     public void HienThi() throws SQLException {
@@ -519,11 +543,12 @@ public class SanPhamForm extends javax.swing.JPanel {
 
     private void btnDungLuongPinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDungLuongPinMouseClicked
         // TODO add your handling code here:
-        new DanhMuc().setVisible(true);
+       
     }//GEN-LAST:event_btnDungLuongPinMouseClicked
 
     private void btnDungLuongPinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDungLuongPinActionPerformed
         // TODO add your handling code here:
+        danhMuc.setVisible(true);
     }//GEN-LAST:event_btnDungLuongPinActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed

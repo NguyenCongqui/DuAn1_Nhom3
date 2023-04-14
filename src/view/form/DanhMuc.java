@@ -5,6 +5,7 @@
 package view.form;
 
 import Service.Impl.DanhMucIplm;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,6 +38,34 @@ public class DanhMuc extends javax.swing.JFrame {
             Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    
+    public void insert(){
+        DomainModel.DanhMuc dm = new DomainModel.DanhMuc();
+        if (txtTen.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống tên!");
+            return;
+        }
+        if (txtTen.getText().length() > 30) {
+            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
+            return;
+        }
+        dm.setTenDanhMuc(txtTen.getText());
+        dm.setTrangThai(true);
+        if (danhMucIplm.add(dm)) {
+            try {
+                JOptionPane.showMessageDialog(this, "Thêm thành công!");
+                HienThi();
+                load();
+               
+            } catch (SQLException ex) {
+                Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Thất bại!");
+            return;
+        }
     }
 
     /**
@@ -198,29 +227,7 @@ public class DanhMuc extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        DomainModel.DanhMuc dm = new DomainModel.DanhMuc();
-        if (txtTen.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống tên!");
-            return;
-        }
-        if (txtTen.getText().length() > 30) {
-            JOptionPane.showMessageDialog(this, "Tên không được quá 30 kí tự");
-            return;
-        }
-        dm.setTenDanhMuc(txtTen.getText());
-        dm.setTrangThai(true);
-        if (danhMucIplm.add(dm)) {
-            try {
-                JOptionPane.showMessageDialog(this, "Thêm thành công!");
-                HienThi();
-                load();
-            } catch (SQLException ex) {
-                Logger.getLogger(DanhMuc.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Thất bại!");
-            return;
-        }
+  
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tbDanhMucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDanhMucMouseClicked
@@ -372,4 +379,8 @@ public class DanhMuc extends javax.swing.JFrame {
     private javax.swing.JLabel txtId;
     private chucNang.TextField txtTen;
     // End of variables declaration//GEN-END:variables
+
+    void addEvenFillTable(ActionListener evt) {
+       btnAdd.addActionListener(evt);
+    }
 }
