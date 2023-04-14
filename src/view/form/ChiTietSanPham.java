@@ -389,6 +389,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private void initComponents() {
 
         textField10 = new chucNang.TextField();
+        cameraRepository1 = new Repository.CameraRepository();
         jLabel1 = new javax.swing.JLabel();
         CbbSoImei = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -818,10 +819,10 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         try {
-            int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
-            if (xacnhan != JOptionPane.YES_OPTION) {
-                return;
-            }
+//            int xacnhan = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa không");
+//            if (xacnhan != JOptionPane.YES_OPTION) {
+//                return;
+//            }
             // TODO add your handling code here:
             int index = tbChiTiet.getSelectedRow();
             if (index == -1) {
@@ -954,17 +955,18 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             }
             // TODO add your handling code here:
             Integer mangImei = CbbSoImei.getItemCount();
+            System.out.println("So :" + mangImei);
             for (int i = 0; i < mangImei; i++) {
                 try {
                     String imei = CbbSoImei.getItemAt(i);
                     String moTa = txtGhiChu.getText();
-                    double giaNhapDb = Double.parseDouble(txtGiaNhap.getText());
-                    BigDecimal giaNhap = BigDecimal.valueOf(giaNhapDb);
-                    double giabanDb = Double.parseDouble(txtGiaBan.getText());
-                    BigDecimal giaBan = BigDecimal.valueOf(giabanDb);
-                   // String pattern = "MM-dd-yyyy";
+                    Double giaNhapDb = Double.parseDouble(giaNhapString);
+//                    BigDecimal giaNhap = BigDecimal.valueOf(giaNhapDb);
+                    Double giabanDb = Double.parseDouble(giaBanString);
+//                    BigDecimal giaBan = BigDecimal.valueOf(giabanDb);
+                    String pattern = "MM-dd-yyyy";
 
-                    //DateFormat df = new SimpleDateFormat(pattern);
+                    DateFormat df = new SimpleDateFormat(pattern);
                     Integer idSP = null;
                     List<SanPham> sanPhams = Spservice.getAll();
                     for (SanPham sanPham : sanPhams) {
@@ -1044,8 +1046,8 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                     }
                     DomainModel.ChiTietSanPham ctsp = new DomainModel.ChiTietSanPham(imei, moTa, giaNhapDb, giabanDb, idSP, idHDH, idCam, idram, idLoaiPin, idCpu, idBoNhoTrong, idLoaiPin, idTanSoQuet, idLoaiPin, idMauSac, true);
                     service.them(ctsp);
-                    HienThi();
-                    clear();
+                   
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(ChiTietSanPham.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1053,6 +1055,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
             }
             JOptionPane.showMessageDialog(this, "Them thanh cong");
             HienThi();
+            clear();
 
         } catch (SQLException ex) {
             Logger.getLogger(ChiTietSanPham.class.getName()).log(Level.SEVERE, null, ex);
@@ -1408,6 +1411,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private chucNang.MyButton btnTanSoQuet;
     private chucNang.MyButton btnThem;
     private chucNang.MyButton btnXoa;
+    private Repository.CameraRepository cameraRepository1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

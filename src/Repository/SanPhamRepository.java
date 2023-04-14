@@ -19,7 +19,7 @@ public class SanPhamRepository {
     public List<SanPham> getAll() throws SQLException{
         List<SanPham> SanPhams = new ArrayList();
         Connection conn = (Connection) DBConnection.getConnection();
-        String sql = "select IDSANPHAM,TENSANPHAM,IDDANHMUC,ANH,TRANGTHAI from SANPHAM";
+        String sql = "select IDSANPHAM,TENSANPHAM,IDDANHMUC,ANH,TRANGTHAI from SANPHAM ORDER BY NGAYTAO DESC";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {            
@@ -61,7 +61,7 @@ public class SanPhamRepository {
     }
     public boolean them(SanPham sanpham) throws SQLException{
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into SANPHAM (TENSANPHAM,IDDANHMUC,ANH,TRANGTHAI) values (?,?,?,0)";
+        String sql = "insert into SANPHAM (TENSANPHAM,IDDANHMUC,ANH,TRANGTHAI,NGAYTAO) values (?,?,?,0, GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, sanpham.getTen());
         ps.setInt(2, sanpham.getDanhMuc());

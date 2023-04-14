@@ -297,7 +297,8 @@ public class SoImei extends javax.swing.JFrame {
                         return;
                     }
                     XSSFCell cell = exelRow.getCell(0);
-
+                    listAdd.add(cell.getStringCellValue());
+                    service.setListThem(listAdd);
                     int row = tbImei.getRowCount();
                     for (int k = 0; k < row; k++) {
                         if (cell.getStringCellValue().equals(tbImei.getValueAt(k, 0).toString())) {

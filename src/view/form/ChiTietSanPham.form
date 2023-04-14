@@ -7,6 +7,8 @@
         <Property name="text" type="java.lang.String" value="textField1"/>
       </Properties>
     </Component>
+    <Component class="Repository.CameraRepository" name="cameraRepository1">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
