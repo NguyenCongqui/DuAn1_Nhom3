@@ -171,7 +171,7 @@ DBConnection db;
 
     public boolean them(ChiTietSanPham chiTiet) throws SQLException {
         Connection conn = DBConnection.getConnection();
-        String sql = "insert into CHITIETSANPHAM (SOIMEI,MOTA,GIANHAP,GIABAN,IDSANPHAM,IDHEDIEUHANH,IDCAMERA,IDRAM,IDKICHTHUOCMANHINH,IDCPU,IDBONHOTRONG,IDLOAIPIN,IDTANSOQUET,IDDUNGLUONGPIN,IDMAUSAC,TRANGTHAI,SOLUONGTON,NGAYTAO) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,1, GETDATE())";
+        String sql = "insert into CHITIETSANPHAM (SOIMEI,MOTA,GIANHAP,GIABAN,IDSANPHAM,IDHEDIEUHANH,IDCAMERA,IDRAM,IDKICHTHUOCMANHINH,IDCPU,IDBONHOTRONG,IDLOAIPIN,IDTANSOQUET,IDDUNGLUONGPIN,IDMAUSAC,TRANGTHAI,SOLUONGTON,NGAYTAO,THOIGIANBAOHANH) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,1,GETDATE(),GETDATE())";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1, chiTiet.getSoImei());
         ps.setString(2, chiTiet.getMoTa());

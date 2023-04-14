@@ -962,9 +962,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
                     BigDecimal giaNhap = BigDecimal.valueOf(giaNhapDb);
                     double giabanDb = Double.parseDouble(txtGiaBan.getText());
                     BigDecimal giaBan = BigDecimal.valueOf(giabanDb);
-                    String pattern = "MM-dd-yyyy";
+                   // String pattern = "MM-dd-yyyy";
 
-                    DateFormat df = new SimpleDateFormat(pattern);
+                    //DateFormat df = new SimpleDateFormat(pattern);
                     Integer idSP = null;
                     List<SanPham> sanPhams = Spservice.getAll();
                     for (SanPham sanPham : sanPhams) {
