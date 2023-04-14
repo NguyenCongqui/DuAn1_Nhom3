@@ -74,7 +74,10 @@ public class SanPhamForm extends javax.swing.JPanel {
         txtDanhMuc.removeAllItems();
         listDanhMuc = dmservice.getAll();
         for (DomainModel.DanhMuc kh : listDanhMuc) {
-            model.addElement(kh);
+            if (kh.isTrangThai() == false) {
+                 model.addElement(kh);
+            }
+           
         }
         } catch (Exception e) {
         }
