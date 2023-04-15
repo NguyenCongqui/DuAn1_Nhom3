@@ -205,16 +205,30 @@ public class NhanVienRepostory {
            }
            return -3;
        }
-       
        public List<Users> searchTen(String temp) {
-        List<Users> listTemp = new ArrayList<>();
-        for (Users x : listUsers) {
-            if (x.getHoTen().contains(temp)) {
-                listTemp.add(x);
+        String query = " select * from USERS where HOTEN like '%" + temp +"%'";
+        List<Users> listSearch = new ArrayList<>();
+        try ( Connection con = DBConnection.getConnection();  PreparedStatement ps = con.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               Users vc = new Users(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getBoolean(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getFloat(9), rs.getBoolean(10),rs.getDate(11),rs.getDate(12), rs.getBoolean(13));
+               listSearch.add(vc);
             }
+            return listSearch;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
         }
-        return listTemp;
-        
-       }
+        return null;
+    }
+//       public List<Users> searchTen(String temp) {
+//        List<Users> listTemp = new ArrayList<>();
+//        for (Users x : listUsers) {
+//            if (x.getHoTen().contains(temp)) {
+//                listTemp.add(x);
+//            }
+//        }
+//        return listTemp;
+//        
+//       }
     
 }

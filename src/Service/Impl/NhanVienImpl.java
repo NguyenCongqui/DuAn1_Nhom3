@@ -73,9 +73,12 @@ public class NhanVienImpl implements NhanVienServices{
     }
 
     @Override
-    public List<Users> searchTen(String temp) {
+    public List<Users> SearchTen(String temp) {
        return rep.searchTen(temp);
+              
     }
+
+
 
     
    

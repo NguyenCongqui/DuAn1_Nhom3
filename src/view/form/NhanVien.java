@@ -111,18 +111,19 @@ lbl_tim.setVisible(false);
        
     }
 public void fillTableTimTenNhanVien() {
-        DefaultTableModel model = (DefaultTableModel) tbl_NhanVien.getModel();
-        model.setRowCount(0);
+       tbl_Model= (DefaultTableModel) tbl_NhanVien.getModel();
+        tbl_Model.setRowCount(0);
         String keyString = txt_tim.getText();
-        List<Users> list =  nhanVienService.searchTen(keyString);
+        List<Users> list =  new ArrayList<>();
+           list=nhanVienService.SearchTen(keyString);
         if (list.isEmpty()) {
             lbl_tim.setVisible(true);
-            lbl_tim.setText("Không có khách hàng " + keyString);
+            lbl_tim.setText("Không có khách hàng: " + keyString);
             return;
         }
-       for (Users us : listUsers) {
-            Object[] row = new Object[]{
-                us.getIdUser(),
+        for (Users us : listUsers) {
+            tbl_Model.addRow(new Object[]{
+              us.getIdUser(),
                 us.getSoCanCuocCongDan(),
                 us.getHoTen(),
                 us.isRole() == true ? "Quản Lý" : "Nhân Viên",
@@ -133,8 +134,7 @@ public void fillTableTimTenNhanVien() {
                 us.getNgayTao(),
                 us.getNgaySua(),
                 us.getEmail(),
-                us.getLuong()};
-            tbl_Model.addRow(row);
+                us.getLuong()});
         }
         
         lbl_tim.setText("");
