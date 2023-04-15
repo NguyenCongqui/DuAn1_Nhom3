@@ -523,7 +523,7 @@ public class BaoHanh extends javax.swing.JPanel {
         txtTimKiem.setText("");
         lblSearch.setText("");
         model.setRowCount(0);
-        modelList.setRowCount(0);
+//        modelList.setRowCount(0);
         btnHTBH.setVisible(false);
         btnBaoHanh.setVisible(false);
     }
